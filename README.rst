@@ -109,8 +109,6 @@ It probably works fine on Edge, but I haven't tried. It mostly works on Internet
 Copyright and Licence
 ---------------------
 
-(For the avoidance of doubt, this licence only applies to the present directory; not to the whole repository.)
-
 **BASICODE interpreter in Javascript. Copyright © 2016—2017 Rob Hagemans.**
 
 This program is free software: you can redistribute it and/or modify it under
