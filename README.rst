@@ -4,7 +4,7 @@ BASICODE interpreter
 This is a BASICODE interpreter in Javascript, compatible with BASICODE versions 2, 3 and 3C.
 There is `a live demo <http://robhagemans.github.io/basicode/>`_.
 
-`BASICODE programs <https://github.com/robhagemans/basicode>` are available in a separate repository.
+`BASICODE programs <https://github.com/robhagemans/basicode>`_ are available in a separate repository.
 
 
 Quick start
