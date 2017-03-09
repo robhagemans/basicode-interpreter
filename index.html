@@ -7,7 +7,16 @@
 
     <script>
         function loadSettings() {
+            settings = document.getElementById('basicode-script').dataset;
+            settings['columns'] = document.getElementById('columns').value;
+            settings['rows'] = document.getElementById('rows').value;
+            settings['speed'] = document.getElementById('speed').value;
+            settings['font'] = document.getElementById('font').value;
+            for (var i=0; i <=7; ++i) {
+                settings['color-' + i] = document.getElementById('color-' + i).value;
+            }
             document.getElementById('showspeed').value = document.getElementById('speed').value;
+            restart();
             display = new Display(
                 document.getElementById('showfont'), 16, 6,
                 document.getElementById('font').value, apps['basicode-script'].display.colours);
@@ -15,15 +24,42 @@
                 display.write(String.fromCharCode(i));
             }
             display.write('.');
-            settings = document.getElementById('basicode-script').dataset;
-            settings['columns'] = document.getElementById('cols').value;
-            settings['rows'] = document.getElementById('rows').value;
-            settings['speed'] = document.getElementById('speed').value;
-            settings['font'] = document.getElementById('font').value;
-            for (var i=0; i <=7; ++i) {
-                settings['color-' + i] = document.getElementById('color-' + i).value;
+        }
+
+        presets = {
+            'cga': { 'columns': 40, 'rows': 25, 'font': 'cga',
+                     'color-0': '#000000', 'color-7': '#ffffff',
+                },
+            'bbc': { 'columns': 40, 'rows': 32, 'font': 'bbc',
+                     'color-0': '#000000', 'color-7': '#ffffff',
+                },
+            'c64': { 'columns': 40, 'rows': 25, 'font': 'c64',
+                     'color-0': '#40318d', 'color-7': '#7869c4',
+                },
+            'spectrum': { 'columns': 32, 'rows': 24, 'font': 'spectrum',
+                     'color-0': '#aaaaaa', 'color-7': '#000000',
+                },
+            'msx': { 'columns': 40, 'rows': 25, 'font': 'msx',
+                     'color-0': '#5955e0', 'color-7': '#ffffff',
+                },
+            'cpc': { 'columns': 40, 'rows': 25, 'font': 'cpc',
+                     'color-0': '#0000ff', 'color-7': '#ffff00',
+                },
+            'pcw': { 'columns': 90, 'rows': 32, 'font': 'pcw',
+                     'color-0': '#000000', 'color-7': '#ffffff',
+                },
+            'coco': { 'columns': 32, 'rows': 16, 'font': 'coco',
+                     'color-0': '#1bcb01', 'color-7': '#000000',
+                },
+
+        }
+
+        function setSettings(preset) {
+            var keys = Object.keys(presets[preset]);
+            for (var k in keys) {
+                document.getElementById(keys[k]).value = presets[preset][keys[k]];
             }
-            restart();
+            loadSettings();
         }
     </script>
 </head>
@@ -82,7 +118,7 @@
                     </fieldset>
                     <fieldset>
                         <legend>Size</legend>
-                            <input type="number" id="cols" value=40 min=20 max=400> columns by
+                            <input type="number" id="columns" value=40 min=20 max=400> columns by
                             <input type="number" id="rows" value=24 min=15 max=300> rows
                     </fieldset>
                     <fieldset>
@@ -126,6 +162,17 @@
                         <input type="range" id="speed" value=1000 min=1 max=100000>
                         <output id="showspeed">1000</output>
                         cycles per second
+                    </fieldset>
+                    <fieldset>
+                        <legend>Presets</legend>
+                        <button type="button" onclick="setSettings('cga');">CGA</button>
+                        <button type="button" onclick="setSettings('c64');">Commodore 64</button>
+                        <button type="button" onclick="setSettings('spectrum');">ZX Spectrum</button>
+                        <button type="button" onclick="setSettings('msx');">MSX</button>
+                        <button type="button" onclick="setSettings('cpc');">Amstrad CPC</button>
+                        <button type="button" onclick="setSettings('pcw');">Amstrad PCW</button>
+                        <button type="button" onclick="setSettings('bbc');">Acorn BBC Micro</button>
+                        <button type="button" onclick="setSettings('coco');">TRS-80 Color Computer</button>
                     </fieldset>
                 </form>
             </div>
