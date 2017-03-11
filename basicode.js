@@ -27,8 +27,8 @@
 // For a similar interpreter see https://github.com/MarquisdeGeek/basicode
 // which is (c) 2012 by Steven Goodwin and licensed under the GPL
 //
-// I'd like to acknowledge Steven"s interpreter as a source of inspiration.
-// However, this interpreter does not take code from his.
+// I'd like to acknowledge Steven's interpreter as a source of inspiration.
+// However, this interpreter does not include code from his.
 
 
 ///////////////////////////////////////////////////////////////////////////////
