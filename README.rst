@@ -1,7 +1,7 @@
 BASICODE interpreter
 ====================
 
-This is a BASICODE interpreter in Javascript, compatible with BASICODE versions 2, 3 and 3C.
+This is a BASICODE interpreter in Javascript, compatible with BASICODE versions 2, 3 and 3C. It's free & open source, released under the Expat MIT licence.
 There is `a live demo <http://robhagemans.github.io/basicode/>`_.
 
 `BASICODE programs <https://github.com/robhagemans/basicode>`_ are available in a separate repository.
@@ -107,22 +107,3 @@ The interpreter should work on reasonably recent, standards-compliant browsers.
 You need a keyboard, so it will be difficult to use on mobile.
 I've superficially tested it on Chrome, Firefox, Safari, and Opera.
 It probably works fine on Edge, but I haven't tried. It mostly works on Internet Explorer 11 (except sound) but not at all on older versions.
-
-
-Copyright and Licence
----------------------
-
-**BASICODE interpreter in Javascript. Copyright © 2016—2017 Rob Hagemans.**
-
-This program is free software: you can redistribute it and/or modify it under
-the terms of the GNU General Public License as published by the Free Software
-Foundation, either version 3 of the License, or (at your option) any later
-version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with
-this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
-Street, Fifth Floor, Boston, MA 02110-1301 USA.
