@@ -3915,11 +3915,11 @@ function BasicodeApp(script)
         request.onreadystatechange = function() {
             if (request.readyState === 4 && request.status === 200) {
                 code = request.responseText;
+                app.load(code);
             }
         }
         request.send(null);
     }
-    this.load(code);
 
 
     ///////////////////////////////////////////////////////////////////////////
