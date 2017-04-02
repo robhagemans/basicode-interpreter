@@ -2875,20 +2875,20 @@ function subLineFeed()
 function subOpen()
 // GOSUB 500
 /*
-Open the file NF$ according to the code in NF:
-NF = even number: input: NF= uneven number: output
+    Open the file NF$ according to the code in NF:
+    NF = even number: input: NF= uneven number: output
     NF= 0 or 1 BASICODE cassette
-    NF= 2 or 3 own system memory
-    NF= 4 or 5 diskette
-    NF= 6 or 7 diskette
+    NF= 2 or 3 floppy, 1st file
+    NF= 4 or 5 floppy, 2nd file
+    NF= 6 or 7 floppy, 3rd file
     IN=0: all OK, IN=1: end of file, IN=-1: error
 */
 {
     var nf = this.variables.retrieve("NF", []);
     var name = this.variables.retrieve("NF$", []);
     var mode = (nf%2) ? "w" : "r";
-    var device = Math.floor(nf/2);
-    var status = this.storage[device].open(name, mode) ? 0 : -1;
+    var file_number = Math.floor(nf/2);
+    var status = this.storage[file_number].open(name, mode) ? 0 : -1;
     this.variables.assign(status, "IN", []);
 }
 
@@ -2897,8 +2897,8 @@ function subClose()
 // Read into IN$ from the opened file NF$ (in IN the status, see line 500)
 {
     var nf = this.variables.retrieve("NF", []);
-    var device = Math.floor(nf/2);
-    var status = this.storage[device].close() ? 0 : -1;
+    var file_number = Math.floor(nf/2);
+    var status = this.storage[file_number].close() ? 0 : -1;
     this.variables.assign(status, "IN", []);
 }
 
@@ -2907,11 +2907,11 @@ function subReadFile()
 // Send SR$ towards the opened file NF$ (in IN the status, see line 500)
 {
     var nf = this.variables.retrieve("NF", []);
-    var device = Math.floor(nf/2);
+    var file_number = Math.floor(nf/2);
     var status = 0;
     var str = "";
     try {
-        str = this.storage[device].readLine();
+        str = this.storage[file_number].readLine();
         if (str === null) {
             status = 1;
             str = "";
@@ -2930,11 +2930,11 @@ function subWriteFile()
 // Close the file with code NF
 {
     var nf = this.variables.retrieve("NF", []);
-    var device = Math.floor(nf/2);
+    var file_number = Math.floor(nf/2);
     var status = 0;
     var str = this.variables.retrieve("SR$", []);
     try {
-        this.storage[device].writeLine(str);
+        this.storage[file_number].writeLine(str);
     }
     catch (e) {
         if (typeof e !== "string") throw e;
@@ -3685,9 +3685,7 @@ function BasicodeApp(script)
     // optional target elements
     var screen_id = script.dataset["canvas"];
     var printer_id = script.dataset["printer"];
-    var flop1_id = script.dataset["floppy-1"];
-    var flop2_id = script.dataset["floppy-2"];
-    var flop3_id = script.dataset["floppy-3"];
+    var flop_id = script.dataset["floppy"];
     var listing_id = script.dataset["listing"];
 
     // obtain screen/keyboard canvas
@@ -3742,7 +3740,7 @@ function BasicodeApp(script)
         this.printer = new Printer(printer_id);
         this.speaker = new Speaker();
         this.timer = new Timer();
-        this.storage = [new Floppy(0), new Floppy(1, flop1_id), new Floppy(2, flop2_id), new Floppy(3, flop3_id)]
+        this.storage = [new Floppy(0), new Floppy(1, flop_id), new Floppy(1, flop_id), new Floppy(1, flop_id)]
 
         // stop any running program
         this.stop();

@@ -51,9 +51,7 @@ Attribute             Setting
 ``data-color-0``      Set the value for colour 0 (background)
 ``data-color-7``      Set the value for colour 7 (foreground). Other colours can be set too.
 ``data-canvas``       Target ``canvas`` id for screen / keyboard
-``data-floppy-1``     Target ``div`` id for visualisation of first floppy drive
-``data-floppy-2``     Target ``div`` id for visualisation of second floppy drive
-``data-floppy-3``     Target ``div`` id for visualisation of third floppy drive
+``data-floppy``       Target ``div`` id for visualisation of floppy drive
 ``data-printer``      Target ``iframe`` id for printer output
 ``data-listing``      Target ``textarea`` for editable program listing
 ===================== =======================================================================
