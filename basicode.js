@@ -3743,7 +3743,6 @@ function BasicodeApp(script)
         this.storage = [new Floppy(0), new Floppy(1, flop_id), new Floppy(1, flop_id), new Floppy(1, flop_id)]
 
         // stop any running program
-        this.stop();
         if (listing) this.load(listing.value);
     }
 
@@ -3784,6 +3783,8 @@ function BasicodeApp(script)
     this.load = function(code)
     // load program, parse to AST, connect to output
     {
+        // stop any running program
+        this.stop()
         // clear screen
         this.display.clear();
         // reset keyboard buffer
@@ -3943,7 +3944,6 @@ function BasicodeApp(script)
         listing.onblur = function() {
             if (listing.value === last_code) return;
             last_code = listing.value;
-            app.stop();
             app.load(listing.value);
         }
     }
@@ -3971,7 +3971,6 @@ function BasicodeApp(script)
         var files = e.dataTransfer.files;
         var reader = new FileReader();
         reader.onload = function() {
-            app.stop();
             app.load(reader.result);
         };
         reader.readAsText(files[0]);
