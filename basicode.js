@@ -2678,7 +2678,9 @@ function subClear()
     this.variables.assign(this.output.height - 1, "VE", []);
     this.variables.assign(this.output.pixel_width, "HG", []);
     this.variables.assign(this.output.pixel_height, "VG", []);
-    // basicode-3c
+    // basicode-3c version identifier
+    this.variables.assign(35, "SV", []);
+    // basicode-3c colour array
     this.variables.allocate("CC", [10]);
     this.variables.assign(7, "CC", [0]);
     this.variables.assign(0, "CC", [1]);
