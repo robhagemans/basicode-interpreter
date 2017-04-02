@@ -1894,10 +1894,11 @@ function Parser(expr_list, program)
     {
         var values = []
         var neg = false;
+        // allow completely empty DATA statements
+        if (expr_list[0].token_type === "\n") return last;
         while (expr_list.length > 0) {
             var value = expr_list.shift();
-            // only literals allowed in DATA
-            // we"re not allowing empty DATA statements or repeated commas
+            // only literals allowed in DATA; no empty entries (repeated commas)
             if (value === null || (value.token_type !== "literal" && (neg || (value.token_type !== "operator" || value.payload !== "-")))) {
                 throw new BasicError("Syntax error", "expected string or number literal, got `"+value.payload+"`", current_line);
             }
