@@ -3680,8 +3680,10 @@ var IDLE_DELAY = 60;
 var MIN_DELAY = 4;
 
 
-function BasicodeApp(script)
+function BasicodeApp(script, id)
 {
+    this.id = id;
+
     // optional target elements
     var screen_id = script.dataset["canvas"];
     var printer_id = script.dataset["printer"];
@@ -3742,8 +3744,35 @@ function BasicodeApp(script)
         this.timer = new Timer();
         this.storage = [new Floppy(0), new Floppy(1, flop_id), new Floppy(1, flop_id), new Floppy(1, flop_id)]
 
-        // stop any running program
-        if (listing) this.load(listing.value);
+
+        // load & run the code provided in the element, if any
+        var url = script.getAttribute("src");
+        if (url !== undefined && url !== null && url) {
+            var request = new XMLHttpRequest();
+            request.open("GET", url, true);
+            request.onreadystatechange = function() {
+                if (request.readyState === 4 && request.status === 200) {
+                    code = request.responseText;
+                    // need to explicitly load here as this is called asynchronously
+                    app.load(code);
+                }
+            }
+            request.send(null);
+        }
+        else {
+            var code = script.innerHTML;
+            // only check for persistent program if nothing was provided in script
+            if (!code) {
+                if (listing && listing.value) {
+                    code = listing.value;
+                }
+                else {
+                    // if nothing in storage, this will return null
+                    code = localStorage.getItem(["BASICODE", this.id, "program"].join(":"))
+                }
+            }
+            this.load(code);
+        }
     }
 
     this.handleError = function(e)
@@ -3791,6 +3820,8 @@ function BasicodeApp(script)
         this.keyboard.reset();
         // show program
         if (listing) listing.value = code;
+        // put code in persistent storage
+        localStorage.setItem(["BASICODE", this.id, "program"].join(":"), code);
         if (code) {
             try {
                 // initialise program object
@@ -3918,22 +3949,6 @@ function BasicodeApp(script)
 
     this.reset();
 
-    // load & run the code provided in the element, if any
-    var url = script.getAttribute("src");
-    var code = script.innerHTML;
-    if (url !== undefined && url !== null && url) {
-        var request = new XMLHttpRequest();
-        request.open("GET", url, true);
-        request.onreadystatechange = function() {
-            if (request.readyState === 4 && request.status === 200) {
-                code = request.responseText;
-                app.load(code);
-            }
-        }
-        request.send(null);
-    }
-
-
     ///////////////////////////////////////////////////////////////////////////
     // event handlers
 
@@ -3944,7 +3959,7 @@ function BasicodeApp(script)
         listing.onblur = function() {
             if (listing.value === last_code) return;
             last_code = listing.value;
-            app.load(listing.value);
+            app.load(last_code);
         }
     }
     // run file on click
@@ -3984,7 +3999,7 @@ function launch() {
     var scripts = document.getElementsByTagName("script");
     for (var i=0; i < scripts.length; ++i) {
         if (scripts[i].type == "text/basicode") {
-            apps[scripts[i].id] = new BasicodeApp(scripts[i]);
+            apps[scripts[i].id] = new BasicodeApp(scripts[i], scripts[i].id);
         }
     }
 }
