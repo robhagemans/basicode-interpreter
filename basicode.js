@@ -2353,7 +2353,11 @@ function Variables()
     // allocate an array
     {
         // no redefinitions allowed
-        if (name in this.dims || name in this.arrays) throw new BasicError("Duplicate definition", "`"+name+"()` was previously dimensioned", null);
+        if (name in this.dims || name in this.arrays) {
+            // ignore redefinitions of basicode-3c colour array, for compatibility
+            if (name == "CC") return;
+            throw new BasicError("Duplicate definition", "`"+name+"()` was previously dimensioned", null);
+        }
         // BASICODE arrays may have at most two indices
         if (indices.length > 2) throw new BasicError("Subscript out of range", "too many array dimensions", null);
         // set default to empty string if string name, 0 otherwise
