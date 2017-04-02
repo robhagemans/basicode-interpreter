@@ -1971,13 +1971,10 @@ function Parser(expr_list, program)
             throw new BasicError("Syntax error", "expected line number, got `"+line_number.payload+"`", current_line);
         }
         // GOTO 20 is a BASICODE fixture, clear and jump to 1010
-        if (line_number.payload === 20) {
-            last.next = new Node(subClear, [], program);
-            last.next.next = new Jump(1010, program, false)
-            return last.next.next;
-        }
         // GOTO 950 means END
-        else if (line_number.payload === 950) return new End();
+        if (line_number.payload === 20 || line_number.payload === 950) {
+            return SUBS[line_number.payload](last)
+        }
         else if (line_number.payload < 1000) {
             throw new BasicError("Unimplemented BASICODE", "`GOTO "+line_number.payload+"` not implemented", current_line);
         }
@@ -2048,6 +2045,12 @@ function Parser(expr_list, program)
         650: function(last) {last.next = new Node(subText, [], program); return last.next; },
         // GOSUB 950 (unofficial) same as GOTO 950
         950: function(last) {last.next = new End(); return last.next; },
+        // GOSUB 20 (unofficial) same as GOTO 20
+        20 : function(last){
+            last.next = new Node(subClear, [], program);
+            last.next.next = new Jump(1010, program, false)
+            return last.next.next;
+        }
     }
 
     this.parseIf = function(token, last)
