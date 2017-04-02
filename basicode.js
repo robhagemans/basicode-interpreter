@@ -2721,12 +2721,16 @@ function subGetPos()
 function subWriteBold()
 // GOSUB 150
 {
+    this.output.write(" ");
+    var fg = this.output.foreground;
+    var bg = this.output.background;
     subSetColour.call(this);
     var text = "  " + this.variables.retrieve("SR$", []) + "  ";
-    this.output.write(" ");
     this.output.invertColour();
     this.output.write(text);
     this.output.invertColour();
+    this.output.foreground = fg;
+    this.output.background = bg;
     this.output.write(" ");
 }
 
