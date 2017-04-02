@@ -2740,20 +2740,12 @@ function subReadKey()
     if ((keyval >= 32 && keyval <= 126) || keyval === 13) {
         key = String.fromCharCode(keyval);
         keyval = key.toUpperCase().charCodeAt(0);
-        cn_keyval = keyval;
-        if (key >= "A" && key <= "Z") {
-            cn_keyval = key.toLowerCase().charCodeAt(0);
-        }
         key = key.toUpperCase();
     }
     // IN$ and IN return capitalised key codes
     // special keys generate a code in IN but not IN$
     this.variables.assign(keyval, "IN", []);
     this.variables.assign(key, "IN$", []);
-    // in BC-3c, CN contains the character code of the lowercase letter
-    // if an uppercase key was entered, and vice versa
-    //FIXME: we sould be able to switch this off for BC-2 and BC-3 programs
-    //this.variables.assign(cn_keyval, "CN", []);
 }
 
 function subSetTimer()
@@ -2780,7 +2772,9 @@ function subReadChar()
     var col = this.variables.retrieve("HO", []);
     var row = this.variables.retrieve("VE", []);
     var ch = this.output.getScreenChar(row, col);
-    this.variables.assign(ch.charCodeAt(0), "IN", []);
+    this.variables.assign(ch.toUpperCase().charCodeAt(0), "IN", []);
+    // BASICODE-3C should set CN to zero here (or maybe 32 for a lowercase letter)
+    // which we omit to avoid breaking BASICODE-3 compatibility
 }
 
 function subBeep()
