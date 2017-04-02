@@ -2943,7 +2943,9 @@ function subPlot()
 // GOSUB 620
 // Plot a point at graphic position HO,VE (0<=HO<1 en 0<=VE<1) in fore/background color CN (=0/1; normally white/black)
 {
-    subSetColour.call(this);
+    // only set foreground colour, backround is set on CLS
+    var fg = this.variables.retrieve("CC", [0]);
+    this.output.foreground = this.output.colours[fg];
     var x = this.variables.retrieve("HO", []);
     var y = this.variables.retrieve("VE", []);
     var c = this.variables.retrieve("CN", []);
@@ -2954,7 +2956,9 @@ function subDraw()
 // GOSUB 630
 // Draw a line towards point HO,VE (0<=HO<1 en 0<=VE<1) in fore/background color CN (=0/1; normally white/black)
 {
-    subSetColour.call(this);
+    // only set foreground colour, backround is set on CLS
+    var fg = this.variables.retrieve("CC", [0]);
+    this.output.foreground = this.output.colours[fg];
     var x = this.variables.retrieve("HO", []);
     var y = this.variables.retrieve("VE", []);
     var c = this.variables.retrieve("CN", []);
@@ -2965,7 +2969,9 @@ function subText()
 // GOSUB 650
 // Print SR$ as text from graphic position HO,VE (0<=HO<1 en 0<=VE<1). HO and VE stay the same value.
 {
-    subSetColour.call(this);
+    // only set foreground colour, backround is set on CLS
+    var fg = this.variables.retrieve("CC", [0]);
+    this.output.foreground = this.output.colours[fg];
     var x = this.variables.retrieve("HO", []);
     var y = this.variables.retrieve("VE", []);
     var text = this.variables.retrieve("SR$", []);
