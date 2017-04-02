@@ -3915,7 +3915,6 @@ function BasicodeApp(script)
     var url = script.getAttribute("src");
     var code = script.innerHTML;
     if (url !== undefined && url !== null && url) {
-        var url = script.getAttribute("src");
         var request = new XMLHttpRequest();
         request.open("GET", url, true);
         request.onreadystatechange = function() {
