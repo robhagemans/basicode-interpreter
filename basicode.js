@@ -3818,6 +3818,9 @@ function BasicodeApp(script, id)
     this.load = function(code)
     // load program, parse to AST, connect to output
     {
+        if (!code) {
+            code = "";
+        }
         // stop any running program
         this.stop()
         // clear screen
