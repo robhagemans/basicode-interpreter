@@ -2119,6 +2119,7 @@ function Parser(expr_list, program)
     this.parseFor = function(token, last)
     // parse FOR
     {
+        var for_line = current_line;
         var loop_variable = expr_list.shift();
         if (loop_variable.token_type !== "name" || loop_variable.payload.slice(-1) === "$") {
             throw new BasicError("Syntax error", "expected numerical variable name, got `"+loop_variable.payload+"`", current_line);
@@ -2150,17 +2151,17 @@ function Parser(expr_list, program)
         // parse body of FOR loop until NEXT is encountered
         last = this.parse(last, "NEXT");
         // parse NEXT
-        var next = this.parseNext(expr_list.shift(), last);
+        var next = this.parseNext(expr_list.shift(), last, for_line);
         // pop the variable off the FOR stack
         for_stack.shift();
         return next;
     }
 
-    this.parseNext = function(token, last)
+    this.parseNext = function(token, last, for_line)
     // regular NEXT
     {
         if (token === undefined || token === null || token.payload !== "NEXT") {
-            throw new BasicError("Block error", "`FOR` without `NEXT`", current_line);
+            throw new BasicError("Block error", "`FOR` without `NEXT`", for_line);
         }
         // only one variable allowed
         var next_variable = expr_list.shift();
