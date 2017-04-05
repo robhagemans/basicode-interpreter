@@ -1624,7 +1624,9 @@ function Program(basicode)
     this.data = new Data();
     this.fns = new Functions();
     this.line_numbers = {};
-    this.tree = new Label();
+    // run clear at the start of each program
+    // and again for GOTO 20
+    this.tree = new Node(subClear, [], this);
 
     // build the tree
     var tokenised_code = new Lexer(basicode).tokenise();
