@@ -2178,7 +2178,7 @@ function Parser(expr_list, program)
             expr_list.unshift(next_variable);
         }
         else if (for_stack[0] !== next_variable.payload) {
-            throw new BasicError("Block error", "expected `NEXT `"+loop_variable+"`, got `NEXT " + next_variable.payload + "`", current_line);
+            throw new BasicError("Block error", "expected `NEXT "+for_stack[0]+"`, got `NEXT " + next_variable.payload + "`", current_line);
         }
         // create the iteration node
         last.next = new Next(for_stack[0], program);
