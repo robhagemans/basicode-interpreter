@@ -1844,7 +1844,13 @@ function Parser(expr_list, program)
             }
             // parse arguments in statement-specific way
             // statement parsers must take care of maintaining the linked list
-            last = PARSERS[token.payload].call(this, token, last)
+            var parser = PARSERS[token.payload];
+            if (parser) {
+                last = parser.call(this, token, last)
+            }
+            else {
+                throw new BasicError("Syntax error", "expected statement, got `" + sep.payload + "`", current_line);
+            }
         }
         return last;
     }
