@@ -2032,7 +2032,11 @@ function Parser(expr_list, program)
             return last.next.next;
         },
         220: function(last) {last.next = new Node(subReadChar, [], program); return last.next; },
-        250: function(last) {last.next = new Node(subBeep, [], program); return last.next; },
+        250: function(last) {
+            last.next = new Node(subBeep, [], program);
+            last.next.next = new Wait(function waitForTone() { return !program.speaker.isBusy(); });
+            return last.next.next;
+        },
         260: function(last) {last.next = new Node(subRandom, [], program); return last.next; },
         270: function(last) {last.next = new Node(subFree, [], program); return last.next; },
         280: function(last) {last.next = new Node(subToggleBreak, [], program); return last.next; },
