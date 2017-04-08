@@ -2609,16 +2609,19 @@ function fnAsc(x)
 function fnMid(x, start, n)
 {
     if (n === undefined) return x.slice(start-1);
+    if (n === 0) return "";
     else return x.slice(start-1, start+n-1);
 }
 
 function fnLeft(x, n)
 {
+    if (n === 0) return "";
     return x.slice(0, n);
 }
 
 function fnRight(x, n)
 {
+    if (n === 0) return "";
     return x.slice(-n);
 }
 
