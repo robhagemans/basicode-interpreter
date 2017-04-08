@@ -3808,6 +3808,7 @@ function Floppy(id, element_id)
             if (this.open_mode === "r") {
                 this.open_file = null;
                 this.open_key = null;
+                this.open_mode = "";
                 return false;
             }
             else {
@@ -3846,6 +3847,78 @@ function Floppy(id, element_id)
     this.refresh();
 }
 
+
+function Tape(id)
+{
+    this.id = id;
+    this.open_file = null;
+    this.open_key = null;
+    this.open_mode = "";
+    this.open_line = null;
+
+    this.pos = 0;
+
+    var prefix = "BASICODE"
+
+    this.open = function(dummy, mode)
+    {
+        if (mode === "r") {
+            // always read the next available file
+            this.pos += 1;
+        }
+        else {
+            // always write at the end of the tape
+            do {
+                this.pos += 1;
+                var existing = localStorage.getItem([prefix, this.id, this.pos].join(":"));
+            }
+            while (existing !== undefined && existing !== null);
+        }
+        this.open_key = [prefix, this.id, this.pos].join(":");
+        var string = localStorage.getItem(this.open_key);
+        this.open_mode = mode;
+        this.open_line = 0;
+        if (string === undefined || string === null) {
+            if (this.open_mode === "r") {
+                this.open_file = null;
+                this.open_key = null;
+                this.open_mode = "";
+                // no more files; turn the tape
+                this.pos = 0;
+                return false;
+            }
+            else {
+                this.open_file = [];
+            }
+        }
+        else {
+            this.open_file = string.split("\n");
+        }
+        return true;
+    }
+
+    this.close = function()
+    {
+        if (this.open_key === null) return false;
+        localStorage.setItem(this.open_key, this.open_file.join("\n"));
+        this.open_file = null;
+        return true;
+    }
+
+    this.readLine = function()
+    {
+        if (this.open_mode !== "r") throw "File not open for read";
+        if (this.open_line >= this.open_file.length) return null;
+        return this.open_file[this.open_line++];
+    }
+
+    this.writeLine = function(line)
+    {
+        if (this.open_mode !== "w") throw "File not open for write";
+        this.open_file.push(line);
+    }
+
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // user interface
@@ -3918,7 +3991,8 @@ function BasicodeApp(script, id)
         this.printer = new Printer(printer_id);
         this.speaker = new Speaker();
         this.timer = new Timer();
-        this.storage = [new Floppy(0), new Floppy(1, flop_id), new Floppy(1, flop_id), new Floppy(1, flop_id)]
+        var floppy = new Floppy(1, flop_id)
+        this.storage = [new Tape(0), floppy, floppy, floppy]
 
 
         // load & run the code provided in the element, if any
