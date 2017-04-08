@@ -2796,7 +2796,6 @@ function subReadKey()
     if ((keyval >= 32 && keyval <= 126) || keyval === 13) {
         key = String.fromCharCode(keyval);
         keyval = key.toUpperCase().charCodeAt(0);
-        key = key.toUpperCase();
     }
     // IN$ and IN return capitalised key codes
     // special keys generate a code in IN but not IN$
