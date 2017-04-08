@@ -2448,7 +2448,9 @@ function Variables()
     // set a variable
     {
         this.checkSubscript(name, indices);
-
+        if ((name.slice(-1) === "$") !== (typeof value === "string")) {
+            throw new BasicError("Type mismatch", "`"+name+"` can't be set to "+(typeof value)+" `"+value+"`", null)
+        }
         if (indices.length === 0) {
             this.scalars[name] = value;
         }
