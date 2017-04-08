@@ -2377,6 +2377,14 @@ function matchType(name, value)
     }
 }
 
+function equalType(left, right)
+{
+    if (typeof(left) !== typeof(right)) {
+        throw new BasicError("Type mismatch" , "", null);
+    }
+}
+
+
 function Variables()
 {
     this.clear = function()
@@ -2403,6 +2411,7 @@ function Variables()
             if (indices.length === 0) return default_value;
             else {
                 // allocate subarray; BASICODE arrays span 0..x inclusive
+                equalType(0, indices[0]);
                 var arr = new Array(indices[0]+1);
                 // feed remaining arguments to recursive call
                 var argarray = indices.slice(1);
@@ -2453,9 +2462,7 @@ function Variables()
     // set a variable
     {
         this.checkSubscript(name, indices);
-        if ((name.slice(-1) === "$") !== (typeof value === "string")) {
-            throw new BasicError("Type mismatch", "`"+name+"` can't be set to "+(typeof value)+" `"+value+"`", null)
-        }
+        matchType(name, value);
         if (indices.length === 0) {
             this.scalars[name] = value;
         }
@@ -2518,68 +2525,98 @@ function Functions()
 
 function opMultiply(x, y)
 {
+    equalType(0, x);
+    equalType(0, y);
     return x * y;
 }
 
 function opDivide(x, y)
 {
+    equalType(0, x);
+    equalType(0, y);
     return x / y;
 }
 
 function opPlus(x, y)
 // + adds numbers or concatenates strings; unary plus leaves unchanged
 {
-    if (y === undefined) return x; else return x + y;
+    if (y === undefined) {
+        equalType(0, x);
+        return x;
+    }
+    else {
+        equalType(x, y);
+        return x + y;
+    }
 }
 
 function opMinus(x, y)
 // - can be unary negation or binary subtraction
 {
-    if (y === undefined) return -x; else return x - y;
+    equalType(0, x);
+    if (y === undefined) {
+        return -x;
+    }
+    else {
+        equalType(0, y);
+        return x - y;
+    }
 }
 
 function opEqual(x, y)
 {
+    equalType(x, y);
     return -(x === y);
 }
 
 function opGreaterThan(x, y)
 {
+    equalType(x, y);
     return -(x > y);
 }
 
 function opGreaterThanOrEqual(x, y)
 {
+    equalType(x, y);
     return -(x >= y);
 }
 
 function opLessThan(x, y)
 {
+    equalType(x, y);
     return -(x < y);
 }
 
 function opLessThanOrEqual(x, y)
 {
+    equalType(x, y);
     return -(x <= y);
 }
 
 function opNotEqual(x, y)
 {
+    equalType(x, y);
     return -(x !== y);
 }
 
 function opAnd(x, y)
 {
+    equalType(0, x);
+    equalType(0, y);
     return (x & y);
 }
 
 function opNot(x)
 {
+    equalType(0, x);
+    equalType(0, y);
     return (~x);
 }
 
 function opOr(x, y)
 {
+    equalType(0, x);
+    equalType(0, y);
     return (x | y);
 }
 
@@ -2604,6 +2641,7 @@ function fnTab(x)
 // outside of PRINT, this is not allowed
 // but we"re not throwing any errors
 {
+    equalType(0, x);
     this.output.setColumn(x);
     return "";
 }
@@ -2618,35 +2656,45 @@ function stComma()
 
 function fnAsc(x)
 {
+    equalType("", x);
     return x.charCodeAt(0);
 }
 
 function fnMid(x, start, n)
 {
+    equalType("", x);
+    equalType(0, start);
     if (n === undefined) return x.slice(start-1);
+    equalType(0, n);
     if (n === 0) return "";
     else return x.slice(start-1, start+n-1);
 }
 
 function fnLeft(x, n)
 {
+    equalType("", x);
+    equalType(0, n);
     if (n === 0) return "";
     return x.slice(0, n);
 }
 
 function fnRight(x, n)
 {
+    equalType("", x);
+    equalType(0, n);
     if (n === 0) return "";
     return x.slice(-n);
 }
 
-function fnLen(x, n)
+function fnLen(x)
 {
+    equalType("", x);
     return x.length;
 }
 
 function fnVal(x)
 {
+    equalType("", x);
     return new Lexer(x).readValue();
 }
 
@@ -2703,6 +2751,7 @@ function stRead(name)
     if (name.slice(-1) === "$" && typeof value !== "string") {
         value = value.toString(10);
     }
+    matchType(name, value);
     this.variables.assign(value, name, indices);
 }
 
