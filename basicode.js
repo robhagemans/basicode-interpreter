@@ -2679,6 +2679,10 @@ function stRead(name)
 {
     var indices = [].slice.call(arguments, 1);
     var value = this.data.read()
+    // convert numbers to strings, but not the other way around
+    if (name.slice(-1) === "$" && typeof value !== "string") {
+        value = value.toString(10);
+    }
     this.variables.assign(value, name, indices);
 }
 
