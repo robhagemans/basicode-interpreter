@@ -2205,17 +2205,17 @@ function Parser(expr_list, program)
     this.parseInput = function(token, last)
     // parse INPUT
     {
-        var prompt = " ?";
+        var prompt = "? ";
         // allow a prompt string literal
         if ((expr_list[0].token_type === "literal") && (typeof expr_list[0].payload === "string")) {
-            prompt = expr_list.shift().payload;
+            prompt = expr_list.shift().payload + "? ";
             var semicolon = expr_list.shift();
             if (semicolon.token_type !== ";") {
                 throw new BasicError("Syntax error", "expected `;`, got `"+semicolon.payload+"`", current_line);
             }
         }
         // prompt
-        last.next = new Node(stPrint, [new Literal("? ")], program);
+        last.next = new Node(stPrint, [new Literal(prompt)], program);
         last = last.next;
         do {
             var name = expr_list.shift();
