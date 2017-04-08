@@ -1887,6 +1887,11 @@ function Parser(expr_list, program)
                 last_node = last_node.next;
                 last = expr;
             }
+            else if (expr_list[0].token_type === ",") {
+                expr_list.shift();
+                last_node.next = new Node(stComma, [], program);
+                last_node = last_node.next;
+            }
             else if (expr_list[0].token_type !== ";") break;
             if (!expr_list.length) break;
             if (expr_list[0].token_type === ":" || expr_list[0].token_type === "\n") break;
@@ -2592,6 +2597,8 @@ function opRetrieve(name)
     return value;
 }
 
+
+
 function fnTab(x)
 // set column to a given position during PRINT
 // outside of PRINT, this is not allowed
@@ -2600,6 +2607,14 @@ function fnTab(x)
     this.output.setColumn(x);
     return "";
 }
+
+function stComma()
+// jump to next tab stop during print
+// nothing like a function, but kind of related to TAB
+{
+    this.output.setColumn(8*Math.ceil(this.output.col/8));
+}
+
 
 function fnAsc(x)
 {
