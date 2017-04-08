@@ -2404,7 +2404,7 @@ function Variables()
             throw new BasicError("Duplicate definition", "`"+name+"()` was previously dimensioned", null);
         }
         // BASICODE arrays may have at most two indices
-        if (indices.length > 2) throw new BasicError("Subscript out of range", "too many array dimensions", null);
+        //if (indices.length > 2) throw new BasicError("Subscript out of range", "too many array dimensions", null);
         // set default to empty string if string name, 0 otherwise
         var default_value = defaultValue(name);
         function allocateLevel(indices) {
