@@ -2898,9 +2898,12 @@ function subReadKey()
     var keyval = this.input.readKey();
     var cn_keyval = 0;
     var key = "";
-    if ((keyval >= 32 && keyval <= 126) || keyval === 13) {
+    if ((keyval >= 28 && keyval <= 127) || keyval === 13) {
         key = String.fromCharCode(keyval);
         keyval = key.toUpperCase().charCodeAt(0);
+    }
+    else if (keyval !== undefined && keyval !== null) {
+        key = "\0";
     }
     // IN$ and IN return capitalised key codes
     // special keys generate a code in IN but not IN$
