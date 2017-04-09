@@ -129,6 +129,7 @@ div.tabs > div:target > div {
 
 #info0 {
     font-size: 1.5em;
+    background-color: lightgrey;
 }
 
 body {

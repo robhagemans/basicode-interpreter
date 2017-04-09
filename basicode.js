@@ -4027,29 +4027,13 @@ function BasicodeApp(script, id)
             this.handleError(e);
         }
         if (code) {
-            this.show();
+            this.run();
         } else {
             this.program = null;
             this.splash();
         }
         // call on_program_load function
         this.on_program_load(this.program);
-    }
-
-    this.show = function()
-    // show program title and description
-    {
-        this.display.invertColour();
-        this.display.clearRow(0);
-        this.display.writeCentre(0, this.program.title);
-        this.display.write("\n\n");
-        this.display.invertColour();
-        this.display.write(this.program.description);
-        this.display.invertColour();
-        this.display.clearRow(this.display.height - 1);
-        this.display.writeCentre(this.display.height - 1, "-- click to run --");
-        this.display.invertColour();
-        this.display.curtain();
     }
 
     this.splash = function()
