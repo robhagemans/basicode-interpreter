@@ -2592,7 +2592,6 @@ function opAnd(x, y)
 function opNot(x)
 {
     equalType(0, x);
-    equalType(0, y);
     return (~x);
 }
 
