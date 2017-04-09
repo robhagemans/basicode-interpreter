@@ -1590,15 +1590,16 @@ function Next(loop_name, program)
 
     this.step = function()
     {
-        var for_record = program.loop_stack[0];
-        if (for_record === null || for_record === undefined) {
-            throw new BasicError("Block error", "`NEXT` without `FOR`");
-        }
-        while (loop_name !== for_record.name) {
-            console.log("Popping from loop stack unexpectedly, did we jump out of a loop?");
+        for (;;) {
+            var for_record = program.loop_stack[0];
+            if (for_record === null || for_record === undefined) {
+                throw new BasicError("Block error", "`NEXT` without `FOR`");
+            }
+            if (loop_name === null) loop_name = for_record.name;
+            if (loop_name === for_record.name) break;
+            // jumping out of loop
             program.loop_stack.shift();
-            for_record = program.loop_stack[0];
-        }
+        };
         var loop_var = program.variables.retrieve(loop_name, []);
         var incr = for_record.incr;
         var stop = for_record.stop;
@@ -1668,9 +1669,6 @@ function Parser(expr_list, program)
 {
     // current line being parsed
     var current_line = 999;
-
-    // for loop variables
-    var for_stack = [];
 
     function drain(precedence, stack, units)
     // pop operator stack until matching precedence is encountered
@@ -2163,34 +2161,24 @@ function Parser(expr_list, program)
         // loop init
         last.next = new For(loop_variable, start, stop, step, program);
         last = last.next;
-        // keep track of for loops while parsing
-        for_stack.unshift(loop_variable);
-        // parse body of FOR loop until NEXT is encountered
-        last = this.parse(last, "NEXT");
-        // parse NEXT
-        var next = this.parseNext(expr_list.shift(), last, for_line);
-        // pop the variable off the FOR stack
-        for_stack.shift();
-        return next;
+        return last;
     }
 
-    this.parseNext = function(token, last, for_line)
+    this.parseNext = function(token, last)
     // regular NEXT
     {
-        if (token === undefined || token === null || token.payload !== "NEXT") {
-            throw new BasicError("Block error", "`FOR` without `NEXT`", for_line);
-        }
         // only one variable allowed
         var next_variable = expr_list.shift();
         // accept missing variable name (formally not allowed)
-        if (next_variable.token_type !== "name") {
-            expr_list.unshift(next_variable);
+        if (next_variable.token_type === "name") {
+            next_variable = next_variable.payload;
         }
-        else if (for_stack[0] !== next_variable.payload) {
-            throw new BasicError("Block error", "expected `NEXT "+for_stack[0]+"`, got `NEXT " + next_variable.payload + "`", current_line);
+        else {
+            expr_list.unshift(next_variable);
+            next_variable = null;
         }
         // create the iteration node
-        last.next = new Next(for_stack[0], program);
+        last.next = new Next(next_variable, program);
         // replace NEXT J,I with NEXT J: NEXT I
         if (expr_list[0].token_type === ",") {
             expr_list.shift();
@@ -2198,13 +2186,6 @@ function Parser(expr_list, program)
             expr_list.unshift(new SeparatorToken(":"));
         }
         return last.next;
-    },
-
-    this.parseNextWithoutFor = function(token, last)
-    // regular NEXT is handled by FOR parser
-    // if we encounter it unexpectedly, this is where we get
-    {
-        throw new BasicError("Block error", "`NEXT` without `FOR`", current_line);
     },
 
     this.parseInput = function(token, last)
@@ -2306,7 +2287,7 @@ function Parser(expr_list, program)
         "IF": this.parseIf,
         "INPUT": this.parseInput,
         "LET": this.parseLet,
-        "NEXT": this.parseNextWithoutFor,
+        "NEXT": this.parseNext,
         "ON": this.parseOn,
         "PRINT": this.parsePrint,
         "READ": this.parseRead,
