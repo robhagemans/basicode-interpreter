@@ -81,11 +81,14 @@
 
         function onProgramLoad(program) {
             var listing = document.getElementById('listing0');
+            var info = document.getElementById('info0');
             if (program === null) {
                 listing.value = "";
+                info.innerHTML = "";
             }
             else {
                 listing.value = program.code;
+                info.innerHTML = "<h2>" + program.title + "</h2>\n\n" +program.description;
             }
         }
 
@@ -265,6 +268,13 @@
             <a class="tab" href="#listing">Listing</a>
             <div>
                 <textarea id="listing0"></textarea>
+            </div>
+        </div>
+
+        <div id="info">
+            <a class="tab" href="#info">Info</a>
+            <div>
+                <pre id="info0"></pre>
             </div>
         </div>
 

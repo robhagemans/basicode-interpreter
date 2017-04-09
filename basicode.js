@@ -1970,7 +1970,7 @@ function Parser(expr_list, program)
             if (rem[rem.length-1] === '"') rem = rem.slice(0, rem.length-1)
         }
         if (current_line === 1000) {
-            program.title = rem;
+            program.title = rem.trim();
         }
         else if (current_line >= 30000) {
             program.description += rem + "\n";

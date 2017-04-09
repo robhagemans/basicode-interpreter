@@ -7,11 +7,11 @@ small {
     color: darkgrey;
     font-family: sans;
 }
- 
+
 small a, small a:visited {
     color: darkgrey;
 }
- 
+
 
 /* display */
 
@@ -117,7 +117,7 @@ div.tabs > div:target > div {
     z-index: -1
 }
 
-#printer0, #listing0 {
+#printer0, #listing0, #info0 {
     border: none;
     margin: 0;
     padding: 0;
@@ -127,6 +127,9 @@ div.tabs > div:target > div {
     overflow: auto;
 }
 
+#info0 {
+    font-size: 1.5em;
+}
 
 body {
     background-color: darkslategrey;
