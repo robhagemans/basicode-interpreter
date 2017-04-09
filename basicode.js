@@ -2896,13 +2896,12 @@ function subReadKey()
 {
     // GOSUB 200 should hold only capitals in IN$ and IN
     var keyval = this.input.readKey();
-    var cn_keyval = 0;
     var key = "";
     if ((keyval >= 28 && keyval <= 127) || keyval === 13) {
         key = String.fromCharCode(keyval);
         keyval = key.toUpperCase().charCodeAt(0);
     }
-    else if (keyval !== undefined && keyval !== null) {
+    else if (keyval) {
         key = "\0";
     }
     // IN$ and IN return capitalised key codes
