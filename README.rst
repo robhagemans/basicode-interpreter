@@ -53,7 +53,7 @@ Attribute             Setting
 ``data-canvas``       Target ``canvas`` id for screen / keyboard
 ``data-floppy``       Target ``div`` id for visualisation of floppy drive
 ``data-printer``      Target ``iframe`` id for printer output
-``data-listing``      Target ``textarea`` for editable program listing
+``data-load``         Name of global Javascript function to call on loading a new program
 ===================== =======================================================================
 
 

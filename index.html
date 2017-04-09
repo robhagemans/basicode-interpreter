@@ -61,17 +61,45 @@
             }
             loadSettings();
         }
+
+        function setupListing() {
+            var listing = document.getElementById('listing0');
+            var last_code = listing.value;
+
+            // reload code if listing changes
+            listing.onblur = function() {
+                if (listing.value === last_code) return;
+                last_code = listing.value;
+                apps['basicode-script'].load(last_code);
+            }
+        }
+
+        function onProgramLoad(program) {
+            console.log(program);
+            var listing = document.getElementById('listing0');
+            if (program === null) {
+                listing.value = "";
+            }
+            else {
+                listing.value = program.code;
+            }
+        }
+
+        function setup() {
+            loadSettings();
+            setupListing();
+        }
     </script>
 </head>
 
-<body onload="loadSettings();">
+<body onload="setup();">
 
     <script type="text/basicode"
         data-floppy="flop1"
         data-printer="printer0"
         data-canvas="canvas0"
         data-input="screen"
-        data-listing="listing0"
+        data-load="onProgramLoad"
         id="basicode-script"
         ></script>
 
