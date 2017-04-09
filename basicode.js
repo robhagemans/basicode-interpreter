@@ -1412,7 +1412,7 @@ function Lexer(expr_string)
                 }
             }
             else if (char !== " ") {
-                // we can't throw here in case there"s subroutines<1000 attached
+                // we can't throw here in case there's subroutines<1000 attached
                 expr_list.push(new SeparatorToken(char));
                 console.log("Unexpected symbol `"+ char + "` during lexing");
             }
@@ -1694,7 +1694,7 @@ function Parser(expr_list, program)
 
     this.parseExpression = function(parameter, fn_name)
     // parse expression from a list of tokens to an AST
-    // variation of Dijkstra"s shunting-yard algorithm, following PC-BASIC
+    // variation of Dijkstra's shunting-yard algorithm, following PC-BASIC
     {
         var stack = [];
         var units = [];
@@ -2425,7 +2425,7 @@ function Variables()
         };
 
         // I"m assuming a name is *either* a scalar *or* an array
-        // this is not true in e.g. GW-BASIC, but I think it"s true in BASICODE
+        // this is not true in e.g. GW-BASIC, but I think it's true in BASICODE
         this.dims[name] = indices;
         this.arrays[name] = allocateLevel(indices);
     }
@@ -2988,7 +2988,7 @@ function subFree()
 // GOSUB 270
 {
     // theoretically, we should garbage-collect and return free memory
-    // but let"s just return some largeish (for BASICODE) number of bytes
+    // but let's just return some largeish (for BASICODE) number of bytes
     this.variables.assign(65536, "FR", []);
 }
 
