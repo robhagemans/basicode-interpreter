@@ -6,6 +6,9 @@
     <script src="basicode.js"></script>
 
     <script>
+
+        // settings
+
         function loadSettings() {
             settings = document.getElementById('basicode-script').dataset;
             settings['columns'] = document.getElementById('columns').value;
@@ -62,6 +65,8 @@
             loadSettings();
         }
 
+        // listing
+
         function setupListing() {
             var listing = document.getElementById('listing0');
             var last_code = listing.value;
@@ -75,13 +80,51 @@
         }
 
         function onProgramLoad(program) {
-            console.log(program);
             var listing = document.getElementById('listing0');
             if (program === null) {
                 listing.value = "";
             }
             else {
                 listing.value = program.code;
+            }
+        }
+
+        // storage
+
+        // this is where we keep our blobs
+        var blobbery = {};
+        var mime_type = "text/plain";
+
+        this.onFileStore = function(floppy)
+        {
+            var element = document.getElementById("flop1");
+            var prefix = "BASICODE";
+
+            if (!element) return;
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+            for (var i=0; i < localStorage.length; ++i) {
+                var key = localStorage.key(i)
+                var key_list = key.split(":");
+                if (key_list[0] !== prefix) continue;
+                if (key_list[1] !== "" + floppy.id) continue;
+                // create content blob from local storage, if necessary
+                if (!(key in blobbery)) {
+                    blobbery[key] = new Blob([localStorage.getItem(key)], {type: mime_type});
+                }
+                // create download link to file
+                var a = document.createElement("a");
+                a.textContent = key_list[2];
+                a.href = window.URL.createObjectURL(blobbery[key]);
+                a.download = key_list[2];
+                // drag-out support
+                a.dataset.downloadurl = [mime_type, a.download, a.href].join(":");
+                a.draggable = true;
+                a.addEventListener("dragstart", function(e) {
+                    e.dataTransfer.setData("DownloadURL", a.dataset.downloadurl);
+                }, false);
+                element.appendChild(a);
             }
         }
 
@@ -95,11 +138,11 @@
 <body onload="setup();">
 
     <script type="text/basicode"
-        data-floppy="flop1"
         data-printer="printer0"
         data-canvas="canvas0"
         data-input="screen"
         data-load="onProgramLoad"
+        data-store="onFileStore"
         id="basicode-script"
         ></script>
 

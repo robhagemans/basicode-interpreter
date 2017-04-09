@@ -47,13 +47,19 @@ Attribute             Setting
 ``data-columns``      Number of text columns
 ``data-rows``         Number of text rows
 ``data-speed``        Number of cycles per second in ``FOR`` loops (roughly)
-``data-font``         Font to use for text. See below.
-``data-color-0``      Set the value for colour 0 (background)
-``data-color-7``      Set the value for colour 7 (foreground). Other colours can be set too.
+``data-font``         Font to use for text (see below)
+``data-color-0``      Set the colour value for black (background)
+``data-color-1``      Set the colour value for blue
+``data-color-2``      Set the colour value for red
+``data-color-3``      Set the colour value for magenta
+``data-color-4``      Set the colour value for green
+``data-color-5``      Set the colour value for cyan
+``data-color-6``      Set the colour value for yellow
+``data-color-7``      Set the colour value for white (foreground)
 ``data-canvas``       Target ``canvas`` id for screen / keyboard
-``data-floppy``       Target ``div`` id for visualisation of floppy drive
 ``data-printer``      Target ``iframe`` id for printer output
-``data-load``         Name of global Javascript function to call on loading a new program
+``data-load``         Name of global Javascript function to call on loading a program
+``data-store``        Name of global Javascript function to call on storing a file
 ===================== =======================================================================
 
 

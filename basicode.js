@@ -3734,52 +3734,18 @@ function Timer()
 ///////////////////////////////////////////////////////////////////////////////
 // storage
 
-function Floppy(id, element_id)
+function Floppy(id, onfilestore)
 {
-    var element = null;
-    if (element_id) element = document.getElementById(element_id);
 
     this.id = id;
     this.open_file = null;
     this.open_key = null;
     this.open_mode = "";
     this.open_line = null;
+    this.on_file_store = onfilestore;
+    if (!onfilestore) this.on_file_store = function(){};
 
-    var mime_type = "text/plain";
     var prefix = "BASICODE"
-
-    // this is where we keep our blobs
-    var blobbery = {};
-
-    this.refresh = function()
-    {
-        if (!element) return;
-        while (element.firstChild) {
-            element.removeChild(element.firstChild);
-        }
-        for (var i=0; i < localStorage.length; ++i) {
-            var key = localStorage.key(i)
-            var key_list = key.split(":");
-            if (key_list[0] !== prefix) continue;
-            if (key_list[1] !== "" + this.id) continue;
-            // create content blob from local storage, if necessary
-            if (!(key in blobbery)) {
-                blobbery[key] = new Blob([localStorage.getItem(key)], {type: mime_type});
-            }
-            // create download link to file
-            var a = document.createElement("a");
-            a.textContent = key_list[2];
-            a.href = window.URL.createObjectURL(blobbery[key]);
-            a.download = key_list[2];
-            // drag-out support
-            a.dataset.downloadurl = [mime_type, a.download, a.href].join(":");
-            a.draggable = true;
-            a.addEventListener("dragstart", function(e) {
-                e.dataTransfer.setData("DownloadURL", a.dataset.downloadurl);
-            }, false);
-            element.appendChild(a);
-        }
-    }
 
     this.open = function(name, mode)
     {
@@ -3801,7 +3767,6 @@ function Floppy(id, element_id)
         else {
             this.open_file = string.split("\n");
         }
-        this.refresh();
         return true;
     }
 
@@ -3810,7 +3775,7 @@ function Floppy(id, element_id)
         if (this.open_key === null) return false;
         localStorage.setItem(this.open_key, this.open_file.join("\n"));
         this.open_file = null;
-        this.refresh();
+        this.on_file_store(this);
         return true;
     }
 
@@ -3827,7 +3792,7 @@ function Floppy(id, element_id)
         this.open_file.push(line);
     }
 
-    this.refresh();
+    this.on_file_store(this);
 }
 
 
@@ -3919,7 +3884,7 @@ function BasicodeApp(script, id)
     // optional target elements
     var screen_id = script.dataset["canvas"];
     var printer_id = script.dataset["printer"];
-    var flop_id = script.dataset["floppy"];
+    var store_func = script.dataset["store"];
     var load_func = script.dataset["load"];
 
     // obtain screen/keyboard canvas
@@ -3976,7 +3941,8 @@ function BasicodeApp(script, id)
         this.printer = new Printer(printer_id);
         this.speaker = new Speaker();
         this.timer = new Timer();
-        var floppy = new Floppy(1, flop_id)
+
+        var floppy = new Floppy(1, window[store_func])
         this.storage = [new Tape(0), floppy, floppy, floppy]
 
 
