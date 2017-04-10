@@ -2002,7 +2002,8 @@ function Parser(expr_list, program)
             return last.next;
         }
         else if (line_number.payload < 1000) {
-            throw new BasicError("Unimplemented BASICODE", "`GOTO "+line_number.payload+"` not implemented", current_line);
+            // do not throw error during parsing, Jump will throw at runtime
+            console.log("Incorrect or unimplemented BASICODE routine `GOTO "+line_number.payload+"`");
         }
         // other line numbers are resolved at run time
         last.next = new Jump(line_number.payload, program, false);
@@ -2023,7 +2024,8 @@ function Parser(expr_list, program)
             return SUBS[line_number.payload](last);
         }
         else if (line_number.payload < 1000) {
-            throw new BasicError("Unimplemented BASICODE", "`GOSUB "+line_number.payload+"` not implemented", current_line);
+            // do not throw error during parsing, Jump will throw at runtime
+            console.log("Incorrect or unimplemented BASICODE routine `GOSUB "+line_number.payload+"`");
         }
         last.next = new Jump(line_number.payload, program, true);
         return last.next;
