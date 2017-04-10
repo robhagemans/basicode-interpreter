@@ -1633,7 +1633,12 @@ function Program(basicode)
     // build the tree
     var tokenised_code = new Lexer(basicode).tokenise();
     var parser = new Parser(tokenised_code, this);
-    parser.parse(this.tree);
+    try {
+        parser.parse(this.tree);
+    }
+    catch (e) {
+        this.error = e;
+    }
 
     // runtime state
     this.variables = new Variables();
@@ -4019,15 +4024,16 @@ function BasicodeApp(script, id)
         this.keyboard.reset();
         // put code in persistent storage
         localStorage.setItem(["BASICODE", this.id, "program"].join(":"), code);
-        try {
+        if (code) {
             // initialise program object
             this.program = new Program(code);
-            this.program.attach(this);
-        } catch (e) {
-            this.handleError(e);
-        }
-        if (code) {
-            this.run();
+            if (this.program.error) {
+                this.handleError(this.program.error);
+            }
+            else {
+                this.program.attach(this);
+                this.run();
+            }
         } else {
             this.program = null;
             this.splash();
