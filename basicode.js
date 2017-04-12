@@ -1329,6 +1329,9 @@ function Lexer(expr_string)
             sign = "-";
             ++pos;
         }
+        else if (expr_string[pos] === "+") {
+            ++pos;
+        }
         var char = expr_string[pos];
         if (isNumberChar(char)) {
             mantissa = readInteger();
@@ -1919,13 +1922,14 @@ function Parser(expr_list, program)
         while (expr_list.length > 0) {
             var value = expr_list.shift();
             // only literals allowed in DATA; no empty entries (repeated commas)
-            if (value === null || (value.token_type !== "literal" && (neg || (value.token_type !== "operator" || value.payload !== "-")))) {
+            if (value === null || (value.token_type !== "literal" && (neg || (value.token_type !== "operator" || (value.payload !== "-" && value.payload !== "+") )))) {
                 throw new BasicError("Syntax error", "expected string or number literal, got `"+value.payload+"`", current_line);
             }
             if (value.token_type === "operator" && value.payload === "-") {
                 neg = true;
                 continue;
             }
+            if (value.token_type === "operator" && value.payload === "+") continue;
             values.push(neg?-value.payload:value.payload);
             neg = false;
             // parse separator (,)
