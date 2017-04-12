@@ -2406,7 +2406,7 @@ function Variables()
                 // allocate subarray; BASICODE arrays span 0..x inclusive
                 equalType(0, indices[0]);
                 if (indices[0] <= 0) throw new BasicError("Illegal function call", "", null);
-                var arr = new Array(indices[0]+1);
+                var arr = new Array(Math.round(indices[0])+1);
                 // feed remaining arguments to recursive call
                 var argarray = indices.slice(1);
                 // allocate deeper level
