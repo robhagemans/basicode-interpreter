@@ -90,6 +90,7 @@
                 listing.value = program.code;
                 info.innerHTML = "<h2>" + program.title + "</h2>\n\n" +program.description;
             }
+            window.location.assign("#screen")
         }
 
         // storage
@@ -135,6 +136,25 @@
             loadSettings();
             setupListing();
         }
+
+        function loadFile(element) {
+            app = apps['basicode-script'];
+            settings = document.getElementById('basicode-script').dataset;
+            url = element.href;
+            if (url !== undefined && url !== null && url) {
+                var request = new XMLHttpRequest();
+                request.open("GET", url, true);
+                request.onreadystatechange = function() {
+                    if (request.readyState === 4 && request.status === 200) {
+                        code = request.responseText;
+                        app.stop()
+                        app.load(code);
+                    }
+                }
+                request.send()
+            }
+            return false;
+        }
     </script>
 </head>
 
@@ -150,6 +170,1223 @@
         ></script>
 
     <div class="tabs">
+
+        <div id="programs">
+            <a class="tab" href="#programs">Programs</a>
+            <div>
+                        <div class="floppy">
+                            <ul>
+                                <li>basicode/Basicode-2a
+                                    <ol>
+                                        <li><a href="basicode/Basicode-2a/01_Welkom.bc2" onclick="return loadFile(this);">Welkom Op Kant 2</a></li>
+                                        <li><a href="basicode/Basicode-2a/02_Sea_Wars.bc2" onclick="return loadFile(this);">Zeeslag</a></li>
+                                        <li><a href="basicode/Basicode-2a/03_Manneken_Pis.bc2" onclick="return loadFile(this);">Manneke Pis</a></li>
+                                        <li><a href="basicode/Basicode-2a/04_Chords.bc2" onclick="return loadFile(this);">Chords</a></li>
+                                        <li><a href="basicode/Basicode-2a/05_Kalender.bc2" onclick="return loadFile(this);">Kalender</a></li>
+                                        <li><a href="basicode/Basicode-2a/06_Simplepac.bc2" onclick="return loadFile(this);">Simplepac</a></li>
+                                        <li><a href="basicode/Basicode-2a/07_Zoek_t_woord.bc2" onclick="return loadFile(this);">Zoek Het Woord</a></li>
+                                        <li><a href="basicode/Basicode-2a/08_Function_analyser.bc2" onclick="return loadFile(this);">Function Properties</a></li>
+                                        <li><a href="basicode/Basicode-2a/09_Duck_Hunting.bc2" onclick="return loadFile(this);">Eendenjacht</a></li>
+                                        <li><a href="basicode/Basicode-2a/10_Life_expectancy.bc2" onclick="return loadFile(this);">Life Expectancy</a></li>
+                                        <li><a href="basicode/Basicode-2a/11_Sorteren.bc2" onclick="return loadFile(this);">Alpha-Sort</a></li>
+                                        <li><a href="basicode/Basicode-2a/12_Crazy_Kong.bc2" onclick="return loadFile(this);">Krazy Kong</a></li>
+                                        <li><a href="basicode/Basicode-2a/13_Radioactief_verval.bc2" onclick="return loadFile(this);">Radioaktief Verval</a></li>
+                                        <li><a href="basicode/Basicode-2a/14_Car_race.bc2" onclick="return loadFile(this);">Car Race</a></li>
+                                        <li><a href="basicode/Basicode-2a/15_Vermenigvuldigen.bc2" onclick="return loadFile(this);">Vermenigvuldig Puzzle</a></li>
+                                        <li><a href="basicode/Basicode-2a/16_Factors.bc2" onclick="return loadFile(this);">Factors</a></li>
+                                        <li><a href="basicode/Basicode-2a/17_Besluitvorming.bc2" onclick="return loadFile(this);">Expert-System</a></li>
+                                        <li><a href="basicode/Basicode-2a/18_Word_game.bc2" onclick="return loadFile(this);">Word-Game</a></li>
+                                        <li><a href="basicode/Basicode-2a/19_Titreren.bc2" onclick="return loadFile(this);">Titreren</a></li>
+                                        <li><a href="basicode/Basicode-2a/20_Towers_of_Hanoi.bc2" onclick="return loadFile(this);">Towers Of Hanoi</a></li>
+                                        <li><a href="basicode/Basicode-2a/21_Digital_Clock.bc2" onclick="return loadFile(this);">Digitale Klok</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Basicode-3
+                                    <ol>
+                                        <li><a href="basicode/Basicode-3/04_Planetarium.bc3" onclick="return loadFile(this);">Planetarium</a></li>
+                                        <li><a href="basicode/Basicode-3/05_Muziekdemonstratie.bc3" onclick="return loadFile(this);">Muziekdemonstratie</a></li>
+                                        <li><a href="basicode/Basicode-3/06_Adresbestand.bc3" onclick="return loadFile(this);">Nawp-Bestand</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Best_of_Basicode_1
+                                    <ol>
+                                        <li><a href="basicode/Best_of_Basicode_1/A01_Toelichting_1.bc2" onclick="return loadFile(this);">Ihhrtoel.1</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/A02_Toelichting_2.bc2" onclick="return loadFile(this);">Ihhrtoel.2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/A03_Toelichting_3a.bc2" onclick="return loadFile(this);">Ihhrtoel.3A</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/A04_Toelichting_3b.bc2" onclick="return loadFile(this);">Ihhrtoel.3B</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/A05_Hoofdmenu.bc2" onclick="return loadFile(this);">Hoofd-Menu</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/A06_Gesimuleerd_bestand.bc2" onclick="return loadFile(this);">Simulatie Bestand</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/A07_Utility-1.bc2" onclick="return loadFile(this);">Utility-1</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/A08_Utility-2.bc2" onclick="return loadFile(this);">Utility-2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/B01_Kasboek.bc2" onclick="return loadFile(this);">Kasboek</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/B02_Bankrekening_Finplan.bc2" onclick="return loadFile(this);">Bankrekfinplan</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/B03_Chequeboek.bc2" onclick="return loadFile(this);">Chequeboek</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/B04_Universeel_print_progr.bc2" onclick="return loadFile(this);">Uni-Pp-Programma</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/B05_Jaaroverzicht_1.bc2" onclick="return loadFile(this);">Jaar-Overzicht-1</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/B06_Jaaroverzicht_2.bc2" onclick="return loadFile(this);">Jaar-Overzicht-2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/B07_Financiele_planning.bc2" onclick="return loadFile(this);">Financ.Planning</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_1/B08_Rente-berekening.bc2" onclick="return loadFile(this);">Kasboek</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Best_of_Basicode_2
+                                    <ol>
+                                        <li><a href="basicode/Best_of_Basicode_2/A01_Tips_voor_programmeurs.bc2" onclick="return loadFile(this);">Tips Voor Programmeurs</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A02_Tekstvoorbeeld.bc2" onclick="return loadFile(this);">A02_Tekstvoorbeeld.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A03_Postzegelverzameling.bc2" onclick="return loadFile(this);">Postzegelverzameling</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A04_Bord_van_Galton.bc2" onclick="return loadFile(this);">Bord Van Galton</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A05_Type-cursus.bc2" onclick="return loadFile(this);">Typcursus</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A06_Hoofdsteden.bc2" onclick="return loadFile(this);">Hoofdsteden</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A07_Expertsysteem.bc2" onclick="return loadFile(this);">Expert-System</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A08_Temperaturen.bc2" onclick="return loadFile(this);">Temperaturen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A09_Wereldtijden.bc2" onclick="return loadFile(this);">Wereld-Tijden</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A10_Droids.bc2" onclick="return loadFile(this);">Droids</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A11_Kalah.bc2" onclick="return loadFile(this);">Kalah</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A12_Kalah_Documentatie.bc2" onclick="return loadFile(this);">A12_Kalah_Documentatie.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A13_Stemburo.bc2" onclick="return loadFile(this);">Stem  Buro</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A14_Renteberekening.bc2" onclick="return loadFile(this);">Renteberekening</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A15_Breakthrough.bc2" onclick="return loadFile(this);">Breakthrough</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A16_Parallelweerstanden.bc2" onclick="return loadFile(this);">Parallel-Weerstanden</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A17_Brandstofverbruik.bc2" onclick="return loadFile(this);">Brandstofverbruik Autos</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A18_Stamboom.bc2" onclick="return loadFile(this);">Stamboom</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/A19_Platonische_figuren.bc2" onclick="return loadFile(this);">Platonische Lichamen E.A.</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/B01_Autokosten.bc2" onclick="return loadFile(this);">Autokosten</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/B02_Warmteberekening.bc2" onclick="return loadFile(this);">Warmteberekening Van Een Lokaal</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/B03_Huishoudboekje.bc2" onclick="return loadFile(this);">Huishoudboekje</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/B04_Histogrammen.bc2" onclick="return loadFile(this);">Histogram</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/B05_Snakey-game.bc2" onclick="return loadFile(this);">Snakeygame</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/B06_Weerdecoder.bc2" onclick="return loadFile(this);">Weerdecoder</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/B07_Bevolkingsprognose.bc2" onclick="return loadFile(this);">Bevolkingsprognose</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/B08_Getalsconversie.bc2" onclick="return loadFile(this);">Getalconversie</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/B09_Kubus_van_Rubik.bc2" onclick="return loadFile(this);">Kubus</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_2/B10_Latin_verbs.bc2" onclick="return loadFile(this);">B10_Latin_verbs.bc2</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Best_of_Basicode_3
+                                    <ol>
+                                        <li><a href="basicode/Best_of_Basicode_3/A01_Inleiding.bc2" onclick="return loadFile(this);">Inleiding</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A02_Rekenen.bc2" onclick="return loadFile(this);">Rekenen Voor De Basisschool.</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A03_Taartdelen.bc2" onclick="return loadFile(this);">Staartdelen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A04_Breuken_1.bc2" onclick="return loadFile(this);">Breuken</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A05_Breuken_2.bc2" onclick="return loadFile(this);">Breuken</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A06_Binair_rekenen.bc2" onclick="return loadFile(this);">Binair Oefenen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A07_Wiskunde.bc2" onclick="return loadFile(this);">Wiskunde Programma</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A08_Afstandbepaling.bc2" onclick="return loadFile(this);">Afstandbepaling</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A09_Oppervlak_en_Inhoud.bc2" onclick="return loadFile(this);">Berekenen Van Opperv.En Inhoud</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A10_Statistiek.bc2" onclick="return loadFile(this);">Statistiek</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A11_Formules_en_Reakties.bc2" onclick="return loadFile(this);">Formules En Reakties</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A12_Verkeer.bc2" onclick="return loadFile(this);">Verkeer</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A13_Mannetje_in_de_maan.bc2" onclick="return loadFile(this);">A13_Mannetje_in_de_maan.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A14_Woordtrainer.bc2" onclick="return loadFile(this);">Woordtrainer</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A15_Leesmoeder.bc2" onclick="return loadFile(this);">Leesmoeder</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/A16_Teksttrainer.bc2" onclick="return loadFile(this);">Texttrainer</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/B01_Ontkennend_maken.bc2" onclick="return loadFile(this);">Ontkennend Maken</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/B02_Vragend_maken.bc2" onclick="return loadFile(this);">Vragend Maken</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/B03_Spaanse_werkwoorden.bc2" onclick="return loadFile(this);">Spaanse Verv.</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/B04_Instrukteur.bc2" onclick="return loadFile(this);">Instrukteur</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/B05_Weet_je_weertje.bc2" onclick="return loadFile(this);">Weet Je Weertje</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/B06_Korfbal_1.bc2" onclick="return loadFile(this);">Korfbal Deel 1</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/B07_Korfbal_2.bc2" onclick="return loadFile(this);">Korfbal Deel 2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/B08_Genetica.bc2" onclick="return loadFile(this);">Genetica</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/B09_Tijdverschijnselen.bc2" onclick="return loadFile(this);">Tijdsverschijnselen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_3/B10_Typelessen.bc2" onclick="return loadFile(this);">Typlessen L. De Jong Op Newbrain</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Best_of_Basicode_4
+                                    <ol>
+                                        <li><a href="basicode/Best_of_Basicode_4/01_Inleiding.bc2" onclick="return loadFile(this);">Inleiding B.O.B 4</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/02_Spreekwoorden.bc2" onclick="return loadFile(this);">02_Spreekwoorden.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/03_Bekende_Nederlanders.bc2" onclick="return loadFile(this);">03_Bekende_Nederlanders.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/04_Zinsontleding.bc2" onclick="return loadFile(this);">Ontleden</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/05_Woordbenoeming.bc2" onclick="return loadFile(this);">05_Woordbenoeming.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/06_Spelling.bc2" onclick="return loadFile(this);">06_Spelling.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/07_Invul-1.bc2" onclick="return loadFile(this);">Invul-1</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/08_Invul-2.bc2" onclick="return loadFile(this);">Invul-2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/09_Letterbak.bc2" onclick="return loadFile(this);">Letterbak</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/10_Overhoren.bc2" onclick="return loadFile(this);">Overhoor</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/11_Klinkerspel.bc2" onclick="return loadFile(this);">K L I N K E R S</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/12_Teacher.bc2" onclick="return loadFile(this);">Teacher</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/13_Duitse_naamvallen.bc2" onclick="return loadFile(this);">Duitse Naamvallen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/14_Uitleg_Visitekaartjes.bc2" onclick="return loadFile(this);">14_Uitleg_Visitekaartjes.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/15_Visitekaartjes.bc2" onclick="return loadFile(this);">15_Visitekaartjes.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/16_Vermenigvuldigen.bc2" onclick="return loadFile(this);">Vermenigvuldig</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/17_Breuken.bc2" onclick="return loadFile(this);">Breuken</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/18_Ontbinden_in_faktoren.bc2" onclick="return loadFile(this);">Ontbind In Fact</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/19_Staartdelingen.bc2" onclick="return loadFile(this);">Staartdelingen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/20_Rekenfriek.bc2" onclick="return loadFile(this);">Rekenfriek</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/21_Hoofdrekenen.bc2" onclick="return loadFile(this);">Hoofdrekenen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/22_Talstelsels.bc2" onclick="return loadFile(this);">22_Talstelsels.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/23_Meerkeuze-analyse.bc2" onclick="return loadFile(this);">Meerkeuze-Analyse</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/24_Beschrijving_8085_simulator.bc2" onclick="return loadFile(this);">24_Beschrijving_8085_simulator.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_4/25_Simulator_8085.bc2" onclick="return loadFile(this);">8085-Simulator</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Best_of_Basicode_5
+                                    <ol>
+                                        <li><a href="basicode/Best_of_Basicode_5/01L_Genetica_1.bc2" onclick="return loadFile(this);">01L_Genetica_1.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/01R_Beroepswensen.bc2" onclick="return loadFile(this);">Beroepswensen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/02L_Genetica_2.bc2" onclick="return loadFile(this);">Moleculaire Genetica</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/02R_Satellietontvangst_1.bc2" onclick="return loadFile(this);">02R_Satellietontvangst_1.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/03L_Weerrapporten.bc2" onclick="return loadFile(this);">Uitleg Weerrapporten</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/03R_Satellietontvangst_2.bc2" onclick="return loadFile(this);">03R_Satellietontvangst_2.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/04L_IPO_Test.bc2" onclick="return loadFile(this);">Test</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/04R_Investeringsselectie.bc2" onclick="return loadFile(this);">Investeringsselectie</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/05L_Hoofdrekenen.bc2" onclick="return loadFile(this);">Hoofdrekenen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/05R_Bingo75.bc2" onclick="return loadFile(this);">Bingo 75</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/06L_Gezondheid.bc2" onclick="return loadFile(this);">Gezondheid -------</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/06R_Hout_en_toepassingen.bc2" onclick="return loadFile(this);">Hout</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/07L_Volume_1.bc2" onclick="return loadFile(this);">Volume 1</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/07R_Simulantjes.bc2" onclick="return loadFile(this);">Simulantjes</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/08L_Volume_2.bc2" onclick="return loadFile(this);">Volume 2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/08R_Poster_grafica.bc2" onclick="return loadFile(this);">Poster-Grafica</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/09L_Raamwerk_toelichting.bc2" onclick="return loadFile(this);">09L_Raamwerk_toelichting.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/09R_Alswin_vierkant.bc2" onclick="return loadFile(this);">09R_Alswin_vierkant.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/10L_Raamwerk_hoofdprogramma.bc2" onclick="return loadFile(this);">.  R A A M W E R K .</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/10R_Vademecum.bc2" onclick="return loadFile(this);">10R_Vademecum.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/14L_Emuf_1_7_uitleg.bc2" onclick="return loadFile(this);">14L_Emuf_1_7_uitleg.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/14R_Valuta.bc2" onclick="return loadFile(this);">Valuta</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/15L_Emuf_hoofdprogramma.bc2" onclick="return loadFile(this);">15L_Emuf_hoofdprogramma.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/15R_Kamertje_verhuren.bc2" onclick="return loadFile(this);">15R_Kamertje_verhuren.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/16L_Esperanto.bc2" onclick="return loadFile(this);">Esperanto</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/16R_Beroepen-orientatie.bc2" onclick="return loadFile(this);">Beroepenorientatie</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/17L_Tapetijd_inleiding.bc2" onclick="return loadFile(this);">17L_Tapetijd_inleiding.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/17R_Spel-spel.bc2" onclick="return loadFile(this);">Spel-Spel</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/18L_Tapetijd_hoofdprogramma.bc2" onclick="return loadFile(this);">Tapetijd.</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/18R_Ooit_van_Pi_gehoord.bc2" onclick="return loadFile(this);">Ooit Van Pi Gehoord</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/19L_Tapetijd_achtergrond.bc2" onclick="return loadFile(this);">19L_Tapetijd_achtergrond.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/19R_Meten_met_maten.bc2" onclick="return loadFile(this);">Meten M. Maten</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/20L_Etiketten_printen.bc2" onclick="return loadFile(this);">Etiketten Printen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/20R_Wordprof_uitleg.bc2" onclick="return loadFile(this);">20R_Wordprof_uitleg.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/21L_Oppervlak_1.bc2" onclick="return loadFile(this);">Oppervlak 1</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/21R_Wordprof.bc2" onclick="return loadFile(this);">21R_Wordprof.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/22L_Oppervlak_2.bc2" onclick="return loadFile(this);">Oppervlak 2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/22R_Kretologie-generator.bc2" onclick="return loadFile(this);">Kretologie-Generator</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/23L_Tekencode_1.bc2" onclick="return loadFile(this);">23L_Tekencode_1.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/23R_Muziektheorie.bc2" onclick="return loadFile(this);">..Notenschrift..</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/24L_Tekencode_2.bc2" onclick="return loadFile(this);">Tekencode-2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/24R_Multiple_choice_test.bc2" onclick="return loadFile(this);">24R_Multiple_choice_test.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/25L_Tekencode_3.bc2" onclick="return loadFile(this);">Tekencode-3</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/25R_Taaltest_toelichting.bc2" onclick="return loadFile(this);">25R_Taaltest_toelichting.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/26L_Multi-Mastermind.bc2" onclick="return loadFile(this);">Multi-Mastermind</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/26R_Taaltest_middenbouw.bc2" onclick="return loadFile(this);">26R_Taaltest_middenbouw.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/27L_Werkwoorden.bc2" onclick="return loadFile(this);">Werkwoorden</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/27R_Metselverbanden.bc2" onclick="return loadFile(this);">27R_Metselverbanden.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/28L_Schatzoeker.bc2" onclick="return loadFile(this);">Schatzoeker</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/28R_Computerhandel.bc2" onclick="return loadFile(this);">28R_Computerhandel.bc2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/29L_Gaia.bc2" onclick="return loadFile(this);">Gaia</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/29R_Z-80.bc2" onclick="return loadFile(this);">Z80</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/30L_Reversi.bc2" onclick="return loadFile(this);">Reversi</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_5/30R_Topografie.bc2" onclick="return loadFile(this);">Topografie</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Best_of_Basicode_6
+                                    <ol>
+                                        <li><a href="basicode/Best_of_Basicode_6/ALG-ONTW.BAS" onclick="return loadFile(this);">ALG-ONTW.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/ASSEN.BAS" onclick="return loadFile(this);">Assenstelsel</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/BAAB.BAS" onclick="return loadFile(this);">BAAB.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/BANNER1.BAS" onclick="return loadFile(this);">Banner Printer</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/BANNER2.BAS" onclick="return loadFile(this);">Banner Printer</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/BANNER3.BAS" onclick="return loadFile(this);">Banner Printer</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/BEURS.BAS" onclick="return loadFile(this);">Beurs</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/BRAILLE.BAS" onclick="return loadFile(this);">BRAILLE.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/CALC-DOC.BAS" onclick="return loadFile(this);">CALC-DOC.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/COCKTAIL.BAS" onclick="return loadFile(this);">COCKTAIL.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/DRIEHOEK.BAS" onclick="return loadFile(this);">Driehoeken 2.0</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/EULER-1.BAS" onclick="return loadFile(this);">EULER-1.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/EULER-2.BAS" onclick="return loadFile(this);">EULER-2.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/FIDO-TL.BAS" onclick="return loadFile(this);">Basicode Beeldkrant</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/FIDO.BAS" onclick="return loadFile(this);">Fido-Nos Simulator V2.2</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/FLITS.BAS" onclick="return loadFile(this);">Flits</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/HIGH-LOW.BAS" onclick="return loadFile(this);">High-En Low-Pass Filters</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/IMAGIN-1.BAS" onclick="return loadFile(this);">IMAGIN-1.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/IMAGIN-2.BAS" onclick="return loadFile(this);">IMAGIN-2.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/JUPIT-TL.BAS" onclick="return loadFile(this);">Hobbyscoop-Krant</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/JUPITER.BAS" onclick="return loadFile(this);">Jupitermanen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/KRAKER.BAS" onclick="return loadFile(this);">KRAKER.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/LETTERSP.BAS" onclick="return loadFile(this);">Letterspel</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/LINGO.BAS" onclick="return loadFile(this);">Lingo</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/MAAN-POS.BAS" onclick="return loadFile(this);">Waar Staat De Maan</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/MAAN-TL.BAS" onclick="return loadFile(this);">Hobbyscoop-Krant</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/MAGNETR.BAS" onclick="return loadFile(this);">MAGNETR.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/MORSE.BAS" onclick="return loadFile(this);">MORSE.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/PARABOOL.BAS" onclick="return loadFile(this);">Top Parabool</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/PR-CALC.BAS" onclick="return loadFile(this);">Programmeerbare Calculator</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/PSPRONG.BAS" onclick="return loadFile(this);">Schoonspringen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/RADIO.BAS" onclick="return loadFile(this);">Radio</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/REKENSTR.BAS" onclick="return loadFile(this);">Rekenstructie</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/SCHAKEN.BAS" onclick="return loadFile(this);">Schaken</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/SPORT-TL.BAS" onclick="return loadFile(this);">SPORT-TL.BAS</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/SPORT.BAS" onclick="return loadFile(this);">Sportuitslagen</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/TIJDMACH.BAS" onclick="return loadFile(this);">De Tijdmachine</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/VALTABEL.BAS" onclick="return loadFile(this);">Valutatabel</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/ZEESL-TL.BAS" onclick="return loadFile(this);">Hobbyscoop-Krant</a></li>
+                                        <li><a href="basicode/Best_of_Basicode_6/ZEESLAG.BAS" onclick="return loadFile(this);">Zeeslag</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Chip_Shop_Basicode_2
+                                    <ol>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/01_Welcome.bc2" onclick="return loadFile(this);">Welcome To Side 2</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/02_Wordgame.bc2" onclick="return loadFile(this);">Word-Game</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/03_Factors.bc2" onclick="return loadFile(this);">Factors</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/04_Tank_Shooting.bc2" onclick="return loadFile(this);">Tank Shooting</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/05_Chords.bc2" onclick="return loadFile(this);">Chords</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/06_Yahtzee.bc2" onclick="return loadFile(this);">Yahtzee</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/07_Word_Search.bc2" onclick="return loadFile(this);">Word Search</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/08_Conquer_Kong.bc2" onclick="return loadFile(this);">Krazy Kong</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/09_Multivibrator.bc2" onclick="return loadFile(this);">Multivibrator</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/10_Digital_Clock.bc2" onclick="return loadFile(this);">Digital Clock</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/11_Mezirac_Squares.bc2" onclick="return loadFile(this);">Mezirac Squares.</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/12_Duck_Hunting.bc2" onclick="return loadFile(this);">Duck Hunting</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/13_Exact_Mass.bc2" onclick="return loadFile(this);">Exact Mass</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/14_Belgian_Game.bc2" onclick="return loadFile(this);">Belgian Naughty</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/15_Radioactive_Decay.bc2" onclick="return loadFile(this);">Radioactive Decay</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/16_Car_Race.bc2" onclick="return loadFile(this);">Car Race</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/17_Titrations.bc2" onclick="return loadFile(this);">Titrations</a></li>
+                                        <li><a href="basicode/Chip_Shop_Basicode_2/18_Christian_Holidays.bc2" onclick="return loadFile(this);">Christian Holidays</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/KC-Club
+                                    <ol>
+                                        <li><a href="basicode/KC-Club/1X1.bc" onclick="return loadFile(this);">Tafelplezier</a></li>
+                                        <li><a href="basicode/KC-Club/2LINIEN.bc" onclick="return loadFile(this);">2 Rechte Lijnen</a></li>
+                                        <li><a href="basicode/KC-Club/3D-FUNC.bc" onclick="return loadFile(this);">Zfx,Y ,Bc3-C</a></li>
+                                        <li><a href="basicode/KC-Club/4GEWINNT.bc" onclick="return loadFile(this);">Vier Gewinnt</a></li>
+                                        <li><a href="basicode/KC-Club/ALF3.bc" onclick="return loadFile(this);">Alf-3  -Bild</a></li>
+                                        <li><a href="basicode/KC-Club/ANTWORT.bc" onclick="return loadFile(this);">Frage  Antwort</a></li>
+                                        <li><a href="basicode/KC-Club/ARABEST.bc" onclick="return loadFile(this);">Arabesque</a></li>
+                                        <li><a href="basicode/KC-Club/ATLAS.BAS" onclick="return loadFile(this);">Atlas</a></li>
+                                        <li><a href="basicode/KC-Club/BARIKADE.bc" onclick="return loadFile(this);">Barrikade</a></li>
+                                        <li><a href="basicode/KC-Club/BARRI.bc" onclick="return loadFile(this);">Barrikade</a></li>
+                                        <li><a href="basicode/KC-Club/BASE.bc" onclick="return loadFile(this);">Base</a></li>
+                                        <li><a href="basicode/KC-Club/BASHELP.bc" onclick="return loadFile(this);">Beschreibung D. Kc-Prg.  Direrst</a></li>
+                                        <li><a href="basicode/KC-Club/BASHI.BAS" onclick="return loadFile(this);">Bashilf</a></li>
+                                        <li><a href="basicode/KC-Club/BASPAS.bc" onclick="return loadFile(this);">--- Basicode  Pascal</a></li>
+                                        <li><a href="basicode/KC-Club/BAUMPYTH.BAS" onclick="return loadFile(this);">De Boom Van Pythagoras  Bc3</a></li>
+                                        <li><a href="basicode/KC-Club/BC-ASCII.bc" onclick="return loadFile(this);">Basicode-Ascii</a></li>
+                                        <li><a href="basicode/KC-Club/BC-COLOR.bc" onclick="return loadFile(this);">Kleurendemo</a></li>
+                                        <li><a href="basicode/KC-Club/BC-INFO.bc" onclick="return loadFile(this);">Basicode-Info</a></li>
+                                        <li><a href="basicode/KC-Club/BENZIN.bc" onclick="return loadFile(this);">Benzinverbrauch</a></li>
+                                        <li><a href="basicode/KC-Club/BESTAND.bc" onclick="return loadFile(this);">Bestaende In Basicode 3</a></li>
+                                        <li><a href="basicode/KC-Club/BIO-D.bc" onclick="return loadFile(this);">Bio</a></li>
+                                        <li><a href="basicode/KC-Club/BIO-NL.bc" onclick="return loadFile(this);">Bioritme</a></li>
+                                        <li><a href="basicode/KC-Club/BLITZ.bc" onclick="return loadFile(this);">Flits    Blitz</a></li>
+                                        <li><a href="basicode/KC-Club/BUBBLE.BAS" onclick="return loadFile(this);">Bubble</a></li>
+                                        <li><a href="basicode/KC-Club/BUMMI.bc" onclick="return loadFile(this);">B U M M I</a></li>
+                                        <li><a href="basicode/KC-Club/BURG.bc" onclick="return loadFile(this);">Burgschlacht</a></li>
+                                        <li><a href="basicode/KC-Club/CBSKIP.bc" onclick="return loadFile(this);">Cb-Skips</a></li>
+                                        <li><a href="basicode/KC-Club/DDR.bc" onclick="return loadFile(this);">Ddr</a></li>
+                                        <li><a href="basicode/KC-Club/DISCO.BAS" onclick="return loadFile(this);">Disco</a></li>
+                                        <li><a href="basicode/KC-Club/DOKTOR.bc" onclick="return loadFile(this);">--Gesundheit--</a></li>
+                                        <li><a href="basicode/KC-Club/DREIECK.BAS" onclick="return loadFile(this);">Dreiecksberechnung</a></li>
+                                        <li><a href="basicode/KC-Club/DREIECK.bc" onclick="return loadFile(this);">Dreiecksberechnung</a></li>
+                                        <li><a href="basicode/KC-Club/ENERGIE.bc" onclick="return loadFile(this);">Energie-Kosten</a></li>
+                                        <li><a href="basicode/KC-Club/ENGLISH1.bc" onclick="return loadFile(this);">English</a></li>
+                                        <li><a href="basicode/KC-Club/ENGLISH2.bc" onclick="return loadFile(this);">Unregelm. Verben</a></li>
+                                        <li><a href="basicode/KC-Club/ENG__DEU.bc" onclick="return loadFile(this);">English</a></li>
+                                        <li><a href="basicode/KC-Club/ENTFERN.bc" onclick="return loadFile(this);">Entfernung - Trosds-Kultur</a></li>
+                                        <li><a href="basicode/KC-Club/FAXICODE.bc" onclick="return loadFile(this);">Faxicode</a></li>
+                                        <li><a href="basicode/KC-Club/FIGUREN.bc" onclick="return loadFile(this);">Figuren</a></li>
+                                        <li><a href="basicode/KC-Club/FILE.BAS" onclick="return loadFile(this);">File</a></li>
+                                        <li><a href="basicode/KC-Club/FILTER.bc" onclick="return loadFile(this);">Filterberechnung</a></li>
+                                        <li><a href="basicode/KC-Club/FKT3D.bc" onclick="return loadFile(this);">Fkt3D</a></li>
+                                        <li><a href="basicode/KC-Club/FLITS.bc" onclick="return loadFile(this);">Flits    Blitz</a></li>
+                                        <li><a href="basicode/KC-Club/FORMAT.BAS" onclick="return loadFile(this);">Format</a></li>
+                                        <li><a href="basicode/KC-Club/FRAGE+AN.bc" onclick="return loadFile(this);">Frage  Antwort</a></li>
+                                        <li><a href="basicode/KC-Club/FRAKIAL.BAS" onclick="return loadFile(this);">Fraktale</a></li>
+                                        <li><a href="basicode/KC-Club/FRAKSUCH.BAS" onclick="return loadFile(this);">Fraksuch</a></li>
+                                        <li><a href="basicode/KC-Club/FRAKTAL.BAS" onclick="return loadFile(this);">Fraktale</a></li>
+                                        <li><a href="basicode/KC-Club/FRESSEN.bc" onclick="return loadFile(this);">Raub-Buetetiere-Zyklus</a></li>
+                                        <li><a href="basicode/KC-Club/FREUNDSF.bc" onclick="return loadFile(this);">Freundschaft</a></li>
+                                        <li><a href="basicode/KC-Club/FUNKT.bc" onclick="return loadFile(this);">Zfx,Y ,Bc3-C</a></li>
+                                        <li><a href="basicode/KC-Club/GLOBUSS.BAS" onclick="return loadFile(this);">Globus</a></li>
+                                        <li><a href="basicode/KC-Club/GRAFIK.bc" onclick="return loadFile(this);">Karakters Op Het Grafisch-Scherm</a></li>
+                                        <li><a href="basicode/KC-Club/GRAPH.BAS" onclick="return loadFile(this);">Liniengrafik</a></li>
+                                        <li><a href="basicode/KC-Club/HALMA.bc" onclick="return loadFile(this);">Solitaire</a></li>
+                                        <li><a href="basicode/KC-Club/HELP.bc" onclick="return loadFile(this);">Help V 1.3</a></li>
+                                        <li><a href="basicode/KC-Club/HELPDOK.bc" onclick="return loadFile(this);">Help-Instruktionen</a></li>
+                                        <li><a href="basicode/KC-Club/HUPFER.bc" onclick="return loadFile(this);">Hupfer</a></li>
+                                        <li><a href="basicode/KC-Club/HYDRA.BAS" onclick="return loadFile(this);">Hydra</a></li>
+                                        <li><a href="basicode/KC-Club/HYMNEN.bc" onclick="return loadFile(this);">Hymnen</a></li>
+                                        <li><a href="basicode/KC-Club/INHALT.bc" onclick="return loadFile(this);">Programmverzeichnis Kassette</a></li>
+                                        <li><a href="basicode/KC-Club/J-EXTRA.bc" onclick="return loadFile(this);">Basicode-3 Journal-Extra</a></li>
+                                        <li><a href="basicode/KC-Club/JOSEF.BAS" onclick="return loadFile(this);">Josef-Spiel</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN01.bc" onclick="return loadFile(this);">Basicode-3 Journal</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN02.bc" onclick="return loadFile(this);">Basicode-3 Journal 2</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN03.bc" onclick="return loadFile(this);">Basicode-3 Journal 3</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN04.bc" onclick="return loadFile(this);">Basicode-3 Journal 4</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN05.bc" onclick="return loadFile(this);">Basicode-3 Journal 5</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN06.bc" onclick="return loadFile(this);">Basicode-3 Journal 6</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN07.bc" onclick="return loadFile(this);">Basicode-3 Journal 7</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN09.bc" onclick="return loadFile(this);">Basicode-3 Journal 9</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN10.bc" onclick="return loadFile(this);">Basicode-3 Journal 10</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN11.bc" onclick="return loadFile(this);">Basicode-3 Journal 11</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN12.bc" onclick="return loadFile(this);">Basicode-3 Journal 12</a></li>
+                                        <li><a href="basicode/KC-Club/JOURN13.bc" onclick="return loadFile(this);">Basicode Journ 13  Astra-Info-2</a></li>
+                                        <li><a href="basicode/KC-Club/KALENDER.bc" onclick="return loadFile(this);">Vak. En Roostervrij Kalender</a></li>
+                                        <li><a href="basicode/KC-Club/KARAKGRA.bc" onclick="return loadFile(this);">Karakters Op Het Grafisch-Scherm</a></li>
+                                        <li><a href="basicode/KC-Club/KASSETVE.BAS" onclick="return loadFile(this);">Programmverzeichnis Kassette</a></li>
+                                        <li><a href="basicode/KC-Club/KLIMA.bc" onclick="return loadFile(this);">Klimaatgrafiek</a></li>
+                                        <li><a href="basicode/KC-Club/KLIMAGR.bc" onclick="return loadFile(this);">Klimaatgrafiek</a></li>
+                                        <li><a href="basicode/KC-Club/KONVERT.bc" onclick="return loadFile(this);">Konvertierungjournal--.Txt</a></li>
+                                        <li><a href="basicode/KC-Club/KREDIT.bc" onclick="return loadFile(this);">Kreditlauf</a></li>
+                                        <li><a href="basicode/KC-Club/LIED.BAS" onclick="return loadFile(this);">Lied</a></li>
+                                        <li><a href="basicode/KC-Club/LINDWURM.bc" onclick="return loadFile(this);">Lindwurm</a></li>
+                                        <li><a href="basicode/KC-Club/LINEGR.bc" onclick="return loadFile(this);">Linien</a></li>
+                                        <li><a href="basicode/KC-Club/LINIEN.bc" onclick="return loadFile(this);">Linien</a></li>
+                                        <li><a href="basicode/KC-Club/LISSAJOU.bc" onclick="return loadFile(this);">Lissajou.Bac</a></li>
+                                        <li><a href="basicode/KC-Club/LOGO.bc" onclick="return loadFile(this);">Zahlen</a></li>
+                                        <li><a href="basicode/KC-Club/MANDALA.bc" onclick="return loadFile(this);">Mandala.Bac</a></li>
+                                        <li><a href="basicode/KC-Club/MARKT.bc" onclick="return loadFile(this);">Unternehmer</a></li>
+                                        <li><a href="basicode/KC-Club/MASTER.bc" onclick="return loadFile(this);">Mastermind</a></li>
+                                        <li><a href="basicode/KC-Club/MATHE.bc" onclick="return loadFile(this);">Mathetraining</a></li>
+                                        <li><a href="basicode/KC-Club/MEMORY.bc" onclick="return loadFile(this);">Memory</a></li>
+                                        <li><a href="basicode/KC-Club/MINEN.bc" onclick="return loadFile(this);">Minensuche</a></li>
+                                        <li><a href="basicode/KC-Club/MOPS.BAS" onclick="return loadFile(this);">Mops</a></li>
+                                        <li><a href="basicode/KC-Club/MOZART.bc" onclick="return loadFile(this);">Mozart</a></li>
+                                        <li><a href="basicode/KC-Club/MUSIK.bc" onclick="return loadFile(this);">Muziekdemo</a></li>
+                                        <li><a href="basicode/KC-Club/N-ECK.bc" onclick="return loadFile(this);">N-Eck</a></li>
+                                        <li><a href="basicode/KC-Club/NIEUNIED.bc" onclick="return loadFile(this);">Nieuwsbrief</a></li>
+                                        <li><a href="basicode/KC-Club/NIMM.bc" onclick="return loadFile(this);">Nimm</a></li>
+                                        <li><a href="basicode/KC-Club/OPUS5.bc" onclick="return loadFile(this);">Opus 5 Oscar Reutersvaerd, Sweden</a></li>
+                                        <li><a href="basicode/KC-Club/OTHELLO.bc" onclick="return loadFile(this);">Othello</a></li>
+                                        <li><a href="basicode/KC-Club/PASCINFO.bc" onclick="return loadFile(this);">Pascal-Literatur-Tips</a></li>
+                                        <li><a href="basicode/KC-Club/PASKCC.bc" onclick="return loadFile(this);">Pascomp-Kcc</a></li>
+                                        <li><a href="basicode/KC-Club/PI.bc" onclick="return loadFile(this);">Pi</a></li>
+                                        <li><a href="basicode/KC-Club/POEME.BAS" onclick="return loadFile(this);">Poeme</a></li>
+                                        <li><a href="basicode/KC-Club/POST.bc" onclick="return loadFile(this);">Postgebuehren</a></li>
+                                        <li><a href="basicode/KC-Club/RAFIDOK.bc" onclick="return loadFile(this);">Programm Grafik</a></li>
+                                        <li><a href="basicode/KC-Club/ROMZA.BAS" onclick="return loadFile(this);">Romza</a></li>
+                                        <li><a href="basicode/KC-Club/RSA1.bc" onclick="return loadFile(this);">Rsa - Teil 1</a></li>
+                                        <li><a href="basicode/KC-Club/RSA2COD.bc" onclick="return loadFile(this);">Rsa - Teil 2</a></li>
+                                        <li><a href="basicode/KC-Club/RSA3DCOD.bc" onclick="return loadFile(this);">Rsa - Teil 3</a></li>
+                                        <li><a href="basicode/KC-Club/RUSSISCH.bc" onclick="return loadFile(this);">Russisch</a></li>
+                                        <li><a href="basicode/KC-Club/RUSS_HOL.bc" onclick="return loadFile(this);">Russisch</a></li>
+                                        <li><a href="basicode/KC-Club/RWLTEXT.bc" onclick="return loadFile(this);">R-W-L Text</a></li>
+                                        <li><a href="basicode/KC-Club/S-QUOT.bc" onclick="return loadFile(this);">Sex-Quotient</a></li>
+                                        <li><a href="basicode/KC-Club/SCHIEB.bc" onclick="return loadFile(this);">Schiebefax</a></li>
+                                        <li><a href="basicode/KC-Club/SCHNITTP.bc" onclick="return loadFile(this);">2 Rechte Lijnen</a></li>
+                                        <li><a href="basicode/KC-Club/SLIDER1.bc" onclick="return loadFile(this);">Slider</a></li>
+                                        <li><a href="basicode/KC-Club/SLIDER2.bc" onclick="return loadFile(this);">Slider</a></li>
+                                        <li><a href="basicode/KC-Club/SLINFO.bc" onclick="return loadFile(this);">Slider-Info</a></li>
+                                        <li><a href="basicode/KC-Club/SOLFEGIO.bc" onclick="return loadFile(this);">Solfeggio</a></li>
+                                        <li><a href="basicode/KC-Club/SOLITAIR.bc" onclick="return loadFile(this);">Solitaire</a></li>
+                                        <li><a href="basicode/KC-Club/SOURCE.bc" onclick="return loadFile(this);">Source.V4</a></li>
+                                        <li><a href="basicode/KC-Club/SPIROGRA.bc" onclick="return loadFile(this);">Spiro-Graph</a></li>
+                                        <li><a href="basicode/KC-Club/STEINE.bc" onclick="return loadFile(this);">Steine</a></li>
+                                        <li><a href="basicode/KC-Club/STOP.BAS" onclick="return loadFile(this);">Stop</a></li>
+                                        <li><a href="basicode/KC-Club/STRING.bc" onclick="return loadFile(this);">Stringfunktionen</a></li>
+                                        <li><a href="basicode/KC-Club/SUMERIA.bc" onclick="return loadFile(this);">Bc-Sumeria</a></li>
+                                        <li><a href="basicode/KC-Club/TASTE.BAS" onclick="return loadFile(this);">Taste</a></li>
+                                        <li><a href="basicode/KC-Club/TETRIS.bc" onclick="return loadFile(this);">Tetris</a></li>
+                                        <li><a href="basicode/KC-Club/TEXT-DOK.bc" onclick="return loadFile(this);">Text-Dokumentation</a></li>
+                                        <li><a href="basicode/KC-Club/TEXTUM.BAS" onclick="return loadFile(this);">Textum</a></li>
+                                        <li><a href="basicode/KC-Club/TICTACTO.bc" onclick="return loadFile(this);">Butter,Kaese Und Eier</a></li>
+                                        <li><a href="basicode/KC-Club/TRAFO.bc" onclick="return loadFile(this);">Trafoberechnung V.1.2  Riu</a></li>
+                                        <li><a href="basicode/KC-Club/UMRECHN.bc" onclick="return loadFile(this);">Umrechnungsuebung Von Einh.</a></li>
+                                        <li><a href="basicode/KC-Club/UMWELT.BAS" onclick="return loadFile(this);">Umwelt-Daten</a></li>
+                                        <li><a href="basicode/KC-Club/UNRVERB.bc" onclick="return loadFile(this);">Unregelm. Verben</a></li>
+                                        <li><a href="basicode/KC-Club/UNTERNEH.bc" onclick="return loadFile(this);">Unternehmer</a></li>
+                                        <li><a href="basicode/KC-Club/VIC.bc" onclick="return loadFile(this);">Vic</a></li>
+                                        <li><a href="basicode/KC-Club/VIERGEW.bc" onclick="return loadFile(this);">Vier Gewinnt</a></li>
+                                        <li><a href="basicode/KC-Club/WEIHNACH.bc" onclick="return loadFile(this);">Weihnachtslieder</a></li>
+                                        <li><a href="basicode/KC-Club/WORK.bc" onclick="return loadFile(this);">Bestaende In Basicode 3</a></li>
+                                        <li><a href="basicode/KC-Club/WURM.bc" onclick="return loadFile(this);">Lindwurm</a></li>
+                                        <li><a href="basicode/KC-Club/ZINSEN.bc" onclick="return loadFile(this);">Kreditlauf</a></li>
+                                        <li><a href="basicode/KC-Club/ZUTEXT.BAS" onclick="return loadFile(this);">Zutext</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/SIGM-235
+                                    <ol>
+                                        <li><a href="basicode/SIGM-235/BOKA-EI.bc2" onclick="return loadFile(this);">BOKA-EI.bc2</a></li>
+                                        <li><a href="basicode/SIGM-235/DELERS.bc2" onclick="return loadFile(this);">DELERS.bc2</a></li>
+                                        <li><a href="basicode/SIGM-235/DIGIKLOK.bc2" onclick="return loadFile(this);">DIGIKLOK.bc2</a></li>
+                                        <li><a href="basicode/SIGM-235/FEESTEN.bc2" onclick="return loadFile(this);">FEESTEN.bc2</a></li>
+                                        <li><a href="basicode/SIGM-235/KALFEEST.bc2" onclick="return loadFile(this);">KALFEEST.bc2</a></li>
+                                        <li><a href="basicode/SIGM-235/MASSA.bc2" onclick="return loadFile(this);">Reserveer Stringruimte</a></li>
+                                        <li><a href="basicode/SIGM-235/SORT.bc2" onclick="return loadFile(this);">Stringruimte</a></li>
+                                        <li><a href="basicode/SIGM-235/STELSELS.bc2" onclick="return loadFile(this);">Reserveer Stringruimte</a></li>
+                                        <li><a href="basicode/SIGM-235/TANKIE.bc2" onclick="return loadFile(this);">TANKIE.bc2</a></li>
+                                        <li><a href="basicode/SIGM-235/TESTBC2.bc2" onclick="return loadFile(this);">Reserveer Stringruimte</a></li>
+                                        <li><a href="basicode/SIGM-235/TIMER555.bc2" onclick="return loadFile(this);">TIMER555.bc2</a></li>
+                                        <li><a href="basicode/SIGM-235/UITLEG1.bc" onclick="return loadFile(this);">UITLEG1.bc</a></li>
+                                        <li><a href="basicode/SIGM-235/UITLEG2.bc" onclick="return loadFile(this);">UITLEG2.bc</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Sammelsurium/DATENBAN.KEN
+                                    <ol>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/ADRESSEN.ASC" onclick="return loadFile(this);">Adressen-Verwaltung</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/ANL-SCOR.ASC" onclick="return loadFile(this);">Score-Erlaeuterung</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/BASE.ASC" onclick="return loadFile(this);">Base</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/BENZIN.ASC" onclick="return loadFile(this);">Benzinverbrauch</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/BESTAND.ASC" onclick="return loadFile(this);">Bestaende In Basicode 3</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/BESTANDE.ASC" onclick="return loadFile(this);">Bestanden Basicode 3</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/BESTELLG.ASC" onclick="return loadFile(this);">Bestellung</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/BRFMARKE.ASC" onclick="return loadFile(this);">Briefmarkenverwaltung</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/BUNDLIGA.ASC" onclick="return loadFile(this);">Bundesliga</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/CHEMIEFO.ASC" onclick="return loadFile(this);">Chemie-Formules</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/DISCO.ASC" onclick="return loadFile(this);">Disco</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/E-NUMMER.ASC" onclick="return loadFile(this);">E-Nummers</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/ENGLISH1.ASC" onclick="return loadFile(this);">English</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/ENGLISH2.ASC" onclick="return loadFile(this);">Unregelm. Verben</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/FILE.ASC" onclick="return loadFile(this);">File</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/HILFE_SA.ASC" onclick="return loadFile(this);">HILFE_SA.ASC</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/INFO_SAT.ASC" onclick="return loadFile(this);">INFO_SAT.ASC</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/INHALT.ASC" onclick="return loadFile(this);">Programmverzeichnis Kassette</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/KASSETVE.ASC" onclick="return loadFile(this);">Programmverzeichnis Kassette</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/MAKER-1.ASC" onclick="return loadFile(this);">Bestanden-Maker-1</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/MAKER-2.ASC" onclick="return loadFile(this);">Bestanden-Maker-2</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/MENUEPRO.ASC" onclick="return loadFile(this);">Menus</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/NAWP.ASC" onclick="return loadFile(this);">Nawp-Bestand</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/PFLANZEN.ASC" onclick="return loadFile(this);">Bluehkalender</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/PUNTEN2.ASC" onclick="return loadFile(this);">Puntenboekje</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/PUNTENBO.ASC" onclick="return loadFile(this);">Puntenboekje-Uitleg</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/RWLTEXT.ASC" onclick="return loadFile(this);">R-W-L Text</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/SCORE-BC.ASC" onclick="return loadFile(this);">Bc-Score</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/TEXTEDIT.ASC" onclick="return loadFile(this);">Basic-Text-Editor</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/UMWELT.ASC" onclick="return loadFile(this);">Umwelt-Daten</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/VASTELAS.ASC" onclick="return loadFile(this);">Vaste Lasten</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/WAHL-90.ASC" onclick="return loadFile(this);">Wahl90</a></li>
+                                        <li><a href="basicode/Sammelsurium/DATENBAN.KEN/WOERTERL.ASC" onclick="return loadFile(this);">Woordenlijst</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Sammelsurium/DIAGRAMM.E
+                                    <ol>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/2LINIEN.ASC" onclick="return loadFile(this);">2 Rechte Lijnen</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/3DFUNKT.ASC" onclick="return loadFile(this);">3D-Funktion</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/AARDKART.ASC" onclick="return loadFile(this);">Aardkaart</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/ALF3.ASC" onclick="return loadFile(this);">Alf-3  -Bild</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/ATLAS.ASC" onclick="return loadFile(this);">Atlas</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/AUTOSY1.ASC" onclick="return loadFile(this);">Autosimulator 1</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/AUTOSY2.ASC" onclick="return loadFile(this);">Autosimulator 2</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/AUTOSY3.ASC" onclick="return loadFile(this);">Autosimulator 3</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/AUTOSY4.ASC" onclick="return loadFile(this);">Autosimulator 4</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/BAUMDESP.ASC" onclick="return loadFile(this);">Boom Van Pythagoras</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/BAUMPYTH.ASC" onclick="return loadFile(this);">De Boom Van Pythagoras  Bc3</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/BEP.ASC" onclick="return loadFile(this);">Perspectief</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/CIRKELDI.ASC" onclick="return loadFile(this);">Cirkeldiagram</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/DDR.ASC" onclick="return loadFile(this);">Ddr</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/DIAGRAM1.ASC" onclick="return loadFile(this);">Diagrammen</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/DIAGRAM2.ASC" onclick="return loadFile(this);">Uitleg Bij Diagrammen</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/DIFFUSSI.ASC" onclick="return loadFile(this);">Diffusie</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/ELLIPSE.ASC" onclick="return loadFile(this);">Ala-Ellipse  31.10.89</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FIGUREN.ASC" onclick="return loadFile(this);">Figuren</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FIGUREN1.ASC" onclick="return loadFile(this);">Figuren</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FKT3D.ASC" onclick="return loadFile(this);">Fkt3D</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FLUSSPLA.ASC" onclick="return loadFile(this);">Flowsheetstroomschema</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FRAKIAL.ASC" onclick="return loadFile(this);">Fraktale</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FRAKSUCH.ASC" onclick="return loadFile(this);">Fraksuch</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FRAKTAL.ASC" onclick="return loadFile(this);">Fraktale</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FRAKTALE.ASC" onclick="return loadFile(this);">Lineaire Fractals</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FUNKT1.ASC" onclick="return loadFile(this);">Zfx,Y ,Bc3-C</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FUNKT2.ASC" onclick="return loadFile(this);">Functieplot</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FUNKTIO1.ASC" onclick="return loadFile(this);">Funktion-1</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/FUNKTION.ASC" onclick="return loadFile(this);">Functies</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/GLOBUS.ASC" onclick="return loadFile(this);">Globe</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/GLOBUSS.ASC" onclick="return loadFile(this);">Globus</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/GRAFIK1.ASC" onclick="return loadFile(this);">Karakters Op Het Grafisch-Scherm</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/GRAFIK2.ASC" onclick="return loadFile(this);">Grafik</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/GRAPH.ASC" onclick="return loadFile(this);">Liniengrafik</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/GRAPH2.ASC" onclick="return loadFile(this);">Liniengrafik</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/HOCHKRAN.ASC" onclick="return loadFile(this);">Hijskraan</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/HOPALONG.ASC" onclick="return loadFile(this);">Hopalong</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/HUPFER.ASC" onclick="return loadFile(this);">Hupfer</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/JOUKOW.ASC" onclick="return loadFile(this);">Joukowski-Vleugel</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/KARAKTER.ASC" onclick="return loadFile(this);">Karakters Op Het Grafisch-Scherm</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/KEGELBAH.ASC" onclick="return loadFile(this);">Kogelbaan</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/KERSTKA2.ASC" onclick="return loadFile(this);">Verklaring Kerstkaart</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/KERSTKAR.ASC" onclick="return loadFile(this);">Kerstkaartxmascard</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/KLIMA.ASC" onclick="return loadFile(this);">Klimaatgrafiek</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/LEB.ASC" onclick="return loadFile(this);">Lebende Bilder</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/LIJNONDE.ASC" onclick="return loadFile(this);">Lijnonderzoek</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/LINIEN.ASC" onclick="return loadFile(this);">Linien</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/LINSEN.ASC" onclick="return loadFile(this);">Beeldconstructie</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/LISSAJOU.ASC" onclick="return loadFile(this);">Lissajou.Bac</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/LISTSTR.ASC" onclick="return loadFile(this);">Lichtstralen</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/MANDALA.ASC" onclick="return loadFile(this);">Mandala.Bac</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/MUECKENW.ASC" onclick="return loadFile(this);">Schema Muggenverschrikker</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/MULTIKLO.ASC" onclick="return loadFile(this);">Multiklok</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/NEDERLAN.ASC" onclick="return loadFile(this);">Nederland</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/NETZWERK.ASC" onclick="return loadFile(this);">Netwerken</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/N_ECK.ASC" onclick="return loadFile(this);">N-Eck</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/OPUS5.ASC" onclick="return loadFile(this);">Opus 5 Oscar Reutersvaerd, Sweden</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/PARABOLE.ASC" onclick="return loadFile(this);">Parabolen</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/PARTIKEL.ASC" onclick="return loadFile(this);">Partikelsystemen</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/PHASENMO.ASC" onclick="return loadFile(this);">Vazenmodel</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/PLANET2.ASC" onclick="return loadFile(this);">Planeetbanenkeplerwetten</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/PLANETEN.ASC" onclick="return loadFile(this);">Uitleg Bij Planeetbanen</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/PRABOL.ASC" onclick="return loadFile(this);">Paraboolonderzoek</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/PROJEKTI.ASC" onclick="return loadFile(this);">Roofprooidieren-Cyclus</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/PROOI.ASC" onclick="return loadFile(this);">Roofprooidieren-Cyclus</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/RUSSISCH.ASC" onclick="return loadFile(this);">Russisch</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/SCHLUES1.ASC" onclick="return loadFile(this);">Uitleg Keynesiaanse Model</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/SCHLUES2.ASC" onclick="return loadFile(this);">Keynesiaanse Model</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/SCHLUES3.ASC" onclick="return loadFile(this);">Keynesiaanse Model</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/SCHNEEFL.ASC" onclick="return loadFile(this);">Sneeuwvlokkromme</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/SIERPINS.ASC" onclick="return loadFile(this);">Kromme Van Sierpinski</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/SINCOS.ASC" onclick="return loadFile(this);">Sincosgonio</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/SINUS.ASC" onclick="return loadFile(this);">Sinus</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/SPIRALEN.ASC" onclick="return loadFile(this);">Spiraalstelsel</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/SPIROGRA.ASC" onclick="return loadFile(this);">Spiro-Graph</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/STERRENH.ASC" onclick="return loadFile(this);">Planetarium</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/STERVLEK.ASC" onclick="return loadFile(this);">Stervlek</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/TAMIL.ASC" onclick="return loadFile(this);">Tamil Schrifttekens</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/TEKEN.ASC" onclick="return loadFile(this);">Tekenprogramma</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/TEKENEN.ASC" onclick="return loadFile(this);">Tekenen</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/TESTBILD.ASC" onclick="return loadFile(this);">Testbeeld</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/USA.ASC" onclick="return loadFile(this);">Verenigde Staten</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/VIERKANT.ASC" onclick="return loadFile(this);">Vierkanten</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/VLOEIEND.ASC" onclick="return loadFile(this);">Vloeiende Kromme</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/VLOENDE.ASC" onclick="return loadFile(this);">Arabesque</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/WINDB.ASC" onclick="return loadFile(this);">Bron In Wind</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/WINDROS2.ASC" onclick="return loadFile(this);">Schema Windroos</a></li>
+                                        <li><a href="basicode/Sammelsurium/DIAGRAMM.E/WINDROSE.ASC" onclick="return loadFile(this);">Uitleg Elektronische Windroos</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Sammelsurium/JOURNALE
+                                    <ol>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BASC-DOK.ASC" onclick="return loadFile(this);">Bascoder-Dokumentation</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BASC3-C.ASC" onclick="return loadFile(this);">Basicode-3 Computerbulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BASHI.ASC" onclick="return loadFile(this);">Bashilf</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BC-ASCII.ASC" onclick="return loadFile(this);">Basicode-Ascii</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BC-COLOR.ASC" onclick="return loadFile(this);">Kleurendemo</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BC-INFO.ASC" onclick="return loadFile(this);">Basicode-Info</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BUL13_17.ASC" onclick="return loadFile(this);">Basicode-3 Computerbulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULB21.ASC" onclick="return loadFile(this);">Basicode-2 - Deel-1</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULB22.ASC" onclick="return loadFile(this);">BULB22.ASC</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULB23.ASC" onclick="return loadFile(this);">BULB23.ASC</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULET8.ASC" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULITON9.ASC" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLET1.ASC" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLET2.ASC" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLO18.ASC" onclick="return loadFile(this);">Basicode-3 Computerbulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLO19.ASC" onclick="return loadFile(this);">Basicode-3 Computerbulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLO20.ASC" onclick="return loadFile(this);">Basicode-3 Computerbulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLO21.ASC" onclick="return loadFile(this);">Bullo21.Asc</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLO22.ASC" onclick="return loadFile(this);">Bullo22.Asc</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLO23.ASC" onclick="return loadFile(this);">Bullo23.Asc</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLO25.ASC" onclick="return loadFile(this);">Basicode-3 Computerbulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLO26.ASC" onclick="return loadFile(this);">Basicode-3 Computerbulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLO27.ASC" onclick="return loadFile(this);">Basicode-3 Computerbulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLOT3.ASC" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLOT4.ASC" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLOT5.ASC" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULLOT6.ASC" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULOT10.ASC" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULOT11.ASC" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/BULOT12.ASC" onclick="return loadFile(this);">Basicode-3 Computer Bulletinb2</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/CATALOGU.ASC" onclick="return loadFile(this);">Basicodebestand Uitleg</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/DATEN.ASC" onclick="return loadFile(this);">Daten</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/DATENBAN.ASC" onclick="return loadFile(this);">Databanken-Bulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/DEMO.ASC" onclick="return loadFile(this);">Demo-120</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/ENTFERN.ASC" onclick="return loadFile(this);">Entfernung - Trosds-Kultur</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/ERL-SOUR.ASC" onclick="return loadFile(this);">ERL-SOUR.ASC</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/FARBTEST.ASC" onclick="return loadFile(this);">Kleurendemo</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/FORMAT.ASC" onclick="return loadFile(this);">Format</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/INFO_KOK.ASC" onclick="return loadFile(this);">Kokon 90</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/J-EXTRA.ASC" onclick="return loadFile(this);">Basicode-3 Journal-Extra</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOUR.ASC" onclick="return loadFile(this);">Basicode-3C Computerbulletin</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN01.ASC" onclick="return loadFile(this);">Basicode-3 Journal</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN02.ASC" onclick="return loadFile(this);">Basicode-3 Journal 2</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN03.ASC" onclick="return loadFile(this);">Basicode-3 Journal 3</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN04.ASC" onclick="return loadFile(this);">Basicode-3 Journal 4</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN05.ASC" onclick="return loadFile(this);">Basicode-3 Journal 5</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN06.ASC" onclick="return loadFile(this);">Basicode-3 Journal 6</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN07.ASC" onclick="return loadFile(this);">Basicode-3 Journal 7</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN09.ASC" onclick="return loadFile(this);">Basicode-3 Journal 9</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN10.ASC" onclick="return loadFile(this);">Basicode-3 Journal 10</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN11.ASC" onclick="return loadFile(this);">Basicode-3 Journal 11</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN12.ASC" onclick="return loadFile(this);">Basicode-3 Journal 12</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/JOURN13.ASC" onclick="return loadFile(this);">Basicode Journ 13  Astra-Info-2</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/KONVERT.ASC" onclick="return loadFile(this);">Konvertierungjournal--.Txt</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/KURS_1.ASC" onclick="return loadFile(this);">Basicode-3 Journal 12</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/KURS_2.ASC" onclick="return loadFile(this);">Basicode-3 Journal 3</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/KURS_3.ASC" onclick="return loadFile(this);">Basicode-3 Journal 4</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/KURS_4.ASC" onclick="return loadFile(this);">Basicode-3 Journal 5</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/KURS_5.ASC" onclick="return loadFile(this);">Basicode-3 Journal 6</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/KURS_6.ASC" onclick="return loadFile(this);">Basicode-3 Journal 7</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/KURS_7.ASC" onclick="return loadFile(this);">Basicode-3 Journal 9</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/KURS_8.ASC" onclick="return loadFile(this);">Basicode-3 Journal 11</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/KURS_9.ASC" onclick="return loadFile(this);">Basicode-3 Journal 12</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/MULTICOD.ASC" onclick="return loadFile(this);">Multicode</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/PASCINFO.ASC" onclick="return loadFile(this);">Pascal-Literatur-Tips</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/PASKCC.ASC" onclick="return loadFile(this);">Pascomp-Kcc</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/SOURCE.ASC" onclick="return loadFile(this);">Source.V4</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/STOP.ASC" onclick="return loadFile(this);">Stop</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/STRING.ASC" onclick="return loadFile(this);">Stringfunktionen</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/TASTE.ASC" onclick="return loadFile(this);">Taste</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/TEXT-DOK.ASC" onclick="return loadFile(this);">Text-Dokumentation</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/TEXTUM.ASC" onclick="return loadFile(this);">Textum</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/UITLEG_B.ASC" onclick="return loadFile(this);">Tips Voor Programmeurs</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/WELCOM.ASC" onclick="return loadFile(this);">Welkom Op Kant 2</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/WERELDOM.ASC" onclick="return loadFile(this);">Wereldomroep Europaschema Zomer 84</a></li>
+                                        <li><a href="basicode/Sammelsurium/JOURNALE/ZUTEXT.ASC" onclick="return loadFile(this);">Zutext</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Sammelsurium/MATHEMAT.IK
+                                    <ol>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/ANTENNE.ASC" onclick="return loadFile(this);">Antenne Aerospatiale</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/APPROX.ASC" onclick="return loadFile(this);">Approx</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/ARCIMEDE.ASC" onclick="return loadFile(this);">Berechnung Pi</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/BEZINVER.ASC" onclick="return loadFile(this);">Auto Brandstof Verbruik</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/BREIEN.ASC" onclick="return loadFile(this);">Breien</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/BREUKEN1.ASC" onclick="return loadFile(this);">Breuken Vereenvoudigen</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/BREUKEN2.ASC" onclick="return loadFile(this);">Breuken-2</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/BUBBLE.ASC" onclick="return loadFile(this);">Bubble</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/CHIFFRE.ASC" onclick="return loadFile(this);">..Cijferagenda</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/DIGITALE.ASC" onclick="return loadFile(this);">Digitale Klok</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/DREIECK.ASC" onclick="return loadFile(this);">Dreiecksberechnung</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/EINHEITE.ASC" onclick="return loadFile(this);">Rekenen Met Eenheden</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/ENERGIE.ASC" onclick="return loadFile(this);">Energie-Kosten</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/ENERGIEV.ASC" onclick="return loadFile(this);">Energieverbruik</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/EPROM.ASC" onclick="return loadFile(this);">Eprom Als Teller</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/EXPSTEIG.ASC" onclick="return loadFile(this);">Exponentielle Steigerung</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/E_BERECH.ASC" onclick="return loadFile(this);">Berekening Van E</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/FILTER.ASC" onclick="return loadFile(this);">Filterberechnung</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/FOTO-TIM.ASC" onclick="return loadFile(this);">Timer Fototrocknung</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/FUNKTIEA.ASC" onclick="return loadFile(this);">Function Properties</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/GAGE.ASC" onclick="return loadFile(this);">Gage Berekenen</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/GALTONBR.ASC" onclick="return loadFile(this);">Bord Van Galton</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/GELDER.ASC" onclick="return loadFile(this);">Vreemd Geld</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/GETALCON.ASC" onclick="return loadFile(this);">Getalconversie</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/GOOCHELE.ASC" onclick="return loadFile(this);">Goochelen</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/GUTHABEN.ASC" onclick="return loadFile(this);">Verzinsungi</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/HELP.ASC" onclick="return loadFile(this);">Help V 1.3</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/HELPDOK.ASC" onclick="return loadFile(this);">Help-Instruktionen</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/HEXDEZ.ASC" onclick="return loadFile(this);">Hexdec</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/HYDRA.ASC" onclick="return loadFile(this);">Hydra</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/HYPOTHEK.ASC" onclick="return loadFile(this);">Hypotheek-Termijnen</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/KALENDR1.ASC" onclick="return loadFile(this);">Jahreskalender</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/KALENDR2.ASC" onclick="return loadFile(this);">Kalender</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/KALENDR3.ASC" onclick="return loadFile(this);">Kalenderbc3</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/KL.ASC" onclick="return loadFile(this);">Kleinste Kwadraten</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/KREDIT.ASC" onclick="return loadFile(this);">Kreditlauf</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/LOGAR.ASC" onclick="return loadFile(this);">--- Log. Dualis</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/LOHN1.ASC" onclick="return loadFile(this);">Loonberekeningen 1988</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/LOHN2.ASC" onclick="return loadFile(this);">Loonberekeningen 1988  Printen</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/LOTTO-SI.ASC" onclick="return loadFile(this);">Tele-Lotto</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/LOTTOSTA.ASC" onclick="return loadFile(this);">Lotto-Analyse</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/MATRIX.ASC" onclick="return loadFile(this);">Matrix Manipulatie</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/MICRO_MU.ASC" onclick="return loadFile(this);">Micromuf  Date23-5-1984</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/MORSE.ASC" onclick="return loadFile(this);">Morse In Basicode3</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/PI.ASC" onclick="return loadFile(this);">Pi</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/PLANHULP.ASC" onclick="return loadFile(this);">Planhulp</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/RADIOAKT.ASC" onclick="return loadFile(this);">Radioaktief Verval</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/RADIOHOR.ASC" onclick="return loadFile(this);">Radiohorizon</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/RECHENTA.ASC" onclick="return loadFile(this);">Rekentableau</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/RECHTA.ASC" onclick="return loadFile(this);">Reken-Tabel</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/RENTEBER.ASC" onclick="return loadFile(this);">Rente Berekeningen</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/ROMZA.ASC" onclick="return loadFile(this);">Romza</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/SCHULDEN.ASC" onclick="return loadFile(this);">Verzinsungii</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/SORTEREN.ASC" onclick="return loadFile(this);">Alpha-Sort</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/STEUER83.ASC" onclick="return loadFile(this);">Steuer 1983</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/TAFEL.ASC" onclick="return loadFile(this);">Tafeltabel</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/TARIFE.ASC" onclick="return loadFile(this);">Tariefgroep</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/TORENS_V.ASC" onclick="return loadFile(this);">Towers Of Hanoi</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/TRAFO.ASC" onclick="return loadFile(this);">Trafoberechnung V.1.2  Riu</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/VALUTATA.ASC" onclick="return loadFile(this);">Valutatabel</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/WATTOHM.ASC" onclick="return loadFile(this);">Wet Van Ohm</a></li>
+                                        <li><a href="basicode/Sammelsurium/MATHEMAT.IK/WOCH-TAG.ASC" onclick="return loadFile(this);">Wochentag</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Sammelsurium/MUSIK
+                                    <ol>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/ACCOORDE.ASC" onclick="return loadFile(this);">Accoorden</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/AKKOORDE.ASC" onclick="return loadFile(this);">Chords</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/BACH.ASC" onclick="return loadFile(this);">Muziekdemonstratie</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/BUMMI.ASC" onclick="return loadFile(this);">B U M M I</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/GITARRE.ASC" onclick="return loadFile(this);">Gitaar</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/HYMNEN.ASC" onclick="return loadFile(this);">Hymnen</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/LIED.ASC" onclick="return loadFile(this);">Lied</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/MELODIEN.ASC" onclick="return loadFile(this);">Muziekdemonstratie</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/MINIORGE.ASC" onclick="return loadFile(this);">Mini-Orgel</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/MOZART.ASC" onclick="return loadFile(this);">Mozart</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/MUSIK.ASC" onclick="return loadFile(this);">Muziekdemo</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/NOTENBAN.ASC" onclick="return loadFile(this);">Notenbalk</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/PIANOINS.ASC" onclick="return loadFile(this);">Pianoinstrukteur</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/SINTERKL.ASC" onclick="return loadFile(this);">Sinterklaasliederen</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/SOLFEGIO.ASC" onclick="return loadFile(this);">Solfeggio</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/SPIELDOS.ASC" onclick="return loadFile(this);">Speeldoosbc3</a></li>
+                                        <li><a href="basicode/Sammelsurium/MUSIK/WEIHNACH.ASC" onclick="return loadFile(this);">Weihnachtslieder</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Sammelsurium/SPIELE
+                                    <ol>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/4GEWINNT.ASC" onclick="return loadFile(this);">Viergewinnt</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/ANTWORT.ASC" onclick="return loadFile(this);">Frage  Antwort</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/AUTORACE.ASC" onclick="return loadFile(this);">Car Race</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/BARIKADE.ASC" onclick="return loadFile(this);">Barrikade</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/BC2-TEST.ASC" onclick="return loadFile(this);">Testbasicode-2</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/BIO-D.ASC" onclick="return loadFile(this);">Bio</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/BIO-NL1.ASC" onclick="return loadFile(this);">Bioritme</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/BIO-NL2.ASC" onclick="return loadFile(this);">Bioritme</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/BIO-NL3.ASC" onclick="return loadFile(this);">Biorithme</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/BIORHYTH.ASC" onclick="return loadFile(this);">Biorhythmen</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/BURG.ASC" onclick="return loadFile(this);">Burgschlacht</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/CRAZYKON.ASC" onclick="return loadFile(this);">Krazy Kong  830327</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/DELEN.ASC" onclick="return loadFile(this);">Aftrekdelen</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/EENDENJA.ASC" onclick="return loadFile(this);">Eendenjacht</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/ESCOTT.ASC" onclick="return loadFile(this);">Escotts Schuifpuzzel</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/EXPERTSY.ASC" onclick="return loadFile(this);">Expert-System</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/FAKTOREN.ASC" onclick="return loadFile(this);">Factors</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/FLITS.ASC" onclick="return loadFile(this);">Flits</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/GALGJE.ASC" onclick="return loadFile(this);">Galgje</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/HUISJES.ASC" onclick="return loadFile(this);">Zet De Huisjes Op Een Rij</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/JOSEF.ASC" onclick="return loadFile(this);">Josef-Spiel</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/KASSA.ASC" onclick="return loadFile(this);">Kassa  Om Winkeltje Te Spelen</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/KLOKEKEN.ASC" onclick="return loadFile(this);">Klok Kijken</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/KOPFZAHL.ASC" onclick="return loadFile(this);">Zahl Auf Zahl</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/KREUZWOR.ASC" onclick="return loadFile(this);">Kruistal-Raadsel</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/KUBUS.ASC" onclick="return loadFile(this);">Kubus      Leider Fehlerhaft ...</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/LABIRINT.ASC" onclick="return loadFile(this);">Labyrinth</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/LETS_GET.ASC" onclick="return loadFile(this);">LETS_GET.ASC</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/LETTERBA.ASC" onclick="return loadFile(this);">Letterbak</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/LEVENSLO.ASC" onclick="return loadFile(this);">Life Expectancy</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/LINDWURM.ASC" onclick="return loadFile(this);">Lindwurm</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/LOGO.ASC" onclick="return loadFile(this);">Zahlen</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/MAANLAND.ASC" onclick="return loadFile(this);">Maanlander-Simulatie</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/MANIKINP.ASC" onclick="return loadFile(this);">Straalkracht</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/MASTER.ASC" onclick="return loadFile(this);">Mastermind</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/MASTERMI.ASC" onclick="return loadFile(this);">Mastermind</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/MATHE.ASC" onclick="return loadFile(this);">Mathetraining</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/MEGAHIRN.ASC" onclick="return loadFile(this);">Superhirn</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/MEMORY.ASC" onclick="return loadFile(this);">Memory</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/MINENSUC.ASC" onclick="return loadFile(this);">Minensuche</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/MOPS.ASC" onclick="return loadFile(this);">Mops</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/MOPSN.ASC" onclick="return loadFile(this);">Mops</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/NIMM.ASC" onclick="return loadFile(this);">Nimm</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/OTHELLO.ASC" onclick="return loadFile(this);">Othello</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/POEME.ASC" onclick="return loadFile(this);">Poeme</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/PROZENTE.ASC" onclick="return loadFile(this);">Procenten</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/PUZZELVI.ASC" onclick="return loadFile(this);">Puzzel Visitekaartjes</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/QUIZ-ROU.ASC" onclick="return loadFile(this);">Eingabe Quiz</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/QUIZ.ASC" onclick="return loadFile(this);">Quiz</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/QUIZZ.ASC" onclick="return loadFile(this);">Q  U I Z</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/REAKTEST.ASC" onclick="return loadFile(this);">Reaktion</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/REVERSI.ASC" onclick="return loadFile(this);">Reversi</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/RIJMELA.ASC" onclick="return loadFile(this);">Rijmelarij</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/S-QUOT.ASC" onclick="return loadFile(this);">Sex-Quotient</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/SCHIEB.ASC" onclick="return loadFile(this);">Schiebefax</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/SIMPLEPA.ASC" onclick="return loadFile(this);">Simplepac</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/SLIDER1.ASC" onclick="return loadFile(this);">Slider</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/SLIDER2.ASC" onclick="return loadFile(this);">Slider</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/SLINFO.ASC" onclick="return loadFile(this);">Slider-Info</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/SOLITAIR.ASC" onclick="return loadFile(this);">Solitaire</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/SUMERIA.ASC" onclick="return loadFile(this);">Bc-Sumeria</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/TAFELPLE.ASC" onclick="return loadFile(this);">Tafelplezier</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/TEMPOTYP.ASC" onclick="return loadFile(this);">Tempotypen</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/TITREREN.ASC" onclick="return loadFile(this);">Titreren</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/TROS.ASC" onclick="return loadFile(this);">Zoek De Combinatie</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/UMRECHN.ASC" onclick="return loadFile(this);">Umrechnungsuebung Von Einh.</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/UNTENEH.ASC" onclick="return loadFile(this);">Unternehmer</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/VALKUIL.ASC" onclick="return loadFile(this);">Valkuil</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/VERMENIG.ASC" onclick="return loadFile(this);">Vermenigvuldig Puzzle</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/VIC.ASC" onclick="return loadFile(this);">Vic</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/WOORDENS.ASC" onclick="return loadFile(this);">Word-Game</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/WORDPUZZ.ASC" onclick="return loadFile(this);">Woordpuzzel</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/ZAHL_AUF.ASC" onclick="return loadFile(this);">Zahl Auf Zahl</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/ZEESLAG.ASC" onclick="return loadFile(this);">Zeeslag</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/ZEHNFING.ASC" onclick="return loadFile(this);">10-Vinger-Typen</a></li>
+                                        <li><a href="basicode/Sammelsurium/SPIELE/ZOEK_HET.ASC" onclick="return loadFile(this);">Zoek Het Woord</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Various
+                                    <ol>
+                                        <li><a href="basicode/Various/19840401_Verkeersberichten.bc2" onclick="return loadFile(this);">Verkeersberichten</a></li>
+                                        <li><a href="basicode/Various/19840930_Aftrekdelen.bc2" onclick="return loadFile(this);">Aftrekdelen</a></li>
+                                        <li><a href="basicode/Various/19860712_UitlegBasicode3.bc2" onclick="return loadFile(this);">Uitleg Basicode-3 Deel 1</a></li>
+                                        <li><a href="basicode/Various/AceyDucey.bc3" onclick="return loadFile(this);">Acey Ducey</a></li>
+                                        <li><a href="basicode/Various/AstraInfo3.bc3" onclick="return loadFile(this);">Astra-Info 3</a></li>
+                                        <li><a href="basicode/Various/BasicodeHilfsprogramm.bc3" onclick="return loadFile(this);">Basicode-Hilfsprogramm</a></li>
+                                        <li><a href="basicode/Various/Boekhoudprogramma.bc3" onclick="return loadFile(this);">Boekhoudprogramma</a></li>
+                                        <li><a href="basicode/Various/DataCopyPrint.bc3" onclick="return loadFile(this);">Datacopy  Print</a></li>
+                                        <li><a href="basicode/Various/FileKopplung.bc3" onclick="return loadFile(this);">--Filekopplung--</a></li>
+                                        <li><a href="basicode/Various/Funktionsplotting.bc3" onclick="return loadFile(this);">Funktionsplotting</a></li>
+                                        <li><a href="basicode/Various/JuliaSets.b3c" onclick="return loadFile(this);">Julia Sets</a></li>
+                                        <li><a href="basicode/Various/LetsGetDigital.bc2" onclick="return loadFile(this);">LetsGetDigital.bc2</a></li>
+                                        <li><a href="basicode/Various/OthelloColour.b3c" onclick="return loadFile(this);">Othello</a></li>
+                                        <li><a href="basicode/Various/Rotation.bc3" onclick="return loadFile(this);">Rotation Aehnl. Schiebefix</a></li>
+                                        <li><a href="basicode/Various/Seizoenen.bc2" onclick="return loadFile(this);">Seizoenen</a></li>
+                                        <li><a href="basicode/Various/SolitairDame.bc3" onclick="return loadFile(this);">Solitair-Dame</a></li>
+                                        <li><a href="basicode/Various/Tennis.b3c" onclick="return loadFile(this);">Tennis</a></li>
+                                        <li><a href="basicode/Various/TextAnzeigerDokumentation.bc3" onclick="return loadFile(this);">Textanzeiger.Dok</a></li>
+                                        <li><a href="basicode/Various/Weer.bc3" onclick="return loadFile(this);">Weer, Versie 1.0</a></li>
+                                        <li><a href="basicode/Various/Widerstaende.b3c" onclick="return loadFile(this);">Widerstaende</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Verzamelcassette_1
+                                    <ol>
+                                        <li><a href="basicode/Verzamelcassette_1/A01_Computerbulletin_1.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A02_Biorithme.bc3" onclick="return loadFile(this);">Biorithme</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A03_Figuren.bc3" onclick="return loadFile(this);">Figuren</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A04_Computerbulletin_2.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A05_Tunes.bc3" onclick="return loadFile(this);">Muziekdemonstratie</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A06_Computerbulletin_3.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A07_Morse.bc3" onclick="return loadFile(this);">Morse Oefenen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A08_Boom_van_pythagoras.bc3" onclick="return loadFile(this);">Boom Van Pythagoras</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A09_Computerbulletin_4.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A10_Pi.bc3" onclick="return loadFile(this);">Pi</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A11_Spirograaf.bc3" onclick="return loadFile(this);">Spiro-Graph</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A12_Computerbulletin_5.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A13_Sneeuwvlok.bc3" onclick="return loadFile(this);">Sneeuwvlokkromme</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A14_Lenzen.bc3" onclick="return loadFile(this);">Beeldconstructie</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A15_Sinterklaas.bc3" onclick="return loadFile(this);">Sinterklaasliederen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A16_Rijmelarij.bc3" onclick="return loadFile(this);">Rijmelarij</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A17_Diffusie.bc3" onclick="return loadFile(this);">Diffusie</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A18_Computerbulletin_6.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/A19_Cirkeldiagrammen.bc3" onclick="return loadFile(this);">Cirkeldiagram</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B01_Computerbulletin_7.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B02_Volksliederen.bc3" onclick="return loadFile(this);">Volksliederen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B03_Vierkanten.bc3" onclick="return loadFile(this);">Vierkanten</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B04_Hijskraan.bc3" onclick="return loadFile(this);">Hijskraan</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B05_Scheve_boom_van_Pythagoras.bc3" onclick="return loadFile(this);">Scheve Boom Van Pythagoras</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B06_Spiraalstelsels.bc3" onclick="return loadFile(this);">Spiraalstelsel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B07_Antenne_Aerospatiale.bc3" onclick="return loadFile(this);">Antenne Aerospatiale</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B08_Bron_in_de_wind.bc3" onclick="return loadFile(this);">Bron In Wind</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B09_Joukowsky_vleugel.bc3" onclick="return loadFile(this);">Joukowski-Vleugel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B10_Lichtstralen.bc3" onclick="return loadFile(this);">Lichtstralen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B11_Zoek_de_TROS.bc3" onclick="return loadFile(this);">Zoek De Combinatie</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B12_Computerbulletin_8.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B13_Sierpinski.bc3" onclick="return loadFile(this);">Kromme Van Sierpinski</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B14_Netwerken.bc3" onclick="return loadFile(this);">Netwerken</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B15_Vazenmodel.bc3" onclick="return loadFile(this);">Vazenmodel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B16_Tariefgroep.bc3" onclick="return loadFile(this);">Tariefgroep</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B17_Energieverbruik.bc3" onclick="return loadFile(this);">Energieverbruik</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B18_Computerbulletin_9.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B19_Gitaarakkoorden.bc3" onclick="return loadFile(this);">Gitaar</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B20_Testbeeld.bc3" onclick="return loadFile(this);">Testbeeld</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B21_Functies.bc3" onclick="return loadFile(this);">Functies</a></li>
+                                        <li><a href="basicode/Verzamelcassette_1/B22_Breuken_vereenvoudigen.bc3" onclick="return loadFile(this);">Breuken Vereenvoudigen</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Verzamelcassette_2
+                                    <ol>
+                                        <li><a href="basicode/Verzamelcassette_2/A01_Vloeiende_kromme.bc3" onclick="return loadFile(this);">Vloeiende Kromme</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A02_Matrix_manipulatie.bc3" onclick="return loadFile(this);">Matrix Manipulatie</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A03_Morseseinen.bc3" onclick="return loadFile(this);">Morse In Basicode3</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A04_Chemieformules.bc3" onclick="return loadFile(this);">Chemie-Formules</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A05_Parabolen.bc3" onclick="return loadFile(this);">Parabolen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A06_Letterbak.bc3" onclick="return loadFile(this);">Letterbak</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A07_Klokkijken.bc3" onclick="return loadFile(this);">Klok Kijken</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A08_Multicode.bc3" onclick="return loadFile(this);">Multicode</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A09_Breuken_1.bc3" onclick="return loadFile(this);">Breuken</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A10_Computerbulletin_10.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A11_Keynes_uitleg.bc3" onclick="return loadFile(this);">Uitleg Keynesiaanse Model</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A12_Keynes_hoofdprogramma.bc3" onclick="return loadFile(this);">Keynesiaanse Model</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A13_Keynes_lange_versie.bc3" onclick="return loadFile(this);">Keynesiaanse Model</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/A14_Partikelsystemen.bc3" onclick="return loadFile(this);">Partikelsystemen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B01_Arabesque.bc3" onclick="return loadFile(this);">Arabesque</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B02_Kalender.bc3" onclick="return loadFile(this);">Kalenderbc3</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B03_Multiklok.bc3" onclick="return loadFile(this);">Multiklok</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B04_Sinus.bc3" onclick="return loadFile(this);">Sinus</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B05_Sinus-Cosinus.bc3" onclick="return loadFile(this);">Sincosgonio</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B06_Vreemd_geld.bc3" onclick="return loadFile(this);">Vreemd Geld</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B07_R-W-L_tekst.bc3" onclick="return loadFile(this);">Rwltekst 2.1</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B08_Speeldoos.bc3" onclick="return loadFile(this);">Speeldoosbc3</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B09_Computerbulletin_11.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B10_Verenigde_Staten.bc3" onclick="return loadFile(this);">Verenigde Staten</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B11_Breuken_2.bc3" onclick="return loadFile(this);">Breuken-2</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B12_Tekenen.bc3" onclick="return loadFile(this);">Tekenen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B13_Computerbulletin_12.bc3" onclick="return loadFile(this);">Basicode-3 Computer Bulletinb2</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B15_Cijferagenda.bc3" onclick="return loadFile(this);">..Cijferagenda</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B16_Kogelbaan.bc3" onclick="return loadFile(this);">Kogelbaan</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B17_Autosimulator_1.bc3" onclick="return loadFile(this);">Autosimulator 1</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B18_Autosimulator_2.bc3" onclick="return loadFile(this);">Autosimulator 2</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B19_Autosimulator_3.bc3" onclick="return loadFile(this);">Autosimulator 3</a></li>
+                                        <li><a href="basicode/Verzamelcassette_2/B20_Autosimulator_4.bc3" onclick="return loadFile(this);">Autosimulator 4</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Verzamelcassette_3
+                                    <ol>
+                                        <li><a href="basicode/Verzamelcassette_3/A01_Prooi_en_roofdier.bc3" onclick="return loadFile(this);">Roofprooidieren-Cyclus</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A02_Puntenboekje_uitleg.bc3" onclick="return loadFile(this);">Puntenboekje-Uitleg</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A03_Puntenboekje.bc3" onclick="return loadFile(this);">Puntenboekje</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A04_Planeetbanen_uitleg.bc3" onclick="return loadFile(this);">Uitleg Bij Planeetbanen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A05_Planeetbanen.bc3" onclick="return loadFile(this);">Planeetbanenkeplerwetten</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A06_Boom_van_Pythagoras.bc3" onclick="return loadFile(this);">De Boom Van Pythagoras  Bc3</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A07_Solitaire.bc3" onclick="return loadFile(this);">Solitaire</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A08_Diagrammen_uitleg.bc3" onclick="return loadFile(this);">Uitleg Bij Diagrammen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A09_Diagrammen.bc3" onclick="return loadFile(this);">Diagrammen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A10_Functieplot.bc3" onclick="return loadFile(this);">Functieplot</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A11_EPROM_als_teller.bc3" onclick="return loadFile(this);">Eprom Als Teller</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A12_Windroos_beschrijving.bc3" onclick="return loadFile(this);">Uitleg Elektronische Windroos</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/A13_Windroos_tekeningen.bc3" onclick="return loadFile(this);">Schema Windroos</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B01_Procenten.bc3" onclick="return loadFile(this);">Procenten</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B02_Bioritme.bc3" onclick="return loadFile(this);">Bioritme</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B03_Stervlek.bc3" onclick="return loadFile(this);">Stervlek</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B04_Globe.bc3" onclick="return loadFile(this);">Globe</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B05_Woordpuzzel.bc3" onclick="return loadFile(this);">Woordpuzzel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B06_Flowsheets.bc3" onclick="return loadFile(this);">Flowsheetstroomschema</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B07_Hex-Decimaal.bc3" onclick="return loadFile(this);">Hexdec</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B08_Notenbalk.bc3" onclick="return loadFile(this);">Notenbalk</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B12_Kerstkaart.bc3" onclick="return loadFile(this);">Kerstkaartxmascard</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B13_Kerstkaart_uitleg.bc3" onclick="return loadFile(this);">Verklaring Kerstkaart</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B14_Mini-orgel.bc3" onclick="return loadFile(this);">Mini-Orgel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B15_Kaart_van_Nederland.bc3" onclick="return loadFile(this);">Nederland</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B16_Kalender.bc3" onclick="return loadFile(this);">Kalender</a></li>
+                                        <li><a href="basicode/Verzamelcassette_3/B17_Verzamelbulletin_13-17.bc3" onclick="return loadFile(this);">Basicode-3 Computerbulletin</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Verzamelcassette_4
+                                    <ol>
+                                        <li><a href="basicode/Verzamelcassette_4/A01_Functieplot.bc3" onclick="return loadFile(this);">Functieplot</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A02_Tamil-schrift.bc3" onclick="return loadFile(this);">Tamil Schrifttekens</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A03_Escott-puzzel.bc3" onclick="return loadFile(this);">Escotts Schuifpuzzel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A04_Loonberekening-1.bc3" onclick="return loadFile(this);">Loonberekeningen 1988</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A05_Loonberekening-2.bc3" onclick="return loadFile(this);">Loonberekeningen 1988  Printen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A06_Breien.bc3" onclick="return loadFile(this);">Breien</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A07_Rekentableau.bc3" onclick="return loadFile(this);">Rekentableau</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A08_Valkuil.bc3" onclick="return loadFile(this);">Valkuil</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A09_Hypotheekberekening.bc3" onclick="return loadFile(this);">Hypotheek-Termijnen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A10_Fractals.bc3" onclick="return loadFile(this);">Lineaire Fractals</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A11_Rekenen_met_eenheden.bc3" onclick="return loadFile(this);">Rekenen Met Eenheden</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A12_Galgje.bc3" onclick="return loadFile(this);">Galgje</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A13_Wet_van_Ohm.bc3" onclick="return loadFile(this);">Wet Van Ohm</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A14_Memory.bc3" onclick="return loadFile(this);">Memory</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A15_10-Vinger-typen.bc3" onclick="return loadFile(this);">10-Vinger-Typen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A16_Tekenprogramma.bc3" onclick="return loadFile(this);">Tekenprogramma</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/A17_Autobrandstofverbruik.bc3" onclick="return loadFile(this);">Auto Brandstof Verbruik</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B01_Gage_berekenen.bc3" onclick="return loadFile(this);">Gage Berekenen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B02_Goochelen.bc3" onclick="return loadFile(this);">Goochelen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B03_Reversi.bc3" onclick="return loadFile(this);">Reversi</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B04_Muggenverschrikker.bc3" onclick="return loadFile(this);">Schema Muggenverschrikker</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B05_Paraboolonderzoek.bc3" onclick="return loadFile(this);">Paraboolonderzoek</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B06_Lijnonderzoek.bc3" onclick="return loadFile(this);">Lijnonderzoek</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B07_Aardkaart.bc3" onclick="return loadFile(this);">Aardkaart</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B08_Kruistalraadsel.bc3" onclick="return loadFile(this);">Kruistal-Raadsel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B09_Rekentabel.bc3" onclick="return loadFile(this);">Reken-Tabel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B10_Tafeltabel.bc3" onclick="return loadFile(this);">Tafeltabel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B11_Huisjesrij.bc3" onclick="return loadFile(this);">Zet De Huisjes Op Een Rij</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B12_Radio-horizon.bc3" onclick="return loadFile(this);">Radiohorizon</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B13_Databanken_bulletin.bc3" onclick="return loadFile(this);">Databanken-Bulletin</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B14_Hopalong.bc3" onclick="return loadFile(this);">Hopalong</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B15_E_berekenen.bc3" onclick="return loadFile(this);">Berekening Van E</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B16_Maanlander_Simulatie.bc3" onclick="return loadFile(this);">Maanlander-Simulatie</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B17_Woordenlijst.bc3" onclick="return loadFile(this);">Woordenlijst</a></li>
+                                        <li><a href="basicode/Verzamelcassette_4/B18_Quiz.bc3" onclick="return loadFile(this);">Q  U I Z</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Verzamelcassette_5
+                                    <ol>
+                                        <li><a href="basicode/Verzamelcassette_5/A01_Bridge.bc3" onclick="return loadFile(this);">Vugraf Bridge</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A02_Tweetakt_motor.bc3" onclick="return loadFile(this);">Tweetakt Motor</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A03_Morse.bc3" onclick="return loadFile(this);">Morse In Basicode3</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A04_Invul-1.bc3" onclick="return loadFile(this);">Invul-1</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A05_Invul-2.bc3" onclick="return loadFile(this);">Invul-2</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A06_Carburateur.bc3" onclick="return loadFile(this);">Carburateur</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A07_Schuifpuzzel.bc3" onclick="return loadFile(this);">Schuifpuzzel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A08_Tips_voor_C-64.bc3" onclick="return loadFile(this);">Correcties C-64</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A09_Piano-accoorden.bc3" onclick="return loadFile(this);">Accoorden Spelen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A10_Aardkaart_en_muntsoort.bc3" onclick="return loadFile(this);">Aardkaartmuntsoorten</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A11_Computerhandel.bc3" onclick="return loadFile(this);">Computerhandel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A12_Verhelpen_van_storingen.bc3" onclick="return loadFile(this);">Het Verhelpen Van Storingen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A13_Aardkaart_en_tijdzones.bc3" onclick="return loadFile(this);">Tijdzones</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A14_Drie_op_een_rij.bc3" onclick="return loadFile(this);">3 Op Een Rij</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/A15_Correlatie_en_Regressie.bc3" onclick="return loadFile(this);">Correlatie En Regressie</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B01_Beleggingen_uitleg.bc3" onclick="return loadFile(this);">Uitleg Beleggingen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B02_Beleggingen_programma.bc3" onclick="return loadFile(this);">Beleggingen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B03_Othello.bc3" onclick="return loadFile(this);">Othello</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B04_Carnaval.bc3" onclick="return loadFile(this);">Carnaval  Pasen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B05_Muziekdemo.bc3" onclick="return loadFile(this);">Muziekdemo</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B06_Denkhoofd.bc3" onclick="return loadFile(this);">Denkhoofd</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B07_Handlijnen.bc3" onclick="return loadFile(this);">Hand-Lijnen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B08_Lissajous.bc3" onclick="return loadFile(this);">Lissajous</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B09_Haaien_en_vissen.bc3" onclick="return loadFile(this);">Haaien En Vissen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B10_Magisch_vierkant.bc3" onclick="return loadFile(this);">Magisch Vierkant</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B11_Aardbol_in_dag_en_nacht.bc3" onclick="return loadFile(this);">Aarde In Dag En Nacht</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B12_Boekhouden_uitleg.bc3" onclick="return loadFile(this);">Bc-Boek - Toelichting</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B13_Boekhouden_programma.bc3" onclick="return loadFile(this);">Bc-Boek  -  Programma</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B15_Psycho-analyse.bc3" onclick="return loadFile(this);">Psycho-Analyse</a></li>
+                                        <li><a href="basicode/Verzamelcassette_5/B16_Verzamelbulletin.bc3" onclick="return loadFile(this);">Basicode-3 Computerbulletin</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Verzamelcassette_6
+                                    <ol>
+                                        <li><a href="basicode/Verzamelcassette_6/A01_Bestanden.bc3" onclick="return loadFile(this);">Bestanden Basicode 3</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A02_Visitekaartje.bc3" onclick="return loadFile(this);">Puzzel Visitekaartjes</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A03_Vaste_lasten.bc3" onclick="return loadFile(this);">Vaste Lasten</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A05_Accoorden.bc3" onclick="return loadFile(this);">Accoorden</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A06_Tafelplezier.bc3" onclick="return loadFile(this);">Tafelplezier</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A07_Kassa.bc3" onclick="return loadFile(this);">Kassa  Om Winkeltje Te Spelen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A08_Flits.bc3" onclick="return loadFile(this);">Flits</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A09_Mastermind.bc3" onclick="return loadFile(this);">Mastermind</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A10_Karakters_op_grafisch_scherm.bc3" onclick="return loadFile(this);">Karakters Op Het Grafisch-Scherm</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A11_Chinese_menus_hulpprogramma_1.bc3" onclick="return loadFile(this);">Bestanden-Maker-1</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A12_Chinese_menus_hulpprogramma_2.bc3" onclick="return loadFile(this);">Bestanden-Maker-2</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A13_Chinese_menus_programma.bc3" onclick="return loadFile(this);">Menus</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A14_Tempotypen.bc3" onclick="return loadFile(this);">Tempotypen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A15_Piano-instructeur.bc3" onclick="return loadFile(this);">Pianoinstrukteur</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A16_Figuren.bc3" onclick="return loadFile(this);">Figuren</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/A17_Cirkeldiagrammen.bc3" onclick="return loadFile(this);">Cirkeldiagram</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B01_Assenstelsel.bc3" onclick="return loadFile(this);">Assenstelsel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B02_Maanbaan_uitleg.bc3" onclick="return loadFile(this);">Uitleg Bij Maanbaan</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B03_Maanbaan_programma.bc3" onclick="return loadFile(this);">Maanbaan</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B04_Maten_en_gewichten.bc3" onclick="return loadFile(this);">Matengewichten</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B05_Stemwijzer.bc3" onclick="return loadFile(this);">Stemwijzer</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B06_Hydra.bc3" onclick="return loadFile(this);">Hydra</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B07_Puntenlijst_uitleg.bc3" onclick="return loadFile(this);">Uitleg Bij Puntenlijst</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B08_Puntenlijst_programma.bc3" onclick="return loadFile(this);">Puntenlijst-Programma</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B09_Textdump.bc3" onclick="return loadFile(this);">Textdump</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B10_Afrika.bc3" onclick="return loadFile(this);">Afrika</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B11_Bulletin_39.bc3" onclick="return loadFile(this);">Tips C-64  Bulletin-39</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B12_Veelvlakken.bc3" onclick="return loadFile(this);">Veelvlakken Bc3</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B13_Lingo.bc3" onclick="return loadFile(this);">Lingo</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B14_PIN-code.bc3" onclick="return loadFile(this);">Pin-Code</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B15_Woordenspel.bc3" onclick="return loadFile(this);">Woordenspel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_6/B16_Schuivertje.bc3" onclick="return loadFile(this);">Schuivertje</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Verzamelcassette_7
+                                    <ol>
+                                        <li><a href="basicode/Verzamelcassette_7/A01_Rekenwonder.bc3" onclick="return loadFile(this);">Rekenwonder</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A02_Honderdvel.bc3" onclick="return loadFile(this);">Honderd-Veld</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A03_Munten.bc3" onclick="return loadFile(this);">M U N T E N</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A04_Twee_rechte_lijnen.bc3" onclick="return loadFile(this);">2 Rechte Lijnen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A05_Muzikale_begeleider_1.bc3" onclick="return loadFile(this);">Muz. Begeleider</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A06_Muzikale_begeleider_2.bc3" onclick="return loadFile(this);">Muz. Begeleider</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A07_Verslag.bc3" onclick="return loadFile(this);">Verslag</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A08_Dreiecksberechnung.bc3" onclick="return loadFile(this);">Dreiecksberechnung</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A09_Omrekenen.bc3" onclick="return loadFile(this);">Omrekenen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A10_Basicode-3_rondo.bc3" onclick="return loadFile(this);">Bc-3 Rondo</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A11_JBtime.bc3" onclick="return loadFile(this);">Jbtime</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A12_Klimaatgrafiek.bc3" onclick="return loadFile(this);">Klimaatgrafiek</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A13_ASCII-shift_uitleg.bc3" onclick="return loadFile(this);">Asciishift-Uitleg</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A14_ASCII-shift_programma.bc3" onclick="return loadFile(this);">Asciishift</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A15_Muziekcassette.bc3" onclick="return loadFile(this);">Muziekcassettes</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A16_Wereldkampioen_wielrennen.bc3" onclick="return loadFile(this);">Wereldkampioen Wielrennen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A17_Postzegels_uitleg.bc3" onclick="return loadFile(this);">Uitleg Bij  Postzegels</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A18_Postzegels_programma.bc3" onclick="return loadFile(this);">Postzegels</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/A19_Tafels.bc3" onclick="return loadFile(this);">Tafels</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B01_Zoek_de_fout.bc3" onclick="return loadFile(this);">Zoek De Fout</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B02_Drie_woorden.bc3" onclick="return loadFile(this);">Drie Woorden</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B03_Voor_vermenigvuldigen.bc3" onclick="return loadFile(this);">Voor Het Vermenigvuldigen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B04_Maze-runner.bc3" onclick="return loadFile(this);">Mazerunner Uit Ad</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B05_Living_Doll.bc3" onclick="return loadFile(this);">Living Doll</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B06_TV-tunes.bc3" onclick="return loadFile(this);">T.V.-Tunes</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B07_Bestandsmaker_voor_composer.bc3" onclick="return loadFile(this);">Composer</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B08_Uitleg_voor_composer_en_playback.bc3" onclick="return loadFile(this);">Uitleg Muziekbestanden</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B09_Composer_programma.bc3" onclick="return loadFile(this);">Composer</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B10_Playback_programma.bc3" onclick="return loadFile(this);">Playback</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B11_Kaartenbak_hulpprogramma.bc3" onclick="return loadFile(this);">Voorbeeldbestand Opbouwen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B12_Kaartenbak_programma.bc3" onclick="return loadFile(this);">Kaartenbak</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B13_Afstanden.bc3" onclick="return loadFile(this);">Afstanden</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B14_2e_graads_vergelijking.bc3" onclick="return loadFile(this);">2E Graads Vergelijkingen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B15_Strippenkaart.bc3" onclick="return loadFile(this);">Strippenkaart</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B16_Rondvlucht.bc3" onclick="return loadFile(this);">Rondvlucht V1.0</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B17_Zoek_een_dier.bc3" onclick="return loadFile(this);">Zoek Een Dier</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B18_Lettergrepen.bc3" onclick="return loadFile(this);">Let-Ter-Gre-Pen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B19_Kanstabel.bc3" onclick="return loadFile(this);">Kanstabel Dobbelstenen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B20_N-Eck.bc3" onclick="return loadFile(this);">N-Eck</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B21_Barrikade.bc3" onclick="return loadFile(this);">Barrikade</a></li>
+                                        <li><a href="basicode/Verzamelcassette_7/B22_Verzamelbulletin_27-45.bc3" onclick="return loadFile(this);">Basicode-3 Computerbulletin</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Verzamelcassette_8
+                                    <ol>
+                                        <li><a href="basicode/Verzamelcassette_8/A01_Landen_en_Hoofdsteden.bc3" onclick="return loadFile(this);">Landen En Hoofdsteden</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A02_Romeinse_Cijfers.bc3" onclick="return loadFile(this);">Romeinse Cijfers</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A03_Linien.bc3" onclick="return loadFile(this);">Linien</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A04_Lottocijfers.bc3" onclick="return loadFile(this);">Lotto Cijfers</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A05_Trafoberekening.bc3" onclick="return loadFile(this);">Trafoberekening  Riu</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A06_Caslabel_uitleg.bc3" onclick="return loadFile(this);">Uitleg Bij Cassette-Labels</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A07_Caslabel_demomaker.bc3" onclick="return loadFile(this);">Data Basicode-3 Bestand</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A08_Caslabel_hoofdprogramma.bc3" onclick="return loadFile(this);">Cassette-Labels</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A09_Burgschlacht.bc3" onclick="return loadFile(this);">Burgschlacht</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A10_Mozart.bc3" onclick="return loadFile(this);">Mozart</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A11_Oranje.bc3" onclick="return loadFile(this);">Oranje</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A12_BC-Score_uitleg.bc3" onclick="return loadFile(this);">Toelichting Op Bc-Score</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A13_BC-Score_hoofdprogramma.bc3" onclick="return loadFile(this);">Bc-Scoreboard - Programma</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A14_Energiestanden.bc3" onclick="return loadFile(this);">Energie Standen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A15_Filterberekening.bc3" onclick="return loadFile(this);">Filterberekening</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A16_Huishoudbudget.bc3" onclick="return loadFile(this);">Huishoudbudget</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A17_Adresboekje.bc3" onclick="return loadFile(this);">Adresboekje</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A18_Vier_Muziekjes.bc3" onclick="return loadFile(this);">Vier Muziekjes</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/A19_Sterrenbeeld.bc3" onclick="return loadFile(this);">Sterrenbeeld</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B01_Downloadhulp.bc3" onclick="return loadFile(this);">Download-Hulp</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B02_Tellen.bc3" onclick="return loadFile(this);">Tellen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B03_Rekentraining.bc3" onclick="return loadFile(this);">Rekentraining</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B04_Zahl_auf_Zahl.bc3" onclick="return loadFile(this);">Zahl Auf Zahl</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B05_Lebende_Bilder.bc3" onclick="return loadFile(this);">Lebende Bilder</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B06_Liniengraphik.bc3" onclick="return loadFile(this);">Liniengrafik</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B07_Typen.bc3" onclick="return loadFile(this);">Typen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B08_Titulatuur.bc3" onclick="return loadFile(this);">Titulatuur</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B09_Vraag_en_Antwoord.bc3" onclick="return loadFile(this);">Vraag  Antwoord</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B10_Drank.bc3" onclick="return loadFile(this);">Drank</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B11_DDR.bc3" onclick="return loadFile(this);">Ddr</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B12_Paardenkoers.bc3" onclick="return loadFile(this);">Paardenkoers</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B13_VIC.bc3" onclick="return loadFile(this);">Vic</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B14_Enkelvoud_Meervoud.bc3" onclick="return loadFile(this);">Enkel Of Meervoud</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B15_Alf.bc3" onclick="return loadFile(this);">Alf</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B16_English.bc3" onclick="return loadFile(this);">English</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B17_Nonius.bc3" onclick="return loadFile(this);">Nonius Schuifmaat</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B18_Rekenen.bc3" onclick="return loadFile(this);">Rekenen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B19_Letterspel.bc3" onclick="return loadFile(this);">Letterspel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B20_Kentekens.bc3" onclick="return loadFile(this);">Kentekens</a></li>
+                                        <li><a href="basicode/Verzamelcassette_8/B21_Zoekpuzzel_Keuken.bc3" onclick="return loadFile(this);">Zoekpuzzel Keuken</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Verzamelcassette_9
+                                    <ol>
+                                        <li><a href="basicode/Verzamelcassette_9/A01_Zoekpuzzel_Beroep.bc3" onclick="return loadFile(this);">Zoekpuzzel Beroepen</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A02_Zoekpuzzel_Water.bc3" onclick="return loadFile(this);">Zoekpuzzel Wateren</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A03_Maanfase.bc3" onclick="return loadFile(this);">Maanfase</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A04_Geld.bc3" onclick="return loadFile(this);">G E L D</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A05_Calculator.bc3" onclick="return loadFile(this);">Calculator</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A06_Biorythmus.bc3" onclick="return loadFile(this);">Bio</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A07_Procenten.bc3" onclick="return loadFile(this);">Procenten</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A08_Breuken-1.bc3" onclick="return loadFile(this);">Breuken1</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A09_Schatting.bc3" onclick="return loadFile(this);">Schatting Breuken En</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A10_Zoek_dubbel.bc3" onclick="return loadFile(this);">Zoek Dubbel</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A11_Deling.bc3" onclick="return loadFile(this);">Deling</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A12_Satellieten.bc3" onclick="return loadFile(this);">Satellieten</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A13_Astra-info.bc3" onclick="return loadFile(this);">Astra Informatie</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A14_Sex_quotient.bc3" onclick="return loadFile(this);">Sex-Quotient</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A15_Wereldklok.bc3" onclick="return loadFile(this);">Wereld Klok</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A16_Determineren-1_inleiding.bc3" onclick="return loadFile(this);">Determineren</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A17_Determineren-2_de_wortel.bc3" onclick="return loadFile(this);">Determineren Deel 2</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A18_Determineren-3_de_stengel.bc3" onclick="return loadFile(this);">Determineren Deel 3</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A19_Determineren-4_de_bloem.bc3" onclick="return loadFile(this);">Determineren Deel 4</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A20_Determineren-5_het_blad.bc3" onclick="return loadFile(this);">Determineren Deel 5</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A21_Determineren-6_de_vrucht.bc3" onclick="return loadFile(this);">Determineren Deel 6</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/A22_Educatief.bc3" onclick="return loadFile(this);">Educatief</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B01_Vliegers.bc3" onclick="return loadFile(this);">Vliegers</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B02_Fractals.bc3" onclick="return loadFile(this);">Fractals</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B03_Ondernemer.bc3" onclick="return loadFile(this);">Ondernemer</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B04_Videodat.bc3" onclick="return loadFile(this);">Videodat Demo</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B05_Alf-2.bc3" onclick="return loadFile(this);">Videodat Demo Alf</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B06_Opus_5.bc3" onclick="return loadFile(this);">Opus 5 Oscar Reutersvaerd, Sweden</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B07_Zinsontleding.bc3" onclick="return loadFile(this);">Zinsontleding</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B08_Programmeren-1.bc3" onclick="return loadFile(this);">Basicode-3 Uitleg</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B09_Programmeren-2.bc3" onclick="return loadFile(this);">Basicode-3 Uitleg</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B10_Programmeren-3.bc3" onclick="return loadFile(this);">Basicode-3 Uitleg</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B11_Programmeren-4.bc3" onclick="return loadFile(this);">Basicode-3 Uitleg</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B12_Programmeren-5.bc3" onclick="return loadFile(this);">Basicode-3 Uitleg</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B13_Programmeren-6.bc3" onclick="return loadFile(this);">Basicode-3 Uitleg</a></li>
+                                        <li><a href="basicode/Verzamelcassette_9/B14_Programmeren-7.bc3" onclick="return loadFile(this);">Basicode-3 Uitleg</a></li>
+                                    </ol>
+                                </li>
+                                <li>basicode/Wiegand_Fillinger_Basicode_2
+                                    <ol>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/01_Wochentag.bc2" onclick="return loadFile(this);">Wochentag</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/02_Basicode_2_Test.bc2" onclick="return loadFile(this);">Test Basicode-2</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/03_Vier_gewinnt.bc2" onclick="return loadFile(this);">Vier Gewinnt</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/04_Biorhythmen.bc2" onclick="return loadFile(this);">Biorhythmen</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/05_Kalender.bc2" onclick="return loadFile(this);">Jahreskalender</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/06_Guthabenverzinsung.bc2" onclick="return loadFile(this);">Verzinsung I</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/07_Schuldzinsen.bc2" onclick="return loadFile(this);">Verzinsung Ii</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/08_Bestellungen.bc2" onclick="return loadFile(this);">Bestellung</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/09_Adressverwaltung.bc2" onclick="return loadFile(this);">Adressen-Verwaltung</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/10_Texteditor.bc2" onclick="return loadFile(this);">Basic-Text-Editor</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/11_Blueh_und_Pflanzkalender.bc2" onclick="return loadFile(this);">Bluehkalender</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/12_Bundesligatabelle.bc2" onclick="return loadFile(this);">Bundesliga</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/13_Superhirn.bc2" onclick="return loadFile(this);">Superhirn</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/14_Briefmarkenverwaltung.bc2" onclick="return loadFile(this);">Briefmarkenverwaltung</a></li>
+                                        <li><a href="basicode/Wiegand_Fillinger_Basicode_2/15_Lohn_Einkommensteuer.bc2" onclick="return loadFile(this);">Steuer 1983</a></li>
+                                    </ol>
+                                </li>
+                            </ul>
+
+                        </div>
+            </div>
+        </div>
 
         <div id="settings">
             <a class="tab" href="#settings">Settings</a>
@@ -250,8 +1487,8 @@
             </div>
         </div>
 
-        <div id="diskette1">
-            <a class="tab" href="#diskette1">Floppy</a>
+        <div id="storage">
+            <a class="tab" href="#storage">Storage</a>
             <div>
                 <div id="flop1" class="floppy"></div>
             </div>
@@ -271,6 +1508,7 @@
             </div>
         </div>
 
+
         <div id="info">
             <a class="tab" href="#info">Info</a>
             <div>
@@ -289,8 +1527,8 @@
 
     <small>
         BASICODE interpreter in Javascript. <noscript>Requires JavaScript.</noscript>
-        <a href="https://github.com/robhagemans/basicode/">Use it with BASICODE programs such as these.</a>
-        <a href="https://github.com/robhagemans/basicode-interpreter">Source is here.</a>
+        <a href="https://github.com/robhagemans/basicode-interpreter">Source</a>.
+        <a href="https://github.com/robhagemans/basicode">BASICODE programs</a>.
     </small>
 
 </body>
