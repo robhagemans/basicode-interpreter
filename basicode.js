@@ -2945,6 +2945,7 @@ function subReadChar()
 {
     var col = this.variables.retrieve("HO", []);
     var row = this.variables.retrieve("VE", []);
+    if (row<0 || col<0 || row>=this.height || col >= this.width) return;
     var ch = this.output.getScreenChar(row, col);
     this.variables.assign(ch.toUpperCase().charCodeAt(0), "IN", []);
     // BASICODE-3C should set CN to zero here (or maybe 32 for a lowercase letter)
@@ -3428,6 +3429,9 @@ function Display(output_element, columns, rows, font_name, colours)
 
     this.getScreenChar = function(row, col)
     {
+        row = Math.round(row);
+        col = Math.round(col);
+        if (row<0 || col<0 || row>=this.height || col >= this.width) return ' ';
         return this.content[row].slice(col, col+1);
     }
 
