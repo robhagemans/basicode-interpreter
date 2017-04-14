@@ -3892,6 +3892,12 @@ function BasicodeApp(id, element, settings)
     this.program = null;
     this.running = null;
 
+    // event functions
+    this.on_program_load = function(){};
+    this.on_file_store = function(){};
+    this.on_program_run = function(){};
+    this.on_program_end = function(){};
+
 
     this.reset = function()
     {
@@ -3923,10 +3929,6 @@ function BasicodeApp(id, element, settings)
         this.printer = new Printer(settings.printer);
         this.speaker = new Speaker();
         this.timer = new Timer();
-
-        // event function on loading new program
-        this.on_program_load = function(){};
-        this.on_file_store = function(){};
 
         var floppy = new Floppy(1, this)
         this.storage = [new Tape(0), floppy, floppy, floppy]
@@ -4039,6 +4041,7 @@ function BasicodeApp(id, element, settings)
         // get started
         this.running = window.setTimeout(step, MIN_DELAY);
         element.focus();
+        this.on_program_run();
     }
 
     this.stop = function()
@@ -4055,6 +4058,7 @@ function BasicodeApp(id, element, settings)
             this.display.release();
             this.printer.flush();
         }
+        this.on_program_end();
     }
 
 

@@ -150,6 +150,19 @@
             return false;
         }
 
+
+        function onProgramRun() {
+            var button = document.getElementById('button0')
+            button.onclick = stop;
+            button.innerHTML = "&#9209;";
+        }
+
+        function onProgramEnd() {
+            var button = document.getElementById('button0')
+            button.onclick = run;
+            button.innerHTML = "&#9654;";
+        }
+
         ///////////////////////////////////////////////////////////////////////////
         // event handlers
 
@@ -190,6 +203,8 @@
             // application-defined events
             app.on_file_store = onFileStore;
             app.on_program_load = onProgramLoad;
+            app.on_program_run = onProgramRun;
+            app.on_program_end = onProgramEnd;
         }
 
         function setup() {
@@ -1573,8 +1588,7 @@
             <div>
                 <canvas class="basicode" id="canvas0"></canvas>
                 <div class="buttons">
-                    <button onclick="run();">RUN</button>
-                    <button onclick="stop();">STOP</button>
+                    <button onclick="run();" id="button0">&#9654;</button>
                 </div>
             </div>
         </div>
