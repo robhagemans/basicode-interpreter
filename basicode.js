@@ -3938,7 +3938,10 @@ function BasicodeApp(script, id)
         if (this.on_program_load === undefined) this.on_program_load = function(){};
 
         if (this.program) this.program.attach(this);
+    }
 
+    this.initProgram = function()
+    {
         // load & run the code provided in the element, if any
         var url = script.getAttribute("src");
         if (url !== undefined && url !== null && url) {
@@ -4097,6 +4100,7 @@ function BasicodeApp(script, id)
     // first initialisation
 
     this.reset();
+    this.initProgram();
 }
 
 
