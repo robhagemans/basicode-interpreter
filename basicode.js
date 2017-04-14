@@ -3918,7 +3918,7 @@ function BasicodeApp(id, element, settings)
         for (var i=0; i<8; ++i) colours[i] = settings["color-" + i] || colours[i];
 
         // detach any previous program
-        this.stop();
+        this.end();
 
         // set up emulator
         this.display = new Display(element, columns, rows, font_name, colours);
@@ -3936,12 +3936,15 @@ function BasicodeApp(id, element, settings)
 
         // load program from storage, if needed
         if (!this.program) this.load(localStorage.getItem(["BASICODE", this.id, "program"].join(":")));
-        if (this.program) this.program.attach(this);
+        if (this.program) {
+            this.program.attach(this);
+            element.focus();
+        }
     }
 
     this.handleError = function(e)
     {
-        this.stop();
+        this.end();
         this.display.write("\n");
         this.display.invertColour();
         if (e instanceof BasicError) {
@@ -3972,7 +3975,7 @@ function BasicodeApp(id, element, settings)
             code = "";
         }
         // stop any running program
-        this.stop()
+        this.end()
         // clear screen
         this.display.clear();
         // reset keyboard buffer
@@ -4021,10 +4024,10 @@ function BasicodeApp(id, element, settings)
                     if (current.delay) delay += current.delay;
                     current = current.step();
                     if (!current) {
-                        app.stop();
+                        app.end();
                         break;
                     }
-                    if (app.keyboard.break_flag) throw new BasicError("Break", "");
+                    if (app.keyboard.break_flag) throw new BasicError("Break", "")();
                     if (current && (delay >= MIN_DELAY)) {
                         app.running = window.setTimeout(step, delay);
                         delay = 0;
@@ -4037,9 +4040,15 @@ function BasicodeApp(id, element, settings)
         }
         // get started
         this.running = window.setTimeout(step, MIN_DELAY);
+        element.focus();
     }
 
     this.stop = function()
+    {
+        this.handleError(new BasicError("Break", ""));
+    }
+
+    this.end = function()
     // stop program and release resources
     {
         if (this.running) window.clearTimeout(this.running);
