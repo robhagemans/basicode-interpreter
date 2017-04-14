@@ -131,14 +131,8 @@
                 element.appendChild(a);
             }
         }
-
-        function setup() {
-            loadSettings();
-            setupListing();
-        }
-
         function loadFile(element) {
-            app = apps['basicode-script'];
+            var app = apps['basicode-script'];
             settings = document.getElementById('basicode-script').dataset;
             url = element.href;
             if (url !== undefined && url !== null && url) {
@@ -155,6 +149,54 @@
             }
             return false;
         }
+
+        ///////////////////////////////////////////////////////////////////////////
+        // event handlers
+
+        function setupHandlers()
+        {
+            var app = apps['basicode-script'];
+            console.log(app);
+            var element = document.getElementById('canvas0');
+            console.log(element);
+
+            // run file on click
+
+            element.addEventListener("click", function click(e) {
+                if (!app.running) app.run();
+            });
+
+            // load files on drag & drop
+
+            element.addEventListener("dragenter", function dragenter(e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+
+            element.addEventListener("dragover", function dragover(e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+
+            element.addEventListener("drop", function drop(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var files = e.dataTransfer.files;
+                var reader = new FileReader();
+                reader.onload = function() {
+                    app.load(reader.result);
+                };
+                reader.readAsText(files[0]);
+            });
+        }
+
+        function setup() {
+            loadSettings();
+            setupListing();
+            setupHandlers();
+        }
+
+
     </script>
 </head>
 

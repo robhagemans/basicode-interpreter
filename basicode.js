@@ -4104,7 +4104,7 @@ function BasicodeApp(script, id)
         this.release();
         this.display.invertColour();
         this.display.clearRow(this.display.height - 1);
-        this.display.writeCentre(this.display.height - 1, "-- click to run again --");
+        this.display.writeCentre(this.display.height - 1, "program terminated");
         this.display.invertColour();
     }
 
@@ -4113,37 +4113,6 @@ function BasicodeApp(script, id)
 
     this.reset();
 
-    ///////////////////////////////////////////////////////////////////////////
-    // event handlers
-
-    // run file on click
-
-    element.addEventListener("click", function click(e) {
-        if (!app.running) app.run();
-    });
-
-    // load files on drag & drop
-
-    element.addEventListener("dragenter", function dragenter(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    });
-
-    element.addEventListener("dragover", function dragover(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    });
-
-    element.addEventListener("drop", function drop(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        var files = e.dataTransfer.files;
-        var reader = new FileReader();
-        reader.onload = function() {
-            app.load(reader.result);
-        };
-        reader.readAsText(files[0]);
-    });
 
 }
 
