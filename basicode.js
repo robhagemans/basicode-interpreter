@@ -4046,36 +4046,9 @@ function BasicodeApp(script, id)
             }
         } else {
             this.program = null;
-            this.splash();
         }
         // call on_program_load function
         this.on_program_load(this.program);
-    }
-
-    this.splash = function()
-    // intro screen if nothing was loaded
-    {
-        this.display.clear();
-        this.display.invertColour();
-        this.display.clearRow(0);
-        this.display.writeCentre(0, "(c) 2016, 2017 Rob Hagemans");
-        this.display.invertColour();
-        var row = 6;
-        this.display.writeCentre(row++, "**. .*. .** .*. .** .*. **. ***");
-        this.display.writeCentre(row++, "*.* *.* *.. .*. *.. *.* *.* *..");
-        this.display.writeCentre(row++, "*.* *.* *.. .*. *.. *.* *.* *..");
-        this.display.writeCentre(row++, "*.* *.* *.. .*. *.. *.* *.* *..");
-        this.display.writeCentre(row++, "..**..***..*...*..*...*.*.*.*.**...");
-        this.display.writeCentre(row++, "*.* *.* ..* .*. *.. *.* *.* *..");
-        this.display.writeCentre(row++, "*.* *.* ..* .*. *.. *.* *.* *..");
-        this.display.writeCentre(row++, "*.* *.* ..* .*. *.. *.* *.* *..");
-        this.display.writeCentre(row++, "**. *.* **. .*. .** .*. **. ***");
-        this.display.writeCentre(17, "---==[2017]==---");
-        this.display.invertColour();
-        this.display.clearRow(this.display.height - 1);
-        this.display.writeCentre(this.display.height - 1, "-- drag and drop to load --");
-        this.display.invertColour();
-        this.display.curtain();
     }
 
     this.run = function()

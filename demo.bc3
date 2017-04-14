@@ -1,0 +1,67 @@
+1000 A=2000:GOTO 20:REM Basicode-interpreter in Javascript
+1010 HT=HO:VT=VE:CC(0)=0:CC(1)=7:GOSUB 100
+1015 REM IF 2/2=INT(2/2) THEN 950
+1020 FOR I=0 TO 1
+1120   READ SR$
+1130   HO=(HT-LEN(SR$))/2:VE=I*VT:GOSUB 110:PRINT SR$;
+1140 NEXT I
+2000 SR$="":FOR X=0 TO HT-6: SR$=SR$+".":NEXT X
+2010 FOR Y=1 TO VT-1
+2020   HO=0:VE=Y:GOSUB 110:GOSUB 150
+2030 NEXT Y
+2040 READ N
+2050 VE=(VT-N)/2
+2060 FOR I=1 TO N
+2070   READ SR$:IF LEN(SR$)/2<>INT(LEN(SR$)/2) THEN SR$="."+SR$
+2075   FOR X=1 TO (HT-LEN(SR$)-5)/2: SR$="."+SR$+".":NEXT X
+2080   HO=0
+2090   GOSUB 110
+2100   GOSUB 150
+2110   VE=VE+1
+2120 NEXT I
+2900 SD=50:GOSUB 450:IN=0
+2990 GOSUB 260:HO=RV*(HT+1):GOSUB 260:VE=RV*(VT+1):
+3000 SD=1:GOSUB 450:IF IN<>0 THEN 20
+3001 IF (HO>HT) THEN HO=HT: GOTO 3020
+3002 IF (VE>=VT) THEN VE=VT-1: GOTO 3020
+3003 IF (HO<0) THEN HO=0: GOTO 3020
+3004 IF (VE<1) THEN VE=1: GOTO 3020
+3005 GOSUB 220: IF CHR$(IN)="." THEN IN=32
+3010 GOSUB 110:PRINT CHR$(IN);
+3020 GOSUB 260
+3030 IF (RV<0.125) THEN HO=HO+2:VE=VE-1:GOTO 3000
+3035 IF (RV<0.25) THEN HO=HO+2:VE=VE+1:GOTO 3000
+3040 IF (RV<0.375) THEN HO=HO-2:VE=VE-1:GOTO 3000
+3045 IF (RV<0.5) THEN HO=HO-2:VE=VE+1:GOTO 3000
+3050 IF (RV<0.625) THEN VE=VE+2:HO=HO-1:GOTO 3000
+3052 IF (RV<0.75) THEN VE=VE+2:HO=HO+1:GOTO 3000
+3055 IF (RV<0.875) THEN VE=VE-2:HO=HO-1:GOTO 3000
+3060 VE=VE-2:HO=HO+1:GOTO 3000
+25010 DATA "BASICODE in the BROWSER"
+25020 DATA "(c) 2016, 2017  Rob Hagemans"
+25030 DATA 12
+25040 DATA "**. .*. .** .*. .** .*. **. ***"
+25050 DATA "*.* *.* *.. .*. *.. *.* *.* *.."
+25060 DATA "*.* *.* *.. .*. *.. *.* *.* *.."
+25070 DATA "*.* *.* *.. .*. *.. *.* *.* *.."
+25080 DATA "**..***..*...*..*...*.*.*.*.**."
+25090 DATA "*.* *.* ..* .*. *.. *.* *.* *.."
+25100 DATA "*.* *.* ..* .*. *.. *.* *.* *.."
+25110 DATA "*.* *.* ..* .*. *.. *.* *.* *.."
+25120 DATA "**. *.* **. .*. .** .*. **. ***"
+25130 DATA "", ""
+25150 DATA "---==[//\\//\\]==---"
+25160 DATA
+30000 REM Supports BASICODE-2, -3 and -3C.
+30010 REM
+30020 REM Load programs from the BASICODE-collection
+30030 REM by clicking on their titles in the "Programs" tab.
+30040 REM
+30050 REM Alternatively, drag and drop a local file onto the screen.
+30060 REM
+30065 REM
+30067 REM
+30070 REM Copyright 2016, 2017 Rob Hagemans
+30080 REM Released under the Expat MIT licence
+30090 REM
+30100 REM https://github.com/robhagemans/basicode-interpreter
