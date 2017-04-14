@@ -33,6 +33,12 @@ small a, small a:visited {
     border: 0.4em solid black;
 }
 
+.buttons {
+    /* this centers the screen horizontally, for some reason */
+    margin: auto;
+    display: table;
+}
+
 /* storage visualisation */
 
 .floppy {
