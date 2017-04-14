@@ -3221,7 +3221,6 @@ function Display(output_element, columns, rows, font_name, colours)
     // release this interface
     {
         this.busy = false;
-        this.curtain();
         this.resetColours();
     }
 
@@ -3312,12 +3311,6 @@ function Display(output_element, columns, rows, font_name, colours)
                 line_error += dx;
             }
         }
-    }
-
-    this.curtain = function()
-    {
-        context.fillStyle = "rgba(225,225,225,0.25)";
-        context.fillRect(0, 0, output_element.width, output_element.height);
     }
 
     var cursor_now = 0;
