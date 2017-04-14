@@ -3937,34 +3937,9 @@ function BasicodeApp(script, id)
         this.on_program_load = window[settings.load];
         if (this.on_program_load === undefined) this.on_program_load = function(){};
 
+        // load program from storage, if needed
+        if (!this.program) this.load(localStorage.getItem(["BASICODE", this.id, "program"].join(":")));
         if (this.program) this.program.attach(this);
-    }
-
-    this.initProgram = function()
-    {
-        // load & run the code provided in the element, if any
-        var url = script.getAttribute("src");
-        if (url !== undefined && url !== null && url) {
-            var request = new XMLHttpRequest();
-            request.open("GET", url, true);
-            request.onreadystatechange = function() {
-                if (request.readyState === 4 && request.status === 200) {
-                    code = request.responseText;
-                    // need to explicitly load here as this is called asynchronously
-                    app.load(code);
-                }
-            }
-            request.send(null);
-        }
-        else {
-            var code = script.innerHTML;
-            // only check for persistent program if nothing was provided in script
-            if (!code) {
-                // if nothing in storage, this will return null
-                code = localStorage.getItem(["BASICODE", this.id, "program"].join(":"))
-            }
-            this.load(code);
-        }
     }
 
     this.handleError = function(e)
@@ -4100,30 +4075,12 @@ function BasicodeApp(script, id)
     // first initialisation
 
     this.reset();
-    this.initProgram();
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
 
 var apps = {};
-
-function launch() {
-    var scripts = document.getElementsByTagName("script");
-    for (var i=0; i < scripts.length; ++i) {
-        if (scripts[i].type == "text/basicode") {
-            apps[scripts[i].id] = new BasicodeApp(scripts[i], scripts[i].id);
-        }
-    }
-}
-
-function restart() {
-    var keys = Object.keys(apps);
-    for (var i in keys) {
-        apps[keys[i]].reset();
-    }
-}
-
 
 function createCanvas(script)
 {
@@ -4148,6 +4105,48 @@ function createCanvas(script)
     element.focus();
 
     return element;
+}
+
+
+function initProgram(script)
+{
+    var app = apps[script.id];
+    // load & run the code provided in the element, if any
+    var url = script.getAttribute("src");
+    if (url !== undefined && url !== null && url) {
+        var request = new XMLHttpRequest();
+        request.open("GET", url, true);
+        request.onreadystatechange = function() {
+            if (request.readyState === 4 && request.status === 200) {
+                code = request.responseText;
+                // need to explicitly load here as this is called asynchronously
+                app.load(code);
+            }
+        }
+        request.send(null);
+    }
+    else {
+        var code = script.innerHTML;
+        if (code) app.load(code);
+    }
+}
+
+
+function launch() {
+    var scripts = document.getElementsByTagName("script");
+    for (var i=0; i < scripts.length; ++i) {
+        if (scripts[i].type == "text/basicode") {
+            apps[scripts[i].id] = new BasicodeApp(scripts[i], scripts[i].id);
+            initProgram(scripts[i]);
+        }
+    }
+}
+
+function restart() {
+    var keys = Object.keys(apps);
+    for (var i in keys) {
+        apps[keys[i]].reset();
+    }
 }
 
 
