@@ -3876,8 +3876,9 @@ function Tape(id)
 
 }
 
+
 ///////////////////////////////////////////////////////////////////////////////
-// user interface
+// emulated machine
 
 var busy_delay = 1;
 var IDLE_DELAY = 60;
@@ -3888,48 +3889,25 @@ var MIN_DELAY = 4;
 function BasicodeApp(script, id)
 {
     this.id = id;
-
-    // optional target elements
-    var screen_id = script.dataset["canvas"];
-    var printer_id = script.dataset["printer"];
-    var store_func = script.dataset["store"];
-    var load_func = script.dataset["load"];
-
-    // obtain screen/keyboard canvas
-    var element;
-    if (screen_id) {
-        // canvas is provided
-        element = document.getElementById(screen_id)
-    }
-    else {
-        // create a canvas to work on
-        element = document.createElement("canvas");
-        element.className = "basicode";
-        element.innerHTML = "To use this interpreter, you need a browser that supports the CANVAS element."
-        script.parentNode.insertBefore(element, script);
-    }
-    // make canvas element focussable to catch keypresses
-    element.tabIndex = 1;
-    element.focus();
-
-    // event function on loading new program
-    this.on_program_load = window[load_func];
-    if (this.on_program_load === undefined) this.on_program_load = function(){};
+    var app = this;
 
     // runtime members
     this.program = null;
     this.running = null;
 
-    var app = this;
 
     this.reset = function()
     {
+        var element = createCanvas(script);
+        var settings = script.dataset;
+        console.log(settings);
+
         // speed setting is (roughly) the number of empty loop cycles per second
-        if (script.dataset["speed"]) busy_delay = 1000 / script.dataset["speed"];
+        if (settings.speed) busy_delay = 1000 / settings.speed;
         // screen settings
-        var columns = script.dataset["columns"] || 40;
-        var rows = script.dataset["rows"] || 24;
-        var font_name = script.dataset["font"] || "smooth";
+        var columns = settings.columns || 40;
+        var rows = settings.rows || 24;
+        var font_name = settings.font || "smooth";
         // palette settings, use CGA colours by default
         var colours = {
             0: "black",
@@ -3941,18 +3919,24 @@ function BasicodeApp(script, id)
             6: "#ffff55", // yellow
             7: "white",
         }
-        for (var i=0; i<8; ++i) colours[i] = script.dataset["color-" + i] || colours[i];
+        for (var i=0; i<8; ++i) colours[i] = settings["color-" + i] || colours[i];
+
+        // detach any previous program
+        this.release();
 
         // set up emulator
         this.display = new Display(element, columns, rows, font_name, colours);
         this.keyboard = new Keyboard(element);
-        this.printer = new Printer(printer_id);
+        this.printer = new Printer(settings.printer);
         this.speaker = new Speaker();
         this.timer = new Timer();
 
-        var floppy = new Floppy(1, window[store_func])
+        var floppy = new Floppy(1, window[settings.store])
         this.storage = [new Tape(0), floppy, floppy, floppy]
 
+        // event function on loading new program
+        this.on_program_load = window[settings.load];
+        if (this.on_program_load === undefined) this.on_program_load = function(){};
 
         // load & run the code provided in the element, if any
         var url = script.getAttribute("src");
@@ -4092,7 +4076,7 @@ function BasicodeApp(script, id)
     {
         if (this.running) window.clearTimeout(this.running);
         this.running = null;
-        if (this.program !== null) {
+        if (this.program) {
             this.display.release();
             this.printer.flush();
         }
@@ -4112,9 +4096,10 @@ function BasicodeApp(script, id)
     // first initialisation
 
     this.reset();
-
-
 }
+
+
+///////////////////////////////////////////////////////////////////////////////
 
 var apps = {};
 
@@ -4133,6 +4118,35 @@ function restart() {
         apps[keys[i]].reset();
     }
 }
+
+
+function createCanvas(script)
+{
+    // optional target elements
+    var screen_id = script.dataset["canvas"];
+
+    // obtain screen/keyboard canvas
+    var element;
+    if (screen_id) {
+        // canvas is provided
+        element = document.getElementById(screen_id)
+    }
+    else {
+        // create a canvas to work on
+        element = document.createElement("canvas");
+        element.className = "basicode";
+        element.innerHTML = "To use this interpreter, you need a browser that supports the CANVAS element."
+        script.parentNode.insertBefore(element, script);
+    }
+    // make canvas element focussable to catch keypresses
+    element.tabIndex = 1;
+    element.focus();
+
+    return element;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
 
 // a bit of magic to run launch() after the document is complete
 // so that it can access all the <script> tags
