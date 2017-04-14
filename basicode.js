@@ -3742,7 +3742,7 @@ function Timer()
 ///////////////////////////////////////////////////////////////////////////////
 // storage
 
-function Floppy(id, onfilestore)
+function Floppy(id, parent)
 {
 
     this.id = id;
@@ -3750,8 +3750,7 @@ function Floppy(id, onfilestore)
     this.open_key = null;
     this.open_mode = "";
     this.open_line = null;
-    this.on_file_store = onfilestore;
-    if (!onfilestore) this.on_file_store = function(){};
+    this.parent = parent;
 
     var prefix = "BASICODE"
 
@@ -3783,7 +3782,7 @@ function Floppy(id, onfilestore)
         if (this.open_key === null) return false;
         localStorage.setItem(this.open_key, this.open_file.join("\n"));
         this.open_file = null;
-        this.on_file_store(this);
+        this.parent.on_file_store(this.id);
         return true;
     }
 
@@ -3799,8 +3798,6 @@ function Floppy(id, onfilestore)
         if (this.open_mode !== "w") throw "File not open for write";
         this.open_file.push(line);
     }
-
-    this.on_file_store(this);
 }
 
 
@@ -3927,12 +3924,13 @@ function BasicodeApp(id, element, settings)
         this.speaker = new Speaker();
         this.timer = new Timer();
 
-        var floppy = new Floppy(1, window[settings.store])
+        // event function on loading new program
+        this.on_program_load = function(){};
+        this.on_file_store = function(){};
+
+        var floppy = new Floppy(1, this)
         this.storage = [new Tape(0), floppy, floppy, floppy]
 
-        // event function on loading new program
-        this.on_program_load = window[settings.load];
-        if (this.on_program_load === undefined) this.on_program_load = function(){};
 
         // load program from storage, if needed
         if (!this.program) this.load(localStorage.getItem(["BASICODE", this.id, "program"].join(":")));

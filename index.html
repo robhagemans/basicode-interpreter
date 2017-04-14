@@ -99,7 +99,7 @@
         var blobbery = {};
         var mime_type = "text/plain";
 
-        this.onFileStore = function(floppy)
+        function onFileStore(floppy_id)
         {
             var element = document.getElementById("flop1");
             var prefix = "BASICODE";
@@ -112,7 +112,7 @@
                 var key = localStorage.key(i)
                 var key_list = key.split(":");
                 if (key_list[0] !== prefix) continue;
-                if (key_list[1] !== "" + floppy.id) continue;
+                if (key_list[1] !== "" + floppy_id) continue;
                 // create content blob from local storage, if necessary
                 if (!(key in blobbery)) {
                     blobbery[key] = new Blob([localStorage.getItem(key)], {type: mime_type});
@@ -186,12 +186,17 @@
                 };
                 reader.readAsText(files[0]);
             });
+
+            // application-defined events
+            app.on_file_store = onFileStore;
+            app.on_program_load = onProgramLoad;
         }
 
         function setup() {
             loadSettings();
             setupListing();
             setupHandlers();
+            onFileStore(1);
         }
 
         function run() {
@@ -211,8 +216,6 @@
         data-printer="printer0"
         data-canvas="canvas0"
         data-input="screen"
-        data-load="onProgramLoad"
-        data-store="onFileStore"
         id="basicode-script"
         src="demo.bc3"
         >

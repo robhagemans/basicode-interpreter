@@ -56,8 +56,6 @@ Attribute             Setting
 ``data-color-7``      Set the colour value for white (foreground)
 ``data-canvas``       Target ``canvas`` id for screen / keyboard
 ``data-printer``      Target ``iframe`` id for printer output
-``data-load``         Name of global Javascript function to call on loading a program
-``data-store``        Name of global Javascript function to call on storing a file
 ===================== =======================================================================
 
 
