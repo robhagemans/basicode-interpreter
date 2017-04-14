@@ -3886,7 +3886,7 @@ var IDLE_DELAY = 60;
 var MIN_DELAY = 4;
 
 
-function BasicodeApp(script, id)
+function BasicodeApp(id, element, settings)
 {
     this.id = id;
     var app = this;
@@ -3898,9 +3898,6 @@ function BasicodeApp(script, id)
 
     this.reset = function()
     {
-        var element = createCanvas(script);
-        var settings = script.dataset;
-
         // speed setting is (roughly) the number of empty loop cycles per second
         if (settings.speed) busy_delay = 1000 / settings.speed;
         // screen settings
@@ -4079,6 +4076,7 @@ function BasicodeApp(script, id)
 
 
 ///////////////////////////////////////////////////////////////////////////////
+// initial setup
 
 var apps = {};
 
@@ -4107,7 +4105,6 @@ function createCanvas(script)
     return element;
 }
 
-
 function initProgram(script)
 {
     var app = apps[script.id];
@@ -4131,21 +4128,15 @@ function initProgram(script)
     }
 }
 
-
 function launch() {
     var scripts = document.getElementsByTagName("script");
     for (var i=0; i < scripts.length; ++i) {
-        if (scripts[i].type == "text/basicode") {
-            apps[scripts[i].id] = new BasicodeApp(scripts[i], scripts[i].id);
-            initProgram(scripts[i]);
+        var script = scripts[i];
+        if (script.type == "text/basicode") {
+            var element = createCanvas(script);
+            apps[script.id] = new BasicodeApp(script.id, element, script.dataset);
+            initProgram(script);
         }
-    }
-}
-
-function restart() {
-    var keys = Object.keys(apps);
-    for (var i in keys) {
-        apps[keys[i]].reset();
     }
 }
 

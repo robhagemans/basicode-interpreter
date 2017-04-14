@@ -19,7 +19,7 @@
                 settings['color-' + i] = document.getElementById('color-' + i).value;
             }
             document.getElementById('showspeed').value = document.getElementById('speed').value;
-            restart();
+            apps['basicode-script'].reset();
             display = new Display(
                 document.getElementById('showfont'), 16, 6,
                 document.getElementById('font').value, apps['basicode-script'].display.colours);
