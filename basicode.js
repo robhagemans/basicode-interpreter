@@ -4027,7 +4027,7 @@ function BasicodeApp(id, element, settings)
                         app.end();
                         break;
                     }
-                    if (app.keyboard.break_flag) throw new BasicError("Break", "")();
+                    if (app.keyboard.break_flag) throw new BasicError("Break", "");
                     if (current && (delay >= MIN_DELAY)) {
                         app.running = window.setTimeout(step, delay);
                         delay = 0;
