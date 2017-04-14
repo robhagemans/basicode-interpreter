@@ -3900,7 +3900,6 @@ function BasicodeApp(script, id)
     {
         var element = createCanvas(script);
         var settings = script.dataset;
-        console.log(settings);
 
         // speed setting is (roughly) the number of empty loop cycles per second
         if (settings.speed) busy_delay = 1000 / settings.speed;
@@ -3937,6 +3936,8 @@ function BasicodeApp(script, id)
         // event function on loading new program
         this.on_program_load = window[settings.load];
         if (this.on_program_load === undefined) this.on_program_load = function(){};
+
+        if (this.program) this.program.attach(this);
 
         // load & run the code provided in the element, if any
         var url = script.getAttribute("src");
