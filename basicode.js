@@ -3918,7 +3918,7 @@ function BasicodeApp(id, element, settings)
         for (var i=0; i<8; ++i) colours[i] = settings["color-" + i] || colours[i];
 
         // detach any previous program
-        this.release();
+        this.stop();
 
         // set up emulator
         this.display = new Display(element, columns, rows, font_name, colours);
@@ -3942,31 +3942,23 @@ function BasicodeApp(id, element, settings)
     this.handleError = function(e)
     {
         this.stop();
+        this.display.write("\n");
         this.display.invertColour();
-        this.display.clearRow(0);
-        this.display.setRow(0);
-        this.display.setColumn(0);
         if (e instanceof BasicError) {
             this.display.write(e.message);
             var ln = e.where;
             if ((ln === undefined || ln === null) && this.program !== null) ln = this.program.current_line;
-            this.display.write(" in "+ ln +"\n");
+            this.display.write(" in "+ ln);
             this.display.invertColour();
+            this.display.write("\n");
             if (e.detail) {
-                this.display.clearRow(1);
-                this.display.clearRow(2);
-                this.display.setColumn(0);
-                this.display.setRow(1);
                 this.display.write(e.detail);
             }
         }
         else {
-            this.display.write("EXCEPTION\n")
+            this.display.write("EXCEPTION")
             this.display.invertColour();
-            this.display.clearRow(1);
-            this.display.clearRow(2);
-            this.display.setColumn(0);
-            this.display.setRow(1);
+            this.display.write("\n");
             this.display.write(e);
             console.log(e.stack);
             throw e;
@@ -4047,8 +4039,8 @@ function BasicodeApp(id, element, settings)
         this.running = window.setTimeout(step, MIN_DELAY);
     }
 
-    this.release = function()
-    // release resources upon program end
+    this.stop = function()
+    // stop program and release resources
     {
         if (this.running) window.clearTimeout(this.running);
         this.running = null;
@@ -4058,15 +4050,6 @@ function BasicodeApp(id, element, settings)
         }
     }
 
-    this.stop = function()
-    // stop program
-    {
-        this.release();
-        this.display.invertColour();
-        this.display.clearRow(this.display.height - 1);
-        this.display.writeCentre(this.display.height - 1, "program terminated");
-        this.display.invertColour();
-    }
 
     ///////////////////////////////////////////////////////////////////////////
     // first initialisation
