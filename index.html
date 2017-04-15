@@ -249,7 +249,7 @@
                 reader.readAsText(files[0]);
             }
 
-            var element = document.getElementById('canvas0');
+            var element = apps['basicode-script'].canvas;
             element.addEventListener("dragenter", nop);
             element.addEventListener("dragover", nop);
             element.addEventListener("drop", drop);
@@ -355,13 +355,6 @@
 </head>
 
 <body onload="setup();">
-
-    <script type="text/basicode"
-        data-printer="printer0"
-        data-canvas="canvas0"
-        id="basicode-script"
-        >
-    </script>
 
     <div class="tabs">
 
@@ -503,7 +496,7 @@
         <div id="screen">
             <a class="tab" href="#screen">Screen</a>
             <div>
-                <canvas class="basicode" id="canvas0"></canvas>
+                <script type="text/basicode" data-printer="printer0" id="basicode-script"></script>
                 <div class="buttons">
                     <button onclick="run();" id="button0">&#9654;</button>
                 </div>

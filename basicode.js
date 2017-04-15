@@ -3899,6 +3899,7 @@ var MIN_DELAY = 4;
 function BasicodeApp(id, element, settings)
 {
     this.id = id;
+    this.canvas = element;
     var app = this;
 
     // runtime members
@@ -4107,26 +4108,14 @@ var apps = {};
 
 function createCanvas(script)
 {
-    // optional target elements
-    var screen_id = script.dataset["canvas"];
-
-    // obtain screen/keyboard canvas
-    var element;
-    if (screen_id) {
-        // canvas is provided
-        element = document.getElementById(screen_id)
-    }
-    else {
-        // create a canvas to work on
-        element = document.createElement("canvas");
-        element.className = "basicode";
-        element.innerHTML = "To use this interpreter, you need a browser that supports the CANVAS element."
-        script.parentNode.insertBefore(element, script);
-    }
+    // create a canvas to work on
+    var element = document.createElement("canvas");
+    element.className = "basicode";
+    element.innerHTML = "To use this interpreter, you need a browser that supports the CANVAS element."
+    script.parentNode.insertBefore(element, script);
     // make canvas element focussable to catch keypresses
     element.tabIndex = 1;
     element.focus();
-
     return element;
 }
 

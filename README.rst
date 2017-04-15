@@ -50,7 +50,6 @@ Attribute             Setting
 ``data-color-5``      Set the colour value for cyan
 ``data-color-6``      Set the colour value for yellow
 ``data-color-7``      Set the colour value for white (foreground)
-``data-canvas``       Target ``canvas`` id for screen / keyboard
 ``data-printer``      Target ``iframe`` id for printer output
 ===================== =======================================================================
 
