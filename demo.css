@@ -47,7 +47,6 @@ small a, small a:visited {
     height: 100%;
     margin: 0;
     padding: 2em 1em 2em 1em;
-    background-color: white;
     word-wrap: break-word;
     overflow: scroll;
 }

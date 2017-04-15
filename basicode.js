@@ -3782,7 +3782,7 @@ function Floppy(id, parent)
         if (this.open_key === null) return false;
         localStorage.setItem(this.open_key, this.open_file.join("\n"));
         this.open_file = null;
-        this.parent.on_file_store(this.id);
+        this.parent.on_file_store();
         return true;
     }
 
@@ -3929,8 +3929,8 @@ function BasicodeApp(id, element, settings)
         this.printer = new Printer(settings.printer);
         this.speaker = new Speaker();
         this.timer = new Timer();
-        var floppy = new Floppy(1, this)
-        this.storage = [new Tape(0), floppy, floppy, floppy]
+        var floppy = new Floppy("floppy", this)
+        this.storage = [new Tape("tape"), floppy, floppy, floppy]
 
         // load program from storage, if needed
         if (!this.program) this.load(localStorage.getItem(["BASICODE", this.id, "program"].join(":")));

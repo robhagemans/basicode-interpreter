@@ -99,38 +99,50 @@
         var blobbery = {};
         var mime_type = "text/plain";
 
-        function onFileStore(floppy_id)
+        function onFileStore()
         {
             var element = document.getElementById("flop1");
             var prefix = "BASICODE";
+
+            var drives = ["tape", "floppy"];
 
             if (!element) return;
             while (element.firstChild) {
                 element.removeChild(element.firstChild);
             }
-            for (var i=0; i < localStorage.length; ++i) {
-                var key = localStorage.key(i)
-                var key_list = key.split(":");
-                if (key_list[0] !== prefix) continue;
-                if (key_list[1] !== "" + floppy_id) continue;
-                // create content blob from local storage, if necessary
-                if (!(key in blobbery)) {
-                    blobbery[key] = new Blob([localStorage.getItem(key)], {type: mime_type});
+
+            for (var flop=0; flop < drives.length; ++flop) {
+                var floppy_id = drives[flop];
+
+                var topli = document.createElement("li");
+                topli.innerHTML = floppy_id;
+                var list = document.createElement("ol");
+                element.appendChild( document.createElement("ul")).appendChild(topli).appendChild(list);
+                for (var i=0; i < localStorage.length; ++i) {
+                    var key = localStorage.key(i)
+                    var key_list = key.split(":");
+                    if (key_list[0] !== prefix) continue;
+                    if (key_list[1] !== "" + floppy_id) continue;
+                    // create content blob from local storage, if necessary
+                    if (!(key in blobbery)) {
+                        blobbery[key] = new Blob([localStorage.getItem(key)], {type: mime_type});
+                    }
+                    // create download link to file
+                    var a = document.createElement("a");
+                    a.textContent = key_list[2];
+                    a.href = window.URL.createObjectURL(blobbery[key]);
+                    a.download = key_list[2];
+                    // drag-out support
+                    a.dataset.downloadurl = [mime_type, a.download, a.href].join(":");
+                    a.draggable = true;
+                    a.addEventListener("dragstart", function(e) {
+                        e.dataTransfer.setData("DownloadURL", a.dataset.downloadurl);
+                    }, false);
+                    list.appendChild(document.createElement("li")).appendChild(a);
                 }
-                // create download link to file
-                var a = document.createElement("a");
-                a.textContent = key_list[2];
-                a.href = window.URL.createObjectURL(blobbery[key]);
-                a.download = key_list[2];
-                // drag-out support
-                a.dataset.downloadurl = [mime_type, a.download, a.href].join(":");
-                a.draggable = true;
-                a.addEventListener("dragstart", function(e) {
-                    e.dataTransfer.setData("DownloadURL", a.dataset.downloadurl);
-                }, false);
-                element.appendChild(a);
             }
         }
+
         function loadFile(element) {
             var app = apps['basicode-script'];
             url = element.href;
@@ -148,7 +160,6 @@
             }
             return false;
         }
-
 
         function onProgramRun() {
             var button = document.getElementById('button0')
@@ -210,7 +221,7 @@
             loadSettings();
             setupListing();
             setupHandlers();
-            onFileStore(1);
+            onFileStore();
             onProgramLoad(apps['basicode-script'].program);
             // load demo program only if nothing stored
             if (!apps['basicode-script'].program) {
