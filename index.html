@@ -225,6 +225,10 @@
             button.innerHTML = "&#9654;";
         }
 
+        function onPrint(text) {
+            document.getElementById("printer0").innerText = text;
+        }
+
         ///////////////////////////////////////////////////////////////////////////
         // event handlers
 
@@ -274,6 +278,7 @@
             app.on_program_load = onProgramLoad;
             app.on_program_run = onProgramRun;
             app.on_program_end = onProgramEnd;
+            app.on_print = onPrint;
         }
 
         function setup() {
@@ -474,7 +479,7 @@
         <div id="printer">
             <a class="tab" href="#printer">Printer</a>
             <div>
-                <iframe id="printer0"></iframe>
+                <pre id="printer0"></pre>
             </div>
         </div>
 
@@ -496,7 +501,7 @@
         <div id="screen">
             <a class="tab" href="#screen">Screen</a>
             <div>
-                <script type="text/basicode" data-printer="printer0" id="basicode-script"></script>
+                <script type="text/basicode" id="basicode-script"></script>
                 <div class="buttons">
                     <button onclick="run();" id="button0">&#9654;</button>
                 </div>

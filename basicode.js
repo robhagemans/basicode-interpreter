@@ -3613,18 +3613,13 @@ function Keyboard(input_element)
 ///////////////////////////////////////////////////////////////////////////////
 // printer
 
-function Printer(element_id) {
+function Printer(parent) {
 
-    var print_iframe;
-    if (element_id) {
-        print_iframe = document.getElementById(element_id);
-    }
-    else {
-        // create hidden iframe for printing
-        print_iframe = document.createElement("iframe");
-        print_iframe.hidden = true;
-        document.body.appendChild(print_iframe);
-    }
+    // create hidden iframe for printing
+    var print_iframe = document.createElement("iframe");
+    print_iframe.hidden = true;
+    document.body.appendChild(print_iframe);
+
     var print_element = document.createElement("pre");
     print_iframe.contentDocument.body.appendChild(print_element)
 
@@ -3632,6 +3627,7 @@ function Printer(element_id) {
     // add text to the print document
     {
         print_element.textContent += text.split(/\r?\n/).join("\n");
+        parent.on_print(print_element.textContent);
     }
 
     this.flush = function()
@@ -3640,6 +3636,7 @@ function Printer(element_id) {
         if (print_element.textContent) {
             print_iframe.contentWindow.print();
             print_element.textContent = "";
+            parent.on_print(print_element.textContent);
         }
     }
 }
@@ -3911,7 +3908,7 @@ function BasicodeApp(id, element, settings)
     this.on_file_store = function(){};
     this.on_program_run = function(){};
     this.on_program_end = function(){};
-
+    this.on_print = function(){};
 
     this.reset = function()
     {
@@ -3940,7 +3937,7 @@ function BasicodeApp(id, element, settings)
         // set up emulator
         this.display = new Display(element, columns, rows, font_name, colours);
         this.keyboard = new Keyboard(element);
-        this.printer = new Printer(settings.printer);
+        this.printer = new Printer(this);
         this.speaker = new Speaker();
         this.timer = new Timer();
         var floppy = new Floppy("floppy", this)
