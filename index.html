@@ -130,6 +130,7 @@
                 topli.innerHTML = floppy_id;
                 // drop files to put in storage
                 function drop(e) {
+                    // this === e.currentTarget
                     var id = this.firstChild.textContent;
                     e.stopPropagation();
                     e.preventDefault();
@@ -154,10 +155,24 @@
                     }
                     // create download link to file
                     var a = document.createElement("a");
-                    a.innerHTML = '<span class="hidden">&#9662;</span> ' + key_list[2];
+                    a.innerHTML = "&#9662;";
+                    a.className = "hidden download";
                     a.href = window.URL.createObjectURL(blobbery[key]);
                     a.download = key_list[2];
-                    var li = list.appendChild(document.createElement("li"))
+
+                    var play = document.createElement("a");
+                    play.className = "run";
+                    play.href = "run("+key_list[2]+")";
+                    play.innerHTML = '<span class="hidden">&#9656;</span> '+key_list[2];
+                    play.dataset.key = key;
+                    console.log(key);
+                    play.onclick = function(e) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        code = localStorage.getItem(e.currentTarget.dataset.key);
+                        apps['basicode-script'].load(code);
+                    };
+
                     var x = document.createElement("a");
                     x.innerHTML = "&#10060;"
                     x.className = "hidden delete";
@@ -169,8 +184,10 @@
                         e.preventDefault();
                         apps['basicode-script'].delete(e.target.dataset.drive, e.target.dataset.delete_target);
                     };
+                    var li = list.appendChild(document.createElement("li"))
                     li.appendChild(x);
                     li.appendChild(a);
+                    li.appendChild(play);
 
                 }
             }

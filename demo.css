@@ -69,12 +69,22 @@ small a, small a:visited {
 .floppy .delete:hover {
     background-color:red;
 }
-.floppy .delete:hover + a {
+.floppy .delete:hover ~ a {
     background-color:red;
     color: white;
 }
-.floppy .delete:hover + a .hidden {
+.floppy .delete:hover ~ a .hidden,  .floppy .delete:hover ~ .hidden{
     color:red;
+}
+.floppy .download:hover {
+    background-color:green;
+}
+.floppy .download:hover ~ a {
+    background-color:green;
+    color: white;
+}
+.floppy .download:hover ~ a .hidden,  .floppy .download:hover ~ .hidden{
+    color: green;
 }
 
 
