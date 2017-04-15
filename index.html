@@ -126,9 +126,21 @@
 
             for (var flop=0; flop < drives.length; ++flop) {
                 var floppy_id = drives[flop];
-
                 var topli = document.createElement("li");
                 topli.innerHTML = floppy_id;
+                // drop files to put in storage
+                function drop(e) {
+                    var id = this.firstChild.textContent;
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var files = e.dataTransfer.files;
+                    var reader = new FileReader();
+                    reader.onload = function() {
+                        apps['basicode-script'].store(id, files[0].name, reader.result);
+                    };
+                    reader.readAsText(files[0]);
+                }
+                topli.addEventListener("drop", drop, false);
                 var list = document.createElement("ol");
                 element.appendChild( document.createElement("ul")).appendChild(topli).appendChild(list);
                 for (var i=0; i < localStorage.length; ++i) {
@@ -194,7 +206,7 @@
             var app = apps['basicode-script'];
 
             // load files on drag & drop
-            function drag(e) {
+            function nop(e) {
                 e.stopPropagation();
                 e.preventDefault();
             }
@@ -211,19 +223,24 @@
             }
 
             var element = document.getElementById('canvas0');
-            element.addEventListener("dragenter", drag);
-            element.addEventListener("dragover", drag);
+            element.addEventListener("dragenter", nop);
+            element.addEventListener("dragover", nop);
             element.addEventListener("drop", drop);
 
             var listing = document.getElementById('listing0');
-            listing.addEventListener("dragenter", drag);
-            listing.addEventListener("dragover", drag);
+            listing.addEventListener("dragenter", nop);
+            listing.addEventListener("dragover", nop);
             listing.addEventListener("drop", drop);
 
             // run file on click
             element.addEventListener("click", function click(e) {
                 if (!app.running) app.run();
             });
+
+            var storage = document.getElementById('flop1');
+            storage.addEventListener("dragenter", nop);
+            storage.addEventListener("dragover", nop);
+            storage.addEventListener("drop", nop);
 
             // application-defined events
             app.on_file_store = onFileStore;
