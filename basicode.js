@@ -3798,6 +3798,12 @@ function Floppy(id, parent)
         if (this.open_mode !== "w") throw "File not open for write";
         this.open_file.push(line);
     }
+
+    this.delete = function(name)
+    {
+        var string = localStorage.removeItem([prefix, this.id, name].join(":"));
+        this.parent.on_file_store();
+    }
 }
 
 
@@ -3873,6 +3879,11 @@ function Tape(id, parent)
         this.open_file.push(line);
     }
 
+    this.delete = function(name)
+    {
+        var string = localStorage.removeItem([prefix, this.id, name].join(":"));
+        this.parent.on_file_store();
+    }
 }
 
 
@@ -4071,6 +4082,15 @@ function BasicodeApp(id, element, settings)
         floppy.open(name, "w");
         floppy.writeLine(text.replace(/(\r\n|\n|\r)/gm, "\n"));
         floppy.close()
+    }
+
+    this.delete = function(drive, name)
+    // deletes a file
+    {
+        if (drive === "tape") drive = 0;
+        if (drive === "floppy") drive = 1;
+        var floppy = this.storage[drive];
+        floppy.delete(name);
     }
 
     ///////////////////////////////////////////////////////////////////////////

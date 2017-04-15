@@ -154,16 +154,24 @@
                     }
                     // create download link to file
                     var a = document.createElement("a");
-                    a.textContent = key_list[2];
+                    a.innerHTML = '<span class="hidden">&#9662;</span> ' + key_list[2];
                     a.href = window.URL.createObjectURL(blobbery[key]);
                     a.download = key_list[2];
-                    // drag-out support
-                    a.dataset.downloadurl = [mime_type, a.download, a.href].join(":");
-                    a.draggable = true;
-                    a.addEventListener("dragstart", function(e) {
-                        e.dataTransfer.setData("DownloadURL", a.dataset.downloadurl);
-                    }, false);
-                    list.appendChild(document.createElement("li")).appendChild(a);
+                    var li = list.appendChild(document.createElement("li"))
+                    var x = document.createElement("a");
+                    x.innerHTML = "&#10060;"
+                    x.className = "hidden delete";
+                    x.href = "delete("+key_list[2]+")";
+                    x.dataset.delete_target = key_list[2];
+                    x.dataset.drive = floppy_id;
+                    x.onclick = function(e) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        apps['basicode-script'].delete(e.target.dataset.drive, e.target.dataset.delete_target);
+                    };
+                    li.appendChild(x);
+                    li.appendChild(a);
+
                 }
             }
         }

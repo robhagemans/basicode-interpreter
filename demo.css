@@ -52,25 +52,45 @@ small a, small a:visited {
 }
 .floppy a {
     font-family: sans;
-    margin: 0.2em 0.1em 0.2em 0.1em;
-    color: steelblue;
+    padding: 0 0.2em 0 0.2em;
+    margin: 0.1em 0 0.1em 0;
+    color: black;
     text-decoration: none;
 }
-.floppy a:hover {
+.floppy .hidden {
+    color: #aaa;
+    padding: 0 0.2em 0 0.2em;
+    margin: 0.1em 0 0.1em 0;
+}
+.floppy a:hover, .floppy a:hover .hidden {
     background-color: steelblue;
     color: white;
 }
+.floppy .delete:hover {
+    background-color:red;
+}
+.floppy .delete:hover + a {
+    background-color:red;
+    color: white;
+}
+.floppy .delete:hover + a .hidden {
+    color:red;
+}
+
+
 .floppy ul, .floppy ol {
     font-family: sans;
     list-style-type: none;
-    padding-left: 0;
+    padding: 0.5em 0 0 0;
     margin-top:0;
     margin-bottom: 1.5em;
 }
 .floppy ul > li {
+    padding: 0.5em 0 0 0;
     background-color: steelblue;
     color: white;
 }
+
 .floppy ol > li {
     background-color: white;
     color: red;
