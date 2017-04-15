@@ -3929,10 +3929,8 @@ function BasicodeApp(id, element, settings)
         this.printer = new Printer(settings.printer);
         this.speaker = new Speaker();
         this.timer = new Timer();
-
         var floppy = new Floppy(1, this)
         this.storage = [new Tape(0), floppy, floppy, floppy]
-
 
         // load program from storage, if needed
         if (!this.program) this.load(localStorage.getItem(["BASICODE", this.id, "program"].join(":")));
@@ -4117,7 +4115,7 @@ function initProgram(script)
         request.send(null);
     }
     else {
-        var code = script.innerHTML;
+        var code = script.innerHTML.trim();
         if (code) app.load(code);
     }
 }

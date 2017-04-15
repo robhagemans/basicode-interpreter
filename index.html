@@ -133,7 +133,6 @@
         }
         function loadFile(element) {
             var app = apps['basicode-script'];
-            settings = document.getElementById('basicode-script').dataset;
             url = element.href;
             if (url !== undefined && url !== null && url) {
                 var request = new XMLHttpRequest();
@@ -212,6 +211,10 @@
             setupListing();
             setupHandlers();
             onFileStore(1);
+            // load demo program only if nothing stored
+            if (!apps['basicode-script'].program) {
+                loadFile({"href": "demo.bc3"})
+            }
         }
 
         function run() {
@@ -230,9 +233,7 @@
     <script type="text/basicode"
         data-printer="printer0"
         data-canvas="canvas0"
-        data-input="screen"
         id="basicode-script"
-        src="demo.bc3"
         >
     </script>
 
