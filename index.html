@@ -192,27 +192,14 @@
         function setupHandlers()
         {
             var app = apps['basicode-script'];
-            var element = document.getElementById('canvas0');
-
-            // run file on click
-
-            element.addEventListener("click", function click(e) {
-                if (!app.running) app.run();
-            });
 
             // load files on drag & drop
-
-            element.addEventListener("dragenter", function dragenter(e) {
+            function drag(e) {
                 e.stopPropagation();
                 e.preventDefault();
-            });
+            }
 
-            element.addEventListener("dragover", function dragover(e) {
-                e.stopPropagation();
-                e.preventDefault();
-            });
-
-            element.addEventListener("drop", function drop(e) {
+            function drop(e) {
                 e.stopPropagation();
                 e.preventDefault();
                 var files = e.dataTransfer.files;
@@ -221,6 +208,21 @@
                     app.load(reader.result);
                 };
                 reader.readAsText(files[0]);
+            }
+
+            var element = document.getElementById('canvas0');
+            element.addEventListener("dragenter", drag);
+            element.addEventListener("dragover", drag);
+            element.addEventListener("drop", drop);
+
+            var listing = document.getElementById('listing0');
+            listing.addEventListener("dragenter", drag);
+            listing.addEventListener("dragover", drag);
+            listing.addEventListener("drop", drop);
+
+            // run file on click
+            element.addEventListener("click", function click(e) {
+                if (!app.running) app.run();
             });
 
             // application-defined events
