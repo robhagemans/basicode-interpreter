@@ -69,13 +69,13 @@
 
         function setupListing() {
             var listing = document.getElementById('listing0');
-            var last_code = listing.value;
 
             // reload code if listing changes
             listing.onblur = function() {
-                if (listing.value === last_code) return;
-                last_code = listing.value;
-                apps['basicode-script'].load(last_code);
+                if (apps['basicode-script'].program && listing.value === apps['basicode-script'].program.code) {
+                    return;
+                }
+                apps['basicode-script'].load(listing.value);
             }
         }
 
@@ -211,6 +211,7 @@
             setupListing();
             setupHandlers();
             onFileStore(1);
+            onProgramLoad(apps['basicode-script'].program);
             // load demo program only if nothing stored
             if (!apps['basicode-script'].program) {
                 loadFile({"href": "demo.bc3"})
