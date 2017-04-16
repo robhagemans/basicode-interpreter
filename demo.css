@@ -62,6 +62,12 @@ small a, small a:visited {
     padding: 0 0.2em 0 0.2em;
     margin: 0.1em 0 0.1em 0;
 }
+.floppy .title {
+    color: lightblue;
+    padding: 0 0.2em 0 0.2em;
+    margin: 0.1em 0 0.1em 0;
+    font-style: italic;
+}
 .floppy a:hover, .floppy a:hover .hidden {
     background-color: steelblue;
     color: white;

@@ -305,30 +305,33 @@
 
         function buildCollection(parent, collection)
         {
-            drives = Object.keys(collection);
+            drives = Object.keys(collection).sort();
             for (var flop=0; flop < drives.length; ++flop) {
                 var floppy_id = drives[flop];
-                files = Object.keys(collection[floppy_id]);
+                files = Object.keys(collection[floppy_id]).sort();
                 if (!files.length) continue;
 
                 var topli = document.createElement("li");
-                topli.innerHTML = "&nbsp;&#x2605; " + floppy_id;
+                topli.innerHTML = "&nbsp;&#x2605; " + floppy_id.split("_").join(" ").split(".").join("");
 
                 var list = document.createElement("ol");
                 parent.appendChild( document.createElement("ul")).appendChild(topli).appendChild(list);
 
                 for (var i=0; i < files.length; ++i) {
 
+                    var name = files[i].split("/").pop().split(".")[0].split("_").join(" ");
+                    var title =  collection[floppy_id][files[i]];
+
                     // create download link to file
                     var a = document.createElement("a");
                     a.innerHTML = "&#9662;";
                     a.className = "hidden download";
-                    a.href = collection[floppy_id][files[i]];
+                    a.href = files[i];
 
                     var play = document.createElement("a");
                     play.className = "run";
-                    play.href = collection[floppy_id][files[i]];
-                    play.innerHTML = '<span class="hidden">&#9656;</span> '+files[i];
+                    play.href = files[i];
+                    play.innerHTML = '<span class="hidden">&#9656;</span> ' + name + ' <span class="title">' + title+ '</span> ';
                     play.onclick = function(e) {
                         e.stopPropagation();
                         e.preventDefault();
