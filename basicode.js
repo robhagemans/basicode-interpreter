@@ -3999,13 +3999,13 @@ function BasicodeApp(id, element, settings)
             }
             else {
                 this.program.attach(this);
-                this.run();
             }
         } else {
             this.program = null;
         }
         // call on_program_load function
         this.on_program_load(this.program);
+        this.run();
     }
 
     this.run = function()
