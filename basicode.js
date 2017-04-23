@@ -1636,6 +1636,7 @@ function Program(machine, basicode)
     // build the tree
     var tokenised_code = new Lexer(basicode).tokenise();
     var parser = new Parser(tokenised_code, this);
+    this.error = null;
     try {
         parser.parse(this.tree);
     }
@@ -3995,9 +3996,6 @@ function BasicodeApp(id, element, settings)
         if (code) {
             // initialise program object
             this.program = new Program(this, code);
-            if (this.program.error) {
-                this.handleError(this.program.error);
-            }
         } else {
             this.program = null;
         }
@@ -4009,8 +4007,11 @@ function BasicodeApp(id, element, settings)
     this.run = function()
     // execute the program
     {
+        if (this.program.error) {
+            this.handleError(this.program.error);
+        }
         // exit if nothing loaded
-        if (!this.program || this.program.tree === null) return;
+        if (!this.program || this.program.tree === null || this.program.error) return;
 
         // clear screen
         this.display.clear();
