@@ -2214,13 +2214,19 @@ function Parser(expr_list, program)
                 throw new BasicError("Syntax error", "expected variable name, got `" + name.payload + "`", current_line);
             }
             var indices = this.parseArguments();
-            // wait for ENTER keypress before engaging
-            last.next = new Wait(function() { return program.machine.keyboard.interact(program.machine.display); });
+            var comma = null;
+            if (expr_list[0].token_type === ",") comma = expr_list.shift();
+            // wait for ENTER or comma keypress before engaging
+            // creator function is necessary doe to lexical scoping - if not, we'd be looking at the last `comma` whcih is always false
+            function createWait (break_on_comma) {
+                return function() {
+                    return program.machine.keyboard.interact(program.machine.display, break_on_comma);
+                }
+            }
+            last.next = new Wait(createWait(comma !== null));
             // do not retrieve the variable, just get its name
             last.next.next = new Node(stInput, [new Literal(name.payload)].concat(indices), program);
             last = last.next.next;
-            var comma = null;
-            if (expr_list[0].token_type === ",") comma = expr_list.shift();
         } while (comma);
         return last;
     }
@@ -3557,10 +3563,16 @@ function Keyboard(input_element)
 
     // INPUT support
 
-    this.interact = function(output)
+    this.interact = function(output, comma)
     {
         output.cursor();
         var loc = this.buffer.indexOf(13);
+        if (comma) {
+            //console.log(comma);
+            var comma_loc = this.buffer.indexOf(44);
+            if (loc === -1) loc = comma_loc;
+            if (comma_loc !== -1) loc = Math.min(loc, comma_loc);
+        }
         var new_chars = [];
         if (loc === -1) {
             new_chars = this.buffer.slice();
@@ -3576,7 +3588,10 @@ function Keyboard(input_element)
         output.write(new_str);
         // echo the newline, but don"t return it
         // also echo a space to remove the cursor (this is a bit of a hack);
-        if (loc !== -1) output.write(" \n");
+        if (loc !== -1) {
+            if (comma) output.write(",");
+            else output.write("\n");
+        }
         // trigger value is true if CR has been found
         return (loc !== -1);
     }
