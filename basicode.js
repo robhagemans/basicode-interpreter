@@ -1658,18 +1658,8 @@ function Program(machine, basicode)
         this.current_line = 999;
     }
 
-    this.attach = function(machine)
     // attach program to machine emulator
-    {
-        this.output = machine.display;
-        this.input = machine.keyboard;
-        this.printer = machine.printer;
-        this.speaker = machine.speaker;
-        this.timer = machine.timer;
-        this.storage = machine.storage;
-    }
-
-    this.attach(machine);
+    this.machine = machine;
 }
 
 
@@ -2045,14 +2035,14 @@ function Parser(expr_list, program)
         150: function(last) {last.next = new Node(subWriteBold, [], program); return last.next; },
         200: function(last) {last.next = new Node(subReadKey, [], program); return last.next; },
         210: function(last) {
-            last.next = new Wait(function waitForKey() { return program.input.keyPressed(); });
+            last.next = new Wait(function waitForKey() { return program.machine.keyboard.keyPressed(); });
             last.next.next = new Node(subReadKey, [], program);
             return last.next.next;
         },
         220: function(last) {last.next = new Node(subReadChar, [], program); return last.next; },
         250: function(last) {
             last.next = new Node(subBeep, [], program);
-            last.next.next = new Wait(function waitForTone() { return !program.speaker.isBusy(); });
+            last.next.next = new Wait(function waitForTone() { return !program.machine.speaker.isBusy(); });
             return last.next.next;
         },
         260: function(last) {last.next = new Node(subRandom, [], program); return last.next; },
@@ -2065,12 +2055,12 @@ function Parser(expr_list, program)
         360: function(last) {last.next = new Node(subLineFeed, [], program); return last.next; },
         400: function(last) {
             last.next = new Node(subTone, [], program);
-            last.next.next = new Wait(function waitForTone() { return !program.speaker.isBusy(); });
+            last.next.next = new Wait(function waitForTone() { return !program.machine.speaker.isBusy(); });
             return last.next.next;
         },
         450: function(last) {
             last.next = new Node(subSetTimer, [], program);
-            last.next.next = new Wait(function waitForKeyWithTimeout() { return (program.input.keyPressed() || program.timer.elapsed()); });
+            last.next.next = new Wait(function waitForKeyWithTimeout() { return (program.machine.keyboard.keyPressed() || program.machine.timer.elapsed()); });
             last.next.next.next = new Node(subReadKeyGetTimer, [], program);
             return last.next.next.next;
         },
@@ -2225,7 +2215,7 @@ function Parser(expr_list, program)
             }
             var indices = this.parseArguments();
             // wait for ENTER keypress before engaging
-            last.next = new Wait(function() { return program.input.interact(program.output); });
+            last.next = new Wait(function() { return program.machine.keyboard.interact(program.machine.display); });
             // do not retrieve the variable, just get its name
             last.next.next = new Node(stInput, [new Literal(name.payload)].concat(indices), program);
             last = last.next.next;
@@ -2639,7 +2629,7 @@ function fnTab(x)
 // but we"re not throwing any errors
 {
     equalType(0, x);
-    this.output.setColumn(x);
+    this.machine.display.setColumn(x);
     return "";
 }
 
@@ -2647,7 +2637,7 @@ function stComma()
 // jump to next tab stop during print
 // nothing like a function, but kind of related to TAB
 {
-    this.output.setColumn(8*Math.ceil(this.output.col/8));
+    this.machine.display.setColumn(8*Math.ceil(this.machine.display.col/8));
 }
 
 
@@ -2797,13 +2787,13 @@ function stPrint(value)
 // PRINT value;
 {
     if (typeof value === "string") {
-        this.output.write(value);
+        this.machine.display.write(value);
     }
     else if (value < 0) {
-        this.output.write(value.toString(10) + " ");
+        this.machine.display.write(value.toString(10) + " ");
     }
     else {
-        this.output.write(" " + value.toString(10) + " ");
+        this.machine.display.write(" " + value.toString(10) + " ");
     }
 }
 
@@ -2830,7 +2820,7 @@ function stInput(name)
 // INPUT
 {
     var indices = [].slice.call(arguments, 1);
-    var value = this.input.readLine();
+    var value = this.machine.keyboard.readLine();
     if (name.slice(-1) !== "$") {
         // convert string to number
         // note that this will currently simply return 0 if it can't convert
@@ -2850,10 +2840,10 @@ function subClear()
 {
     this.clear();
     // basicode-3
-    this.variables.assign(this.output.width - 1, "HO", []);
-    this.variables.assign(this.output.height - 1, "VE", []);
-    this.variables.assign(this.output.pixel_width, "HG", []);
-    this.variables.assign(this.output.pixel_height, "VG", []);
+    this.variables.assign(this.machine.display.width - 1, "HO", []);
+    this.variables.assign(this.machine.display.height - 1, "VE", []);
+    this.variables.assign(this.machine.display.pixel_width, "HG", []);
+    this.variables.assign(this.machine.display.pixel_height, "VG", []);
     // basicode-3c version identifier
     this.variables.assign(35, "SV", []);
     // basicode-3c colour array
@@ -2867,7 +2857,7 @@ function subClearScreen()
 // 600 Switch to graphic screen and clear graphic screen
 {
     subSetColour.call(this);
-    this.output.clear();
+    this.machine.display.clear();
 }
 
 function subSetPos()
@@ -2876,41 +2866,41 @@ function subSetPos()
     var row = Math.round(this.variables.retrieve("VE", []));
     var col = Math.round(this.variables.retrieve("HO", []))
     if (col < 0) col = 0;
-    if (col >= this.output.width) col = this.output.width-1;
+    if (col >= this.machine.display.width) col = this.machine.display.width-1;
     if (row < 0) row = 0;
-    if (row >= this.output.height) row = this.output.height-1;
-    this.output.setColumn(col);
-    this.output.setRow(row);
+    if (row >= this.machine.display.height) row = this.machine.display.height-1;
+    this.machine.display.setColumn(col);
+    this.machine.display.setRow(row);
 }
 
 function subGetPos()
 // GOSUB 120
 {
-    this.variables.assign(this.output.col, "HO", []);
-    this.variables.assign(this.output.row, "VE", []);
+    this.variables.assign(this.machine.display.col, "HO", []);
+    this.variables.assign(this.machine.display.row, "VE", []);
 }
 
 function subWriteBold()
 // GOSUB 150
 {
-    this.output.write(" ");
-    var fg = this.output.foreground;
-    var bg = this.output.background;
+    this.machine.display.write(" ");
+    var fg = this.machine.display.foreground;
+    var bg = this.machine.display.background;
     subSetColour.call(this);
     var text = "  " + this.variables.retrieve("SR$", []) + "  ";
-    this.output.invertColour();
-    this.output.write(text);
-    this.output.invertColour();
-    this.output.foreground = fg;
-    this.output.background = bg;
-    this.output.write(" ");
+    this.machine.display.invertColour();
+    this.machine.display.write(text);
+    this.machine.display.invertColour();
+    this.machine.display.foreground = fg;
+    this.machine.display.background = bg;
+    this.machine.display.write(" ");
 }
 
 function subReadKey()
 // GOSUB 200, GOSUB 210 (after wait)
 {
     // GOSUB 200 should hold only capitals in IN$ and IN
-    var keyval = this.input.readKey();
+    var keyval = this.machine.keyboard.readKey();
     var key = "";
     if ((keyval >= 28 && keyval <= 127) || keyval === 13) {
         key = String.fromCharCode(keyval);
@@ -2929,7 +2919,7 @@ function subSetTimer()
 // GOSUB 450 (with subReadKeyGetTimer)
 {
     var deciseconds = this.variables.retrieve("SD", []);
-    this.timer.set(deciseconds * 100);
+    this.machine.timer.set(deciseconds * 100);
 }
 
 function subReadKeyGetTimer()
@@ -2939,7 +2929,7 @@ function subReadKeyGetTimer()
 // SD contains the remaining time from the moment the key was pressed or zero (if no key was pressed)
 {
     subReadKey.apply(this);
-    var milliseconds = this.timer.remaining();
+    var milliseconds = this.machine.timer.remaining();
     this.variables.assign(milliseconds/100, "SD", []);
 }
 
@@ -2949,7 +2939,7 @@ function subReadChar()
     var col = this.variables.retrieve("HO", []);
     var row = this.variables.retrieve("VE", []);
     if (row<0 || col<0 || row>=this.height || col >= this.width) return;
-    var ch = this.output.getScreenChar(row, col);
+    var ch = this.machine.display.getScreenChar(row, col);
     this.variables.assign(ch.toUpperCase().charCodeAt(0), "IN", []);
     // BASICODE-3C should set CN to zero here (or maybe 32 for a lowercase letter)
     // which we omit to avoid breaking BASICODE-3 compatibility
@@ -2958,7 +2948,7 @@ function subReadChar()
 function subBeep()
 // GOSUB 250
 {
-    this.speaker.sound(440, 0.1, 1);
+    this.machine.speaker.sound(440, 0.1, 1);
 }
 
 function subTone()
@@ -2973,7 +2963,7 @@ function subTone()
     var dur = this.variables.retrieve("SD", []);
     var vol = this.variables.retrieve("SV", []);
     freq = (freq===0)?0: Math.exp(freq*0.057762 + 2.10125);
-    this.speaker.sound(freq, dur*0.1, vol/15.);
+    this.machine.speaker.sound(freq, dur*0.1, vol/15.);
 }
 
 function subRandom()
@@ -2994,7 +2984,7 @@ function subToggleBreak()
 // GOSUB 280
 // 280 Disable the stop/break key (FR=1) or enable or (FR=0).
 {
-    this.input.suppress_break = true;
+    this.machine.keyboard.suppress_break = true;
 }
 
 function subNumberToString()
@@ -3036,14 +3026,14 @@ function subLinePrint()
 // 350 Print SR$ on the printer.
 {
     var text = this.variables.retrieve("SR$", []);
-    this.printer.write(text);
+    this.machine.printer.write(text);
 }
 
 function subLineFeed()
 // GOSUB 360
 // 360 Carriage return and line feed on the printer.
 {
-    this.printer.write("\n");
+    this.machine.printer.write("\n");
 }
 
 function subOpen()
@@ -3062,7 +3052,7 @@ function subOpen()
     var name = this.variables.retrieve("NF$", []);
     var mode = (nf%2) ? "w" : "r";
     var file_number = Math.floor(nf/2);
-    var status = this.storage[file_number].open(name, mode) ? 0 : -1;
+    var status = this.machine.storage[file_number].open(name, mode) ? 0 : -1;
     this.variables.assign(status, "IN", []);
 }
 
@@ -3072,7 +3062,7 @@ function subClose()
 {
     var nf = this.variables.retrieve("NF", []);
     var file_number = Math.floor(nf/2);
-    var status = this.storage[file_number].close() ? 0 : -1;
+    var status = this.machine.storage[file_number].close() ? 0 : -1;
     this.variables.assign(status, "IN", []);
 }
 
@@ -3085,7 +3075,7 @@ function subReadFile()
     var status = 0;
     var str = "";
     try {
-        str = this.storage[file_number].readLine();
+        str = this.machine.storage[file_number].readLine();
         if (str === null) {
             status = 1;
             str = "";
@@ -3108,7 +3098,7 @@ function subWriteFile()
     var status = 0;
     var str = this.variables.retrieve("SR$", []);
     try {
-        this.storage[file_number].writeLine(str);
+        this.machine.storage[file_number].writeLine(str);
     }
     catch (e) {
         if (typeof e !== "string") throw e;
@@ -3123,11 +3113,11 @@ function subPlot()
 {
     // only set foreground colour, backround is set on CLS
     var fg = this.variables.retrieve("CC", [0]);
-    this.output.foreground = this.output.colours[fg];
+    this.machine.display.foreground = this.machine.display.colours[fg];
     var x = this.variables.retrieve("HO", []);
     var y = this.variables.retrieve("VE", []);
     var c = this.variables.retrieve("CN", []);
-    this.output.plot(x, y, c);
+    this.machine.display.plot(x, y, c);
 }
 
 function subDraw()
@@ -3136,11 +3126,11 @@ function subDraw()
 {
     // only set foreground colour, backround is set on CLS
     var fg = this.variables.retrieve("CC", [0]);
-    this.output.foreground = this.output.colours[fg];
+    this.machine.display.foreground = this.machine.display.colours[fg];
     var x = this.variables.retrieve("HO", []);
     var y = this.variables.retrieve("VE", []);
     var c = this.variables.retrieve("CN", []);
-    this.output.draw(x, y, c);
+    this.machine.display.draw(x, y, c);
 }
 
 function subText()
@@ -3149,20 +3139,20 @@ function subText()
 {
     // only set foreground colour, backround is set on CLS
     var fg = this.variables.retrieve("CC", [0]);
-    this.output.foreground = this.output.colours[fg];
+    this.machine.display.foreground = this.machine.display.colours[fg];
     var x = this.variables.retrieve("HO", []);
     var y = this.variables.retrieve("VE", []);
     var text = this.variables.retrieve("SR$", []);
     var c = this.variables.retrieve("CN", []);
-    this.output.drawText(x, y, c, text);
+    this.machine.display.drawText(x, y, c, text);
 }
 
 function subSetColour()
 {
     var fg = this.variables.retrieve("CC", [0]);
     var bg = this.variables.retrieve("CC", [1]);
-    this.output.foreground = this.output.colours[fg];
-    this.output.background = this.output.colours[bg];
+    this.machine.display.foreground = this.machine.display.colours[fg];
+    this.machine.display.background = this.machine.display.colours[bg];
 }
 
 
