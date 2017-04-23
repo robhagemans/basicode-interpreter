@@ -3982,7 +3982,7 @@ function BasicodeApp(id, element, settings)
     this.load = function(code)
     // load program, parse to AST, connect to output
     {
-        if (!code) {
+        if (!code || !code.trim()) {
             code = "";
         }
         // stop any running program
