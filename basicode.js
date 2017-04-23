@@ -1620,7 +1620,7 @@ function Next(loop_name, program)
 //////////////////////////////////////////////////////////////////////
 // program object
 
-function Program(basicode)
+function Program(machine, basicode)
 {
     // parsing output
     this.title = "";
@@ -1667,6 +1667,8 @@ function Program(basicode)
         this.timer = machine.timer;
         this.storage = machine.storage;
     }
+
+    this.attach(machine);
 }
 
 
@@ -3946,7 +3948,6 @@ function BasicodeApp(id, element, settings)
         // load program from storage, if needed
         if (!this.program) this.load(localStorage.getItem(["BASICODE", this.id, "program"].join(":")));
         if (this.program) {
-            this.program.attach(this);
             element.focus();
         }
     }
@@ -3993,12 +3994,9 @@ function BasicodeApp(id, element, settings)
         localStorage.setItem(["BASICODE", this.id, "program"].join(":"), code);
         if (code) {
             // initialise program object
-            this.program = new Program(code);
+            this.program = new Program(this, code);
             if (this.program.error) {
                 this.handleError(this.program.error);
-            }
-            else {
-                this.program.attach(this);
             }
         } else {
             this.program = null;
