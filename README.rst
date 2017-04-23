@@ -101,3 +101,17 @@ The interpreter should work on reasonably recent, standards-compliant browsers.
 You need a keyboard, so it will be difficult to use on mobile.
 I've superficially tested it on Chrome, Firefox, Safari, and Opera.
 It probably works fine on Edge, but I haven't tried. It mostly works on Internet Explorer 11 (except sound) but not at all on older versions.
+
+
+Acknowledgements
+----------------
+
+There's a similar, earlier implementation of `BASICODE in JavaScript by Steven Goodwin <https://github.com/MarquisdeGeek/basicode>`_.
+His implementation and mine are completely independent; however, he got there first.
+The bitmap fonts were drawn based on various sources:
+
+- Damien Guard's `overview of system fonts in 8- and 16-bit systems <https://damieng.com/blog/2011/02/20/typography-in-8-bits-system-fonts>`_
+- John Elliott's `Vintage PC Pages <http://www.seasip.info/VintagePC/>`_
+- Exidy Sorcerer page on `The Trailing Edge <http://www.trailingedge.com/exidy/>`_
+- Z9001 page on `Homecomputer DDR <http://hc-ddr.hucki.net/wiki/doku.php/z9001:versionen>`_
+- Ulrich Zander's `character sets for the KC85 <http://www.sax.de/~zander/z9001/ex/zsatz.html>`_
