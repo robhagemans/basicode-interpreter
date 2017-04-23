@@ -4007,11 +4007,13 @@ function BasicodeApp(id, element, settings)
     this.run = function()
     // execute the program
     {
+        // exit if nothing loaded
+        if (!this.program || this.program.tree === null) return;
+        // handle parse rrors
         if (this.program.error) {
             this.handleError(this.program.error);
+            return;
         }
-        // exit if nothing loaded
-        if (!this.program || this.program.tree === null || this.program.error) return;
 
         // clear screen
         this.display.clear();
