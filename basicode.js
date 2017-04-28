@@ -1,4 +1,5 @@
 "use strict";
+/*jshint maxerr: 10000 */
 
 ///////////////////////////////////////////////////////////////////////////////
 // BASICODE interpreter
@@ -43,8 +44,7 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat
 if (!String.prototype.repeat) {
   String.prototype.repeat = function(count) {
-    "use strict";
-    if (this == null) {
+    if (this === null) {
       throw new TypeError("can\"t convert " + this + " to object");
     }
     var str = "" + this;
@@ -59,7 +59,7 @@ if (!String.prototype.repeat) {
       throw new RangeError("repeat count must be less than infinity");
     }
     count = Math.floor(count);
-    if (str.length == 0 || count == 0) {
+    if (str.length === 0 || count === 0) {
       return "";
     }
     // Ensuring count is a 31-bit integer allows us to heavily optimize the
@@ -74,13 +74,13 @@ if (!String.prototype.repeat) {
         rpt += str;
       }
       count >>>= 1;
-      if (count == 0) {
+      if (count === 0) {
         break;
       }
       str += str;
     }
     return rpt;
-  }
+  };
 }
 
 
@@ -1099,14 +1099,13 @@ var FONTS = {
         ]
     },
 
-}
+};
 
 
 function buildFont(name) {
     var glyphs = {};
     var font = FONTS[name].glyphs;
     var width = FONTS[name].width;
-    var height = FONTS[name].height;
     function toBinary(x)
     {
         var bin = parseInt(x, 16).toString(2);
@@ -1120,7 +1119,7 @@ function buildFont(name) {
         if (width <= 9) glyph = font[i].match(/.{1,2}/g).map(toBinary);
         else glyph = font[i].match(/.{1,4}/g).map(toBinary);
         // convert to list of booleans
-        glyphs[String.fromCharCode(32+i)] = glyph.map( function(y) { return y.split("").map(function(x) { return x === "1" }); });
+        glyphs[String.fromCharCode(32+i)] = glyph.map( function(y) { return y.split("").map(function(x) { return x === "1"; }); });
     }
     return glyphs;
 }
@@ -1189,7 +1188,7 @@ var SYMBOLS = {
     "<": newOperatorToken("<", 2, 7, opLessThan),
     "<=": newOperatorToken("<=", 2, 7, opLessThanOrEqual),
     "<>": newOperatorToken("<>", 2, 7, opNotEqual),
-}
+};
 
 var KEYWORDS = {
     "ABS": newFunctionToken("ABS", fnAbs),
@@ -1239,7 +1238,7 @@ var KEYWORDS = {
     "STEP": newStatementToken("STEP", null),
     "TO": newStatementToken("TO", null),
     "FN": newFunctionToken("FN", fnFn),
-}
+};
 
 // additional reserved words: AS, AT, GR, LN, PI, ST, TI, TI$
 
@@ -1359,7 +1358,7 @@ function Lexer(expr_string)
             }
         }
         return parseFloat(sign + mantissa + "." + decimal + "e" + exponent);
-    }
+    };
 
     this.tokenise = function()
     {
@@ -1422,7 +1421,7 @@ function Lexer(expr_string)
         }
         expr_list.push(new SeparatorToken('\n'));
         return expr_list;
-    }
+    };
 }
 
 
@@ -1436,7 +1435,7 @@ function Literal(value)
 // only for use in expressions, so no step() or next needed
 {
     this.value = value;
-    this.evaluate = function() { return this.value; }
+    this.evaluate = function() { return this.value; };
 }
 
 function Node(func, node_args, program)
@@ -1460,7 +1459,7 @@ function Node(func, node_args, program)
     {
         this.evaluate();
         return this.next;
-    }
+    };
 }
 
 // flow nodes
@@ -1472,13 +1471,13 @@ function Label(label)
     this.next = null;
     this.step = function() {
         return this.next;
-    }
+    };
 }
 
 function End()
 {
     this.next = null;
-    this.step = function() { return null; }
+    this.step = function() { return null; };
 }
 
 function Run(program)
@@ -1488,7 +1487,7 @@ function Run(program)
     this.step = function() {
         subClear.apply(program);
         return program.tree;
-    }
+    };
 }
 
 function Conditional(condition)
@@ -1501,7 +1500,7 @@ function Conditional(condition)
     {
         if (this.condition.evaluate()) return this.branch;
         return this.next;
-    }
+    };
 }
 
 function Switch(condition, branches)
@@ -1523,7 +1522,7 @@ function Switch(condition, branches)
         else {
             return this.next;
         }
-    }
+    };
 }
 
 function Jump(target, program, is_sub)
@@ -1538,7 +1537,7 @@ function Jump(target, program, is_sub)
         }
         if (is_sub) program.sub_stack.push(this.next);
         return program.line_numbers[target];
-    }
+    };
 }
 
 function Return(program)
@@ -1547,7 +1546,7 @@ function Return(program)
     this.step = function()
     {
         return program.sub_stack.pop();
-    }
+    };
 }
 
 function Wait(wait_condition)
@@ -1564,7 +1563,7 @@ function Wait(wait_condition)
     {
         if (this.trigger()) return this.next;
         return this;
-    }
+    };
 }
 
 function For(loop_name, start, stop, incr, program)
@@ -1579,10 +1578,10 @@ function For(loop_name, start, stop, incr, program)
             "next": this.next,
             "stop": stop.evaluate(),
             "incr": incr.evaluate(),
-        }
+        };
         program.loop_stack.unshift(for_record);
         return this.next;
-    }
+    };
 }
 
 function Next(loop_name, program)
@@ -1593,8 +1592,9 @@ function Next(loop_name, program)
 
     this.step = function()
     {
+        var for_record;
         for (;;) {
-            var for_record = program.loop_stack[0];
+            for_record = program.loop_stack[0];
             if (for_record === null || for_record === undefined) {
                 throw new BasicError("Block error", "`NEXT` without `FOR`");
             }
@@ -1602,7 +1602,7 @@ function Next(loop_name, program)
             if (loop_name === for_record.name) break;
             // jumping out of loop
             program.loop_stack.shift();
-        };
+        }
         var loop_var = program.variables.retrieve(loop_name, []);
         var incr = for_record.incr;
         var stop = for_record.stop;
@@ -1613,7 +1613,7 @@ function Next(loop_name, program)
         }
         program.loop_stack.shift();
         return this.next;
-    }
+    };
 }
 
 
@@ -1656,7 +1656,7 @@ function Program(machine, basicode)
         this.data.restore();
         this.sub_stack = [];
         this.current_line = 999;
-    }
+    };
 
     // attach program to machine emulator
     this.machine = machine;
@@ -1690,7 +1690,7 @@ function Parser(expr_list, program)
             units.push(new Node(token.operation, args, program));
         }
         return units;
-    };
+    }
 
     this.parseExpression = function(parameter, fn_name)
     // parse expression from a list of tokens to an AST
@@ -1720,12 +1720,13 @@ function Parser(expr_list, program)
                 }
                 // (copy and?) override the narity of - before pushing
                 token.narity = narity;
-                stack.push(token)
+                stack.push(token);
             }
             else if (last === null || last.token_type === "operator") {
+                var name;
                 switch (token.token_type) {
                     case "function":
-                        if (token.payload === "FN") var name = expr_list.shift();
+                        if (token.payload === "FN") name = expr_list.shift();
                         var args = this.parseArguments(parameter, fn_name);
                         if (token.payload === "FN") args.unshift(new Literal(name.payload));
                         units.push(new Node(token.operation, args, program));
@@ -1775,9 +1776,10 @@ function Parser(expr_list, program)
         var args = [];
         if (expr_list.length > 0 && expr_list[0].token_type === "(") {
             expr_list.shift();
+          var token;
             while (expr_list.length > 0) {
                 args.push(this.parseExpression(parameter, fn_name));
-                var token = expr_list.shift();
+                token = expr_list.shift();
                 if (token.token_type === ")") break;
                 if (token.token_type !== ",") {
                     throw  new BasicError("Syntax error", "expected `,`, got `"+token.payload+"`", current_line);
@@ -1788,12 +1790,13 @@ function Parser(expr_list, program)
             }
         }
         return args;
-    }
+    };
 
     this.parseLineNumber = function(last)
     {
         if (!expr_list.length) return null;
         var token = expr_list.shift();
+        var line_number;
         while (expr_list.length) {
             // ignore empty lines
             while (token && (token.token_type === "\n")) token = expr_list.shift();
@@ -1803,7 +1806,7 @@ function Parser(expr_list, program)
             if (token.token_type != "literal") {
                 throw new BasicError("Syntax error", "expected line number, got `"+token.payload+"`", current_line);
             }
-            var line_number = token.payload;
+            line_number = token.payload;
             // ignore lines < 1000
             if (line_number >= 1000) break;
             while (token.token_type !== "\n") token = expr_list.shift();
@@ -1816,7 +1819,7 @@ function Parser(expr_list, program)
         program.line_numbers[line_number] = label;
         last.next = label;
         return label;
-    }
+    };
 
     this.parse = function(last, end_token)
     {
@@ -1848,14 +1851,14 @@ function Parser(expr_list, program)
             // statement parsers must take care of maintaining the linked list
             var parser = PARSERS[token.payload];
             if (parser) {
-                last = parser.call(this, token, last)
+                last = parser.call(this, token, last);
             }
             else {
                 throw new BasicError("Syntax error", "expected statement, got `" + sep.payload + "`", current_line);
             }
         }
         return last;
-    }
+    };
 
     ///////////////////////////////////////////////////////////////////////////
     // statement syntax
@@ -1874,7 +1877,7 @@ function Parser(expr_list, program)
         // statement must have access to interpreter state, so program is first argument
         last.next = new Node(token.operation, [value, new Literal(name.payload)].concat(indices), program);
         return last.next;
-    }
+    };
 
     this.parsePrint = function(token, last_node)
     // parse PRINT statement
@@ -1903,12 +1906,12 @@ function Parser(expr_list, program)
             last_node = last_node.next;
         }
         return last_node;
-    }
+    };
 
     this.parseData = function(token, last)
     // parse DATA statement
     {
-        var values = []
+        var values = [];
         var neg = false;
         // allow completely empty DATA statements
         if (expr_list[0].token_type === "\n") return last;
@@ -1933,12 +1936,11 @@ function Parser(expr_list, program)
         // data is stored immediately upon parsing, DATA is then a no-op statement
         program.data.store(values);
         return last;
-    }
+    };
 
     this.parseRead = function(token, last)
     // parse READ or DIM statement
     {
-        var pt = last;
         while (expr_list.length > 0) {
             var name = expr_list.shift();
             if (name.token_type != "name") {
@@ -1954,7 +1956,7 @@ function Parser(expr_list, program)
             expr_list.shift();
         }
         return last;
-    }
+    };
 
     this.parseRem = function(token, last)
     // parse REM
@@ -1969,7 +1971,7 @@ function Parser(expr_list, program)
         var rem_trim = rem.trim();
         if (rem_trim[0] === '"') {
             rem = rem_trim.slice(1);
-            if (rem[rem.length-1] === '"') rem = rem.slice(0, rem.length-1)
+            if (rem[rem.length-1] === '"') rem = rem.slice(0, rem.length-1);
         }
         if (current_line === 1000) {
             program.title = rem.trim();
@@ -1978,7 +1980,7 @@ function Parser(expr_list, program)
             program.description += rem + "\n";
         }
         return last;
-    }
+    };
 
     this.parseGoto = function(token, last)
     // parse GOTO
@@ -1990,7 +1992,7 @@ function Parser(expr_list, program)
         // GOTO 20 is a BASICODE fixture, clear and jump to 1010
         // GOTO 950 means END
         if (line_number.payload === 20 || line_number.payload === 950) {
-            return SUBS[line_number.payload](last)
+            return SUBS[line_number.payload](last);
         }
         else if (line_number.payload in SUBS) {
             last = SUBS[line_number.payload](last);
@@ -2007,7 +2009,7 @@ function Parser(expr_list, program)
         // put a short delay on jumps to avoid overloading the browser on loops
         last.next.delay = busy_delay;
         return last.next;
-    }
+    };
 
     this.parseGosub = function(token, last)
     // parse GOSUB
@@ -2026,7 +2028,7 @@ function Parser(expr_list, program)
         }
         last.next = new Jump(line_number.payload, program, true);
         return last.next;
-    }
+    };
 
     var SUBS = {
         100: function(last) {last.next = new Node(subClearScreen, [], program); return last.next; },
@@ -2077,10 +2079,10 @@ function Parser(expr_list, program)
         // GOSUB 20 (unofficial) same as GOTO 20
         20 : function(last){
             last.next = new Node(subClear, [], program);
-            last.next.next = new Jump(1010, program, false)
+            last.next.next = new Jump(1010, program, false);
             return last.next.next;
         }
-    }
+    };
 
     this.parseIf = function(token, last)
     // parse IF
@@ -2088,12 +2090,12 @@ function Parser(expr_list, program)
         var condition = this.parseExpression();
         var node = new Conditional(condition);
         last.next = node;
-        var then = expr_list.shift()
+        var then = expr_list.shift();
         if (then.token_type !== "statement" || (then.payload !== "THEN" && then.payload !== "GOTO")) {
             throw new BasicError("Syntax error", "expected `THEN`, got `"+then.payload+"`", current_line);
         }
         // supply a GOTO if jump target given after THEN
-        var jump = expr_list[0]
+        var jump = expr_list[0];
         if (jump.token_type === "literal") {
             expr_list.unshift(KEYWORDS["GOTO"]());
         }
@@ -2106,7 +2108,7 @@ function Parser(expr_list, program)
         expr_list.unshift(new SeparatorToken("\n"));
         // merge branch back into single node
         return node.next;
-    }
+    };
 
     this.parseOn = function(token, last)
     // parse ON jumps
@@ -2116,13 +2118,12 @@ function Parser(expr_list, program)
         if (jump.token_type !== "statement" || (jump.payload !== "GOTO" && jump.payload !== "GOSUB")) {
             throw new BasicError("Syntax error", "expected `GOTO` or `GOSUB`, got `"+jump.payload+"`", current_line);
         }
-        var is_sub = false;
         // target for RETURN and switch fallthrough
         var label = new Label("NO");
         var nodes = [];
         while (expr_list.length) {
             // create jump node of the right kind, and attach to a dummy object
-            var node = PARSERS[jump.payload].call(this, jump, {})
+            var node = PARSERS[jump.payload].call(this, jump, {});
             node.next = label;
             nodes.push(node);
             var sep = expr_list.shift();
@@ -2134,12 +2135,11 @@ function Parser(expr_list, program)
         last.next = new Switch(condition, nodes);
         last.next.next = label;
         return label;
-    }
+    };
 
     this.parseFor = function(token, last)
     // parse FOR
     {
-        var for_line = current_line;
         var loop_variable = expr_list.shift();
         if (loop_variable.token_type !== "name" || loop_variable.payload.slice(-1) === "$") {
             throw new BasicError("Syntax error", "expected numerical variable name, got `"+loop_variable.payload+"`", current_line);
@@ -2167,7 +2167,7 @@ function Parser(expr_list, program)
         last.next = new For(loop_variable, start, stop, step, program);
         last = last.next;
         return last;
-    }
+    };
 
     this.parseNext = function(token, last)
     // regular NEXT
@@ -2191,7 +2191,7 @@ function Parser(expr_list, program)
             expr_list.unshift(new SeparatorToken(":"));
         }
         return last.next;
-    },
+    };
 
     this.parseInput = function(token, last)
     // parse INPUT
@@ -2208,28 +2208,29 @@ function Parser(expr_list, program)
         // prompt
         last.next = new Node(stPrint, [new Literal(prompt)], program);
         last = last.next;
+        // creator function is necessary doe to lexical scoping - if not, we'd be looking at the last `comma` whcih is always false
+        var createWait = function(break_on_comma) {
+            return function() {
+              return program.machine.keyboard.interact(program.machine.display, break_on_comma);
+            };
+        };
+        var comma;
         do {
             var name = expr_list.shift();
             if (name.token_type !== "name") {
                 throw new BasicError("Syntax error", "expected variable name, got `" + name.payload + "`", current_line);
             }
             var indices = this.parseArguments();
-            var comma = null;
+            comma = null;
             if (expr_list[0].token_type === ",") comma = expr_list.shift();
             // wait for ENTER or comma keypress before engaging
-            // creator function is necessary doe to lexical scoping - if not, we'd be looking at the last `comma` whcih is always false
-            function createWait (break_on_comma) {
-                return function() {
-                    return program.machine.keyboard.interact(program.machine.display, break_on_comma);
-                }
-            }
             last.next = new Wait(createWait(comma !== null));
             // do not retrieve the variable, just get its name
             last.next.next = new Node(stInput, [new Literal(name.payload)].concat(indices), program);
             last = last.next.next;
         } while (comma);
         return last;
-    }
+    };
 
     this.parseDefFn = function(token, last)
     // parse DEF FN statement
@@ -2242,7 +2243,7 @@ function Parser(expr_list, program)
         if (name.token_type !== "name") {
             throw new BasicError("Syntax error", "expected function name, got `" + name.payload + "`", current_line);
         }
-        var token = expr_list.shift();
+        token = expr_list.shift();
         if (token.token_type !== "(") {
             throw new BasicError("Syntax error", "expected `(`, got `"+token.payload+"`", current_line);
         }
@@ -2250,7 +2251,7 @@ function Parser(expr_list, program)
         if (name.token_type !== "name") {
             throw new BasicError("Syntax error", "expected parameter name, got `" + arg.payload + "`", current_line);
         }
-        var token = expr_list.shift();
+        token = expr_list.shift();
         if (token.token_type !== ")") {
             throw new BasicError("Syntax error", "expected `)`, got `"+token.payload+"`", current_line);
         }
@@ -2259,35 +2260,35 @@ function Parser(expr_list, program)
         var expr = this.parseExpression(arg.payload, name.payload);
         program.fns.store(name.payload, arg, expr);
         return last;
-    }
+    };
 
     this.parseRestore = function(token, last)
     // parse RESTORE
     {
         last.next = new Node(token.operation, [], program);
         return last.next;
-    }
+    };
 
     this.parseReturn = function(token, last)
     // parse RETURN
     {
         last.next = new Return(program);
         return last.next;
-    }
+    };
 
     this.parseEnd = function(token, last)
     // parse END
     {
         last.next = new End();
         return last.next;
-    }
+    };
 
     this.parseRun = function(token, last)
     // parse RUN
     {
         last.next = new Run(program);
         return last.next;
-    }
+    };
 
     var PARSERS = {
         "DATA": this.parseData,
@@ -2309,8 +2310,8 @@ function Parser(expr_list, program)
         "STOP": this.parseEnd,
         "RUN": this.parseRun,
         "DEF": this.parseDefFn,
-    }
-};
+    };
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2335,13 +2336,13 @@ function Data()
     this.store = function(new_data)
     {
         this.vault = this.vault.concat(new_data);
-    }
+    };
 
     this.clear = function()
     {
         this.vault = [];
         this.pointer = 0;
-    }
+    };
 
 }
 
@@ -2384,7 +2385,7 @@ function Variables()
         this.arrays = {};
         this.scalars = {};
         this.dims = {};
-    }
+    };
 
     this.allocate = function(name, indices)
     // allocate an array
@@ -2414,16 +2415,17 @@ function Variables()
                 }
                 return arr;
             }
-        };
+        }
 
         // I"m assuming a name is *either* a scalar *or* an array
         // this is not true in e.g. GW-BASIC, but I think it's true in BASICODE
         this.dims[name] = indices;
         this.arrays[name] = allocateLevel(indices);
-    }
+    };
 
     this.checkSubscript = function(name, indices)
     {
+        var i;
         if (!indices.length) {
             if (!(name in this.dims) && !(name in this.scalars)) {
                 this.scalars[name] = defaultValue(name);
@@ -2433,7 +2435,7 @@ function Variables()
             //throw new BasicError("Subscript out of range", "array was not dimensioned", null);
             // auto-dim array at 10 for each index
             var new_indices = [];
-            for (var i=0; i < indices.length; ++i) {
+            for (i=0; i < indices.length; ++i) {
                 new_indices.push(10);
             }
             console.log("Auto-allocating array "+name+" with "+new_indices.length+" indices.");
@@ -2443,13 +2445,13 @@ function Variables()
             throw new BasicError("Subscript out of range" , "expected "+this.dims[name].length+" indices, got "+indices.length, null);
         }
         else {
-            for (var i=0; i < indices.length; ++i) {
+            for (i=0; i < indices.length; ++i) {
                 if (indices[i] < 0 || indices[i] > this.dims[name][i]) {
                     throw new BasicError("Subscript out of range", "indices "+indices+" out of bounds "+this.dims[name], null);
                 }
             }
         }
-    }
+    };
 
     this.assign = function(value, name, indices)
     // set a variable
@@ -2493,18 +2495,18 @@ function Functions()
     {
         this.exprs = {};
         this.args = {};
-    }
+    };
 
     this.store = function(name, arg, expr)
     {
         this.exprs[name] = expr;
-    }
+    };
 
     this.evaluate = function(name, arg_value)
     {
         this.args[name] = arg_value;
         return this.exprs[name].evaluate();
-    }
+    };
 
     this.clear();
 }
@@ -2813,7 +2815,7 @@ function stRead(name)
 // READ
 {
     var indices = [].slice.call(arguments, 1);
-    var value = this.data.read()
+    var value = this.data.read();
     // convert numbers to strings, but not the other way around
     if (name.slice(-1) === "$" && typeof value !== "string") {
         value = value.toString(10);
@@ -2870,7 +2872,7 @@ function subSetPos()
 // GOSUB 110
 {
     var row = Math.round(this.variables.retrieve("VE", []));
-    var col = Math.round(this.variables.retrieve("HO", []))
+    var col = Math.round(this.variables.retrieve("HO", []));
     if (col < 0) col = 0;
     if (col >= this.machine.display.width) col = this.machine.display.width-1;
     if (row < 0) row = 0;
@@ -2969,7 +2971,7 @@ function subTone()
     var dur = this.variables.retrieve("SD", []);
     var vol = this.variables.retrieve("SV", []);
     freq = (freq===0)?0: Math.exp(freq*0.057762 + 2.10125);
-    this.machine.speaker.sound(freq, dur*0.1, vol/15.);
+    this.machine.speaker.sound(freq, dur*0.1, vol/15.0);
 }
 
 function subRandom()
@@ -3214,20 +3216,20 @@ function Display(output_element, columns, rows, font_name, colours)
     // acquire this interface, after the previous user released it
     {
         this.busy = true;
-    }
+    };
 
     this.release = function()
     // release this interface
     {
         this.busy = false;
         this.resetColours();
-    }
+    };
 
     this.resetColours = function()
     {
         this.foreground = this.colours[7];
         this.background = this.colours[0];
-    }
+    };
 
     ///////////////////////////////////////////////////////////////////////////
     // primitives
@@ -3237,7 +3239,7 @@ function Display(output_element, columns, rows, font_name, colours)
         y = Math.round(y);
         context.fillStyle = (c===0) ? this.foreground : this.background;
         context.fillRect(x*SCALE, y*SCALE, SCALE, SCALE);
-    }
+    };
 
     this.clearText = function(x, y, output)
     // x,y are (approximate) top left corner of text box, not baseline
@@ -3246,7 +3248,7 @@ function Display(output_element, columns, rows, font_name, colours)
         x = Math.round(x);
         y = Math.round(y);
         context.fillRect(x*SCALE, y*SCALE, output.length*font_width*SCALE, font_height*SCALE);
-    }
+    };
 
     this.putText = function(x, y, c, output)
     // x,y are (approximate) top left corner of text box, not baseline
@@ -3273,7 +3275,7 @@ function Display(output_element, columns, rows, font_name, colours)
             // 0.75 seems about the right baseline offset for Chrome & Firefox...
             context.fillText(output, x*SCALE, (y+0.75*font_height)*SCALE);
         }
-    }
+    };
 
     this.line = function(x0, y0, x1, y1, c)
     {
@@ -3310,7 +3312,7 @@ function Display(output_element, columns, rows, font_name, colours)
                 line_error += dx;
             }
         }
-    }
+    };
 
     var cursor_now = 0;
     this.cursor = function()
@@ -3324,7 +3326,7 @@ function Display(output_element, columns, rows, font_name, colours)
         }
         context.fillRect(this.col*font_width*SCALE, this.row*font_height*SCALE,
             font_width*SCALE, font_height*SCALE);
-    }
+    };
 
     this.clear = function()
     {
@@ -3336,14 +3338,14 @@ function Display(output_element, columns, rows, font_name, colours)
         //graphics
         this.last_x = 0;
         this.last_y = 0;
-    }
+    };
 
     this.clearRow = function(row)
     {
         context.fillStyle = this.background;
         context.fillRect(0, row*font_height*SCALE, output_element.width, font_height*SCALE);
         this.content[row] = " ".repeat(this.width);
-    }
+    };
 
     this.scroll = function()
     {
@@ -3353,7 +3355,7 @@ function Display(output_element, columns, rows, font_name, colours)
         context.fillStyle = this.background;
         context.fillRect(0, output_element.height-font_height*SCALE, output_element.width, font_height*SCALE);
         this.content = this.content.slice(1).concat(" ".repeat(this.width));
-    }
+    };
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -3368,7 +3370,7 @@ function Display(output_element, columns, rows, font_name, colours)
             this.lineFeed();
             this.writeRaw(lines[i]);
         }
-    }
+    };
 
     this.checkPos = function()
     {
@@ -3380,14 +3382,13 @@ function Display(output_element, columns, rows, font_name, colours)
             this.scroll();
             this.row = this.height-1;
         }
-    }
+    };
 
     this.writeRaw = function(output)
     {
         if ((this.row >= this.height) || (this.row<0)) return;
 
         for (var i=0; i < output.length; ++i) {
-            var char = "";
             if (output.charCodeAt(i) === 127) {
                 // put a space to clear the cursor
                 this.putChar(" ");
@@ -3401,7 +3402,7 @@ function Display(output_element, columns, rows, font_name, colours)
                 this.checkPos();
             }
         }
-    }
+    };
 
     this.putChar = function(char)
     {
@@ -3409,7 +3410,7 @@ function Display(output_element, columns, rows, font_name, colours)
         this.putText(this.col*font_width, this.row*font_height, 0, char);
         // update content buffer
         this.content[this.row] = this.content[this.row].slice(0, this.col) + char + this.content[this.row].slice(this.col+1);
-    }
+    };
 
     this.writeCentre = function(row, str)
     // write centred; used by the loader only
@@ -3417,7 +3418,7 @@ function Display(output_element, columns, rows, font_name, colours)
         this.setColumn((this.width - str.length)/2);
         this.setRow(row);
         this.write(str);
-    }
+    };
 
     this.getScreenChar = function(row, col)
     {
@@ -3425,20 +3426,20 @@ function Display(output_element, columns, rows, font_name, colours)
         col = Math.round(col);
         if (row<0 || col<0 || row>=this.height || col >= this.width) return ' ';
         return this.content[row].slice(col, col+1);
-    }
+    };
 
     this.invertColour = function()
     {
         var buf = this.foreground;
         this.foreground = this.background;
         this.background = buf;
-    }
+    };
 
     this.setColumn = function(col)
     {
         this.col = col;
         if (this.col >= this.width) this.lineFeed();
-    }
+    };
 
     this.lineFeed = function()
     {
@@ -3448,7 +3449,7 @@ function Display(output_element, columns, rows, font_name, colours)
             this.scroll();
             this.row = this.height-1;
         }
-    }
+    };
 
     this.setRow = function(row)
     {
@@ -3457,7 +3458,7 @@ function Display(output_element, columns, rows, font_name, colours)
             this.scroll();
             this.row = this.height-1;
         }
-    }
+    };
 
     ///////////////////////////////////////////////////////////////////////////
     // graphics
@@ -3467,7 +3468,7 @@ function Display(output_element, columns, rows, font_name, colours)
         this.last_x = Math.trunc(x * this.pixel_width);
         this.last_y = Math.trunc(y * this.pixel_height);
         this.putPixel(this.last_x, this.last_y, c);
-    }
+    };
 
     this.draw = function(x, y, c)
     {
@@ -3476,14 +3477,14 @@ function Display(output_element, columns, rows, font_name, colours)
         this.line(this.last_x, this.last_y, next_x, next_y, c);
         this.last_x = next_x;
         this.last_y = next_y;
-    }
+    };
 
     this.drawText = function(x, y, c, text)
     {
         var pixel_x = Math.trunc(x * this.pixel_width);
         var pixel_y = Math.trunc(y * this.pixel_height);
         this.putText(pixel_x, pixel_y, c, text);
-    }
+    };
 
     // initialise
     this.resetColours();
@@ -3516,7 +3517,7 @@ function Keyboard(input_element)
         121: -10, // F10
         122: -11, // F11
         123: -12, // F12
-    }
+    };
 
     var self = this;
 
@@ -3549,17 +3550,17 @@ function Keyboard(input_element)
         this.break_flag = false;
         // interactive line buffer
         this.line_buffer = "";
-    }
+    };
 
     this.keyPressed = function() {
         return self.buffer.length > 0;
-    }
+    };
 
     this.readKey = function()
     {
         if (!this.buffer.length) return 0;
         return this.buffer.shift();
-    }
+    };
 
     // INPUT support
 
@@ -3594,7 +3595,7 @@ function Keyboard(input_element)
         }
         // trigger value is true if CR has been found
         return (loc !== -1);
-    }
+    };
 
     this.readLine = function()
     {
@@ -3612,7 +3613,7 @@ function Keyboard(input_element)
             else ++i;
         }
         return line;
-    }
+    };
 
     this.reset();
 }
@@ -3629,14 +3630,14 @@ function Printer(parent) {
     document.body.appendChild(print_iframe);
 
     var print_element = document.createElement("pre");
-    print_iframe.contentDocument.body.appendChild(print_element)
+    print_iframe.contentDocument.body.appendChild(print_element);
 
     this.write = function(text)
     // add text to the print document
     {
         print_element.textContent += text.split(/\r?\n/).join("\n");
         parent.on_print(print_element.textContent);
-    }
+    };
 
     this.flush = function()
     // send the document (if any) to the printer
@@ -3646,7 +3647,7 @@ function Printer(parent) {
             print_element.textContent = "";
             parent.on_print(print_element.textContent);
         }
-    }
+    };
 }
 
 
@@ -3672,7 +3673,7 @@ function Speaker()
     this.isBusy = function()
     {
         return (this.tones > 0);
-    }
+    };
 
     this.sound = function(frequency, duration, volume)
     // play a sound at frequency (Hz) and volume (0--1) for duration (s)
@@ -3707,7 +3708,7 @@ function Speaker()
             oscillator.disconnect();
             gain.disconnect();
         };
-    }
+    };
 }
 
 
@@ -3723,24 +3724,24 @@ function Timer()
     {
         start = new Date();
         this.duration = duration;
-    }
+    };
 
     this.clear = function()
     {
         start = null;
         this.duration = 0;
-    }
+    };
 
     this.elapsed = function() {
         if (start === null) return true;
         return (new Date() - start) > this.duration;
-    }
+    };
 
     this.remaining = function() {
         if (start === null) return 0;
         var remaining = this.duration - (new Date() - start);
         return (remaining<0) ? 0 : remaining;
-    }
+    };
 }
 
 
@@ -3757,7 +3758,7 @@ function Floppy(id, parent)
     this.open_line = null;
     this.parent = parent;
 
-    var prefix = "BASICODE"
+    var prefix = "BASICODE";
 
     this.open = function(name, mode)
     {
@@ -3780,7 +3781,7 @@ function Floppy(id, parent)
             this.open_file = string.split("\n");
         }
         return true;
-    }
+    };
 
     this.close = function()
     {
@@ -3789,26 +3790,26 @@ function Floppy(id, parent)
         this.open_file = null;
         this.parent.on_file_store();
         return true;
-    }
+    };
 
     this.readLine = function()
     {
         if (this.open_mode !== "r") throw "File not open for read";
         if (this.open_line >= this.open_file.length) return null;
         return this.open_file[this.open_line++];
-    }
+    };
 
     this.writeLine = function(line)
     {
         if (this.open_mode !== "w") throw "File not open for write";
         this.open_file.push(line);
-    }
+    };
 
     this.delete = function(name)
     {
-        var string = localStorage.removeItem([prefix, this.id, name].join(":"));
+        localStorage.removeItem([prefix, this.id, name].join(":"));
         this.parent.on_file_store();
-    }
+    };
 }
 
 
@@ -3823,7 +3824,7 @@ function Tape(id, parent)
 
     this.pos = 0;
 
-    var prefix = "BASICODE"
+    var prefix = "BASICODE";
 
     this.open = function(dummy, mode)
     {
@@ -3833,9 +3834,10 @@ function Tape(id, parent)
         }
         else {
             // always write at the end of the tape
+            var existing;
             do {
                 this.pos += 1;
-                var existing = localStorage.getItem([prefix, this.id, this.pos].join(":"));
+                existing = localStorage.getItem([prefix, this.id, this.pos].join(":"));
             }
             while (existing !== undefined && existing !== null);
         }
@@ -3860,7 +3862,7 @@ function Tape(id, parent)
             this.open_file = string.split("\n");
         }
         return true;
-    }
+    };
 
     this.close = function()
     {
@@ -3869,26 +3871,26 @@ function Tape(id, parent)
         this.open_file = null;
         this.parent.on_file_store();
         return true;
-    }
+    };
 
     this.readLine = function()
     {
         if (this.open_mode !== "r") throw "File not open for read";
         if (this.open_line >= this.open_file.length) return null;
         return this.open_file[this.open_line++];
-    }
+    };
 
     this.writeLine = function(line)
     {
         if (this.open_mode !== "w") throw "File not open for write";
         this.open_file.push(line);
-    }
+    };
 
     this.delete = function(name)
     {
-        var string = localStorage.removeItem([prefix, this.id, name].join(":"));
+        localStorage.removeItem([prefix, this.id, name].join(":"));
         this.parent.on_file_store();
-    }
+    };
 }
 
 
@@ -3936,7 +3938,7 @@ function BasicodeApp(id, element, settings)
             5: "#00aaaa", // cyan
             6: "#ffff55", // yellow
             7: "white",
-        }
+        };
         for (var i=0; i<8; ++i) colours[i] = settings["color-" + i] || colours[i];
 
         // detach any previous program
@@ -3948,15 +3950,15 @@ function BasicodeApp(id, element, settings)
         this.printer = new Printer(this);
         this.speaker = new Speaker();
         this.timer = new Timer();
-        var floppy = new Floppy("floppy", this)
-        this.storage = [new Tape("tape", this), floppy, floppy, floppy]
+        var floppy = new Floppy("floppy", this);
+        this.storage = [new Tape("tape", this), floppy, floppy, floppy];
 
         // load program from storage, if needed
         if (!this.program) this.load(localStorage.getItem(["BASICODE", this.id, "program"].join(":")));
         if (this.program) {
             element.focus();
         }
-    }
+    };
 
     this.handleError = function(e)
     {
@@ -3975,14 +3977,14 @@ function BasicodeApp(id, element, settings)
             }
         }
         else {
-            this.display.write("EXCEPTION")
+            this.display.write("EXCEPTION");
             this.display.invertColour();
             this.display.write("\n");
             this.display.write(e);
             console.log(e.stack);
             throw e;
         }
-    }
+    };
 
     this.load = function(code)
     // load program, parse to AST, connect to output
@@ -3991,7 +3993,7 @@ function BasicodeApp(id, element, settings)
             code = "";
         }
         // stop any running program
-        this.end()
+        this.end();
         // clear screen
         this.display.clear();
         // reset keyboard buffer
@@ -4007,7 +4009,7 @@ function BasicodeApp(id, element, settings)
         // call on_program_load function
         this.on_program_load(this.program);
         this.run();
-    }
+    };
 
     this.run = function()
     // execute the program
@@ -4048,7 +4050,7 @@ function BasicodeApp(id, element, settings)
                         delay = 0;
                         break;
                     }
-                };
+                }
             } catch (e) {
                 app.handleError(e);
             }
@@ -4057,13 +4059,13 @@ function BasicodeApp(id, element, settings)
         this.running = window.setTimeout(step, MIN_DELAY);
         element.focus();
         this.on_program_run();
-    }
+    };
 
     this.stop = function()
     // interrupt program
     {
         this.handleError(new BasicError("Break", ""));
-    }
+    };
 
     this.end = function()
     // stop program and release resources
@@ -4075,7 +4077,7 @@ function BasicodeApp(id, element, settings)
             this.printer.flush();
         }
         this.on_program_end();
-    }
+    };
 
     this.store = function(drive, name, text)
     // store a file
@@ -4085,8 +4087,8 @@ function BasicodeApp(id, element, settings)
         var floppy = this.storage[drive];
         floppy.open(name, "w");
         floppy.writeLine(text.replace(/(\r\n|\n|\r)/gm, "\n"));
-        floppy.close()
-    }
+        floppy.close();
+    };
 
     this.delete = function(drive, name)
     // deletes a file
@@ -4095,7 +4097,7 @@ function BasicodeApp(id, element, settings)
         if (drive === "floppy") drive = 1;
         var floppy = this.storage[drive];
         floppy.delete(name);
-    }
+    };
 
     ///////////////////////////////////////////////////////////////////////////
     // first initialisation
@@ -4114,7 +4116,7 @@ function createCanvas(script)
     // create a canvas to work on
     var element = document.createElement("canvas");
     element.className = "basicode";
-    element.innerHTML = "To use this interpreter, you need a browser that supports the CANVAS element."
+    element.innerHTML = "To use this interpreter, you need a browser that supports the CANVAS element.";
     script.parentNode.insertBefore(element, script);
     // make canvas element focussable to catch keypresses
     element.tabIndex = 1;
@@ -4136,7 +4138,7 @@ function initProgram(script)
                 // need to explicitly load here as this is called asynchronously
                 app.load(code);
             }
-        }
+        };
         request.send(null);
     }
     else {
