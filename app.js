@@ -1,3 +1,7 @@
+/* BASICODE in the Browser demonstration
+ * (c) 2017 Rob Hagemans
+ * Released under the Expat MIT licence
+ */
 
 // settings
 

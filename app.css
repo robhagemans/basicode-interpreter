@@ -1,8 +1,14 @@
 
+/* BASICODE in the Browser demonstration
+ * (c) 2017 Rob Hagemans
+ * Released under the Expat MIT licence
+ */
+
 html {
     height: 100%;
     padding: 0;
 }
+
 body {
     height: 100%;
     background-color: #222;
