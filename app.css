@@ -23,7 +23,7 @@ small {
     left: 0;
     text-align: center;
     color: #555;
-    font-family: sans;
+    font-family: sans-serif;
     position: fixed;
     bottom: 0px;
     background-color: #111;
@@ -62,7 +62,7 @@ small a, small a:visited {
 
 h1 {
     color: #555;
-    font-family: sans;
+    font-family: sans-serif;
     padding: 0 0.5em 0 0.5em;
     margin-top: 0;
     font-size: 100%;
@@ -115,7 +115,7 @@ h1 {
     overflow: scroll;
 }
 .floppy a {
-    font-family: sans;
+    font-family: sans-serif;
     padding: 0 0.2em 0 0.2em;
     margin: 0.1em 0 0.1em 0;
     color: #999;
@@ -159,7 +159,7 @@ h1 {
 
 
 .floppy ul, .floppy ol {
-    font-family: sans;
+    font-family: sans-serif;
     list-style-type: none;
     padding: 0.5em 0 0 0;
     margin-top:0;
@@ -204,7 +204,7 @@ div.tabs > div {
     background: black;
 }
 div.tabs > div > a {
-    font-family: sans;
+    font-family: sans-serif;
     text-decoration: none;
     color: #555;
     padding: 0.2em 1em 0.2em 1em;
@@ -263,7 +263,7 @@ div.tabs > div:target > div {
 /* settings */
 
 form {
-    font-family: sans;
+    font-family: sans-serif;
 }
 
 .color {
