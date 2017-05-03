@@ -1,3 +1,5 @@
+"use strict";
+
 /* BASICODE in the Browser demonstration
  * (c) 2017 Rob Hagemans
  * Released under the Expat MIT licence
@@ -6,7 +8,7 @@
 // settings
 
 function retrieveSettings() {
-    settings = JSON.parse(localStorage.getItem("BASICODE:basicode-script:settings"));
+    var settings = JSON.parse(localStorage.getItem("BASICODE:basicode-script:settings"));
     if (settings) {
         var keys = Object.keys(settings);
         for (var k in keys) {
@@ -18,7 +20,7 @@ function retrieveSettings() {
 }
 
 function updateSettings() {
-    settings = document.getElementById('basicode-script').dataset;
+    var settings = document.getElementById('basicode-script').dataset;
     settings['columns'] = document.getElementById('columns').value;
     settings['rows'] = document.getElementById('rows').value;
     settings['speed'] = document.getElementById('speed').value;
@@ -29,7 +31,7 @@ function updateSettings() {
     localStorage.setItem("BASICODE:basicode-script:settings", JSON.stringify(settings))
     document.getElementById('showspeed').value = document.getElementById('speed').value;
     apps['basicode-script'].reset();
-    display = new Display(
+    var display = new Display(
         document.getElementById('showfont'), 16, 6,
         document.getElementById('font').value, apps['basicode-script'].display.colours);
     for (var i=32; i < 128; ++i) {
@@ -38,7 +40,7 @@ function updateSettings() {
     display.write('.');
 }
 
-presets = {
+var presets = {
     'cga': { 'columns': 40, 'rows': 25, 'font': 'cga',
              'color-0': '#000000', 'color-7': '#ffffff',
         },
