@@ -3588,10 +3588,10 @@ function Keyboard(input_element)
         this.line_buffer += new_str;
         output.write(new_str);
         // echo the newline, but don"t return it
-        // also echo a space to remove the cursor (this is a bit of a hack);
         if (loc !== -1) {
             if (comma) output.write(",");
-            else output.write("\n");
+            // also echo a space to remove the cursor (this is a bit of a hack);
+            else output.write(" \n");
         }
         // trigger value is true if CR has been found
         return (loc !== -1);
