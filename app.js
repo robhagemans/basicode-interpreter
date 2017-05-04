@@ -5,10 +5,15 @@
  * Released under the Expat MIT licence
  */
 
+var prefix = "BASICODE";
+var app_id = "basicode-script";
+
 // settings
 
+var settings_prefix = ["BASICODE", app_id, "settings"].join(":");
+
 function retrieveSettings() {
-    var settings = JSON.parse(localStorage.getItem("BASICODE:basicode-script:settings"));
+    var settings = JSON.parse(localStorage.getItem(settings_prefix));
     if (settings) {
         var keys = Object.keys(settings);
         for (var k in keys) {
@@ -20,50 +25,51 @@ function retrieveSettings() {
 }
 
 function updateSettings() {
-    var settings = document.getElementById('basicode-script').dataset;
-    settings['columns'] = document.getElementById('columns').value;
-    settings['rows'] = document.getElementById('rows').value;
-    settings['speed'] = document.getElementById('speed').value;
-    settings['font'] = document.getElementById('font').value;
+    var app = apps[app_id];
+    var settings = document.getElementById(app_id).dataset;
+    settings["columns"] = document.getElementById("columns").value;
+    settings["rows"] = document.getElementById("rows").value;
+    settings["speed"] = document.getElementById("speed").value;
+    settings["font"] = document.getElementById("font").value;
     for (var i=0; i <=7; ++i) {
-        settings['color-' + i] = document.getElementById('color-' + i).value;
+        settings["color-" + i] = document.getElementById("color-" + i).value;
     }
-    localStorage.setItem("BASICODE:basicode-script:settings", JSON.stringify(settings))
-    document.getElementById('showspeed').value = document.getElementById('speed').value;
-    apps['basicode-script'].reset();
+    localStorage.setItem(settings_prefix, JSON.stringify(settings))
+    document.getElementById("showspeed").value = document.getElementById("speed").value;
+    app.reset();
     var display = new Display(
-        document.getElementById('showfont'), 16, 6,
-        document.getElementById('font').value, apps['basicode-script'].display.colours);
+        document.getElementById("showfont"), 16, 6,
+        document.getElementById("font").value, app.display.colours);
     for (var i=32; i < 128; ++i) {
         display.write(String.fromCharCode(i));
     }
-    display.write('.');
+    display.write(".");
 }
 
 var presets = {
-    'cga': { 'columns': 40, 'rows': 25, 'font': 'cga',
-             'color-0': '#000000', 'color-7': '#ffffff',
+    "cga": { "columns": 40, "rows": 25, "font": "cga",
+             "color-0": "#000000", "color-7": "#ffffff",
         },
-    'bbc': { 'columns': 40, 'rows': 32, 'font': 'bbc',
-             'color-0': '#000000', 'color-7': '#ffffff',
+    "bbc": { "columns": 40, "rows": 32, "font": "bbc",
+             "color-0": "#000000", "color-7": "#ffffff",
         },
-    'c64': { 'columns': 40, 'rows': 25, 'font': 'c64',
-             'color-0': '#40318d', 'color-7': '#7869c4',
+    "c64": { "columns": 40, "rows": 25, "font": "c64",
+             "color-0": "#40318d", "color-7": "#7869c4",
         },
-    'spectrum': { 'columns': 32, 'rows': 24, 'font': 'spectrum',
-             'color-0': '#aaaaaa', 'color-7': '#000000',
+    "spectrum": { "columns": 32, "rows": 24, "font": "spectrum",
+             "color-0": "#aaaaaa", "color-7": "#000000",
         },
-    'msx': { 'columns': 40, 'rows': 25, 'font': 'msx',
-             'color-0': '#5955e0', 'color-7': '#ffffff',
+    "msx": { "columns": 40, "rows": 25, "font": "msx",
+             "color-0": "#5955e0", "color-7": "#ffffff",
         },
-    'cpc': { 'columns': 40, 'rows': 25, 'font': 'cpc',
-             'color-0': '#0000ff', 'color-7': '#ffff00',
+    "cpc": { "columns": 40, "rows": 25, "font": "cpc",
+             "color-0": "#0000ff", "color-7": "#ffff00",
         },
-    'pcw': { 'columns': 90, 'rows': 32, 'font': 'pcw',
-             'color-0': '#000000', 'color-7': '#ffffff',
+    "pcw": { "columns": 90, "rows": 32, "font": "pcw",
+             "color-0": "#000000", "color-7": "#ffffff",
         },
-    'coco': { 'columns': 32, 'rows': 16, 'font': 'coco',
-             'color-0': '#1bcb01', 'color-7': '#000000',
+    "coco": { "columns": 32, "rows": 16, "font": "coco",
+             "color-0": "#1bcb01", "color-7": "#000000",
         },
 
 }
@@ -79,20 +85,21 @@ function loadPreset(preset) {
 // listing
 
 function setupListing() {
-    var listing = document.getElementById('listing0');
+    var app = apps[app_id];
+    var listing = document.getElementById("listing0");
 
     // reload code if listing changes
     listing.onblur = function() {
-        if (apps['basicode-script'].program && listing.value === apps['basicode-script'].program.code) {
+        if (app.program && listing.value === app.program.code) {
             return;
         }
-        apps['basicode-script'].load(listing.value);
+        app.load(listing.value);
     }
 }
 
 function onProgramLoad(program) {
-    var listing = document.getElementById('listing0');
-    var info = document.getElementById('info0');
+    var listing = document.getElementById("listing0");
+    var info = document.getElementById("info0");
     if (program === null) {
         listing.value = "";
         info.innerHTML = "";
@@ -109,10 +116,10 @@ function onProgramLoad(program) {
 // this is where we keep our blobs
 var blobbery = {};
 var mime_type = "text/plain";
-var prefix = "BASICODE";
 
 function buildList(parent, drives)
 {
+    var app = apps[app_id];
     for (var flop=0; flop < drives.length; ++flop) {
         var floppy_id = drives[flop];
         var topli = document.createElement("li");
@@ -127,7 +134,7 @@ function buildList(parent, drives)
             var files = e.dataTransfer.files;
             var reader = new FileReader();
             reader.onload = function() {
-                apps['basicode-script'].store(id, files[0].name, reader.result);
+                app.store(id, files[0].name, reader.result);
             };
             reader.readAsText(files[0]);
         }
@@ -159,7 +166,7 @@ function buildList(parent, drives)
                 e.stopPropagation();
                 e.preventDefault();
                 code = localStorage.getItem(e.currentTarget.dataset.key);
-                apps['basicode-script'].load(code);
+                app.load(code);
             };
 
             var x = document.createElement("a");
@@ -171,7 +178,7 @@ function buildList(parent, drives)
             x.onclick = function(e) {
                 e.stopPropagation();
                 e.preventDefault();
-                apps['basicode-script'].delete(e.target.dataset.drive, e.target.dataset.delete_target);
+                app.delete(e.target.dataset.drive, e.target.dataset.delete_target);
             };
             var li = list.appendChild(document.createElement("li"))
             li.appendChild(x);
@@ -194,7 +201,7 @@ function onFileStore()
 }
 
 function loadFile(element) {
-    var app = apps['basicode-script'];
+    var app = apps[app_id];
     url = element.href;
     if (url !== undefined && url !== null && url) {
         var request = new XMLHttpRequest();
@@ -212,13 +219,13 @@ function loadFile(element) {
 }
 
 function onProgramRun() {
-    var button = document.getElementById('button0')
+    var button = document.getElementById("button0")
     button.onclick = stop;
     button.innerHTML = "&#9209;";
 }
 
 function onProgramEnd() {
-    var button = document.getElementById('button0')
+    var button = document.getElementById("button0")
     button.onclick = run;
     button.innerHTML = "&#9654;";
 }
@@ -232,7 +239,7 @@ function onPrint(text) {
 
 function setupHandlers()
 {
-    var app = apps['basicode-script'];
+    var app = apps[app_id];
 
     // load files on drag & drop
     function nop(e) {
@@ -251,12 +258,12 @@ function setupHandlers()
         reader.readAsText(files[0]);
     }
 
-    var element = apps['basicode-script'].canvas;
+    var element = app.canvas;
     element.addEventListener("dragenter", nop);
     element.addEventListener("dragover", nop);
     element.addEventListener("drop", drop);
 
-    var listing = document.getElementById('listing0');
+    var listing = document.getElementById("listing0");
     listing.addEventListener("dragenter", nop);
     listing.addEventListener("dragover", nop);
     listing.addEventListener("drop", drop);
@@ -266,7 +273,7 @@ function setupHandlers()
         if (!app.running) app.run();
     });
 
-    var storage = document.getElementById('flop1');
+    var storage = document.getElementById("flop1");
     storage.addEventListener("dragenter", nop);
     storage.addEventListener("dragover", nop);
     storage.addEventListener("drop", nop);
@@ -280,13 +287,14 @@ function setupHandlers()
 }
 
 function setup() {
+    var app = apps[app_id];
     retrieveSettings();
     setupListing();
     setupHandlers();
     onFileStore();
-    onProgramLoad(apps['basicode-script'].program);
+    onProgramLoad(app.program);
     // load demo program only if nothing stored
-    if (!apps['basicode-script'].program) {
+    if (!app.program) {
         loadFile({"href": "demo.bc3"})
     }
     setupPrograms();
@@ -294,11 +302,13 @@ function setup() {
 }
 
 function run() {
-    apps['basicode-script'].run();
+    var app = apps[app_id];
+    app.run();
 }
 
 function stop() {
-    apps['basicode-script'].stop();
+    var app = apps[app_id];
+    app.stop();
 }
 
 function buildCollection(parent, collection)
@@ -329,7 +339,7 @@ function buildCollection(parent, collection)
             var play = document.createElement("a");
             play.className = "run";
             play.href = files[i];
-            play.innerHTML = '<span class="hidden">&#9656;</span> ' + name + ' <span class="title">' + title+ '</span> ';
+            play.innerHTML = '<span class="hidden">&#9656;</span> ' + name + ' <span class="title">' + title+ "</span> ";
             play.onclick = function(e) {
                 e.stopPropagation();
                 e.preventDefault();
