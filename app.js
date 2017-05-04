@@ -108,7 +108,6 @@ function onProgramLoad(program) {
         listing.value = program.code;
         info.innerHTML = "<h2>" + program.title + "</h2>\n\n" +program.description;
     }
-    window.location.assign("#screen")
 }
 
 // storage
