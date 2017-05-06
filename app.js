@@ -34,14 +34,14 @@ function updateSettings() {
     for (var i=0; i <=7; ++i) {
         settings["color-" + i] = document.getElementById("color-" + i).value;
     }
-    localStorage.setItem(settings_prefix, JSON.stringify(settings))
+    localStorage.setItem(settings_prefix, JSON.stringify(settings));
     document.getElementById("showspeed").value = document.getElementById("speed").value;
     app.reset();
     app.run();
     var display = new Display(
         document.getElementById("showfont"), 16, 6,
         document.getElementById("font").value, app.display.colours);
-    for (var i=32; i < 128; ++i) {
+    for (i=32; i < 128; ++i) {
         display.write(String.fromCharCode(i));
     }
 }
@@ -71,8 +71,7 @@ var presets = {
     "coco": { "columns": 32, "rows": 16, "font": "coco",
              "color-0": "#1bcb01", "color-7": "#000000",
         },
-
-}
+};
 
 function loadPreset(preset) {
     var keys = Object.keys(presets[preset]);
@@ -94,7 +93,7 @@ function setupListing() {
             return;
         }
         app.load(listing.value);
-    }
+    };
 }
 
 function onProgramLoad(program) {
@@ -119,29 +118,40 @@ var mime_type = "text/plain";
 function buildList(parent, drives)
 {
     var app = apps[app_id];
+    function drop(e) {
+        // this === e.currentTarget
+        var id = e.currentTarget.dataset.drive;
+        e.stopPropagation();
+        e.preventDefault();
+        var files = e.dataTransfer.files;
+        var reader = new FileReader();
+        reader.onload = function() {
+          app.store(id, files[0].name, reader.result);
+        };
+        reader.readAsText(files[0]);
+    }
+    function playOnClick(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var code = localStorage.getItem(e.currentTarget.dataset.key);
+        app.load(code);
+    }
+    function deleteOnClick(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        app.delete(e.target.dataset.drive, e.target.dataset.delete_target);
+    }
     for (var flop=0; flop < drives.length; ++flop) {
         var floppy_id = drives[flop];
         var topli = document.createElement("li");
         topli.innerHTML = "&nbsp;&#128428; " + floppy_id; // &#128190;
         topli.dataset.drive = floppy_id;
         // drop files to put in storage
-        function drop(e) {
-            // this === e.currentTarget
-            var id = this.dataset.drive;
-            e.stopPropagation();
-            e.preventDefault();
-            var files = e.dataTransfer.files;
-            var reader = new FileReader();
-            reader.onload = function() {
-                app.store(id, files[0].name, reader.result);
-            };
-            reader.readAsText(files[0]);
-        }
         topli.addEventListener("drop", drop, false);
         var list = document.createElement("ol");
         parent.appendChild( document.createElement("ul")).appendChild(topli).appendChild(list);
         for (var i=0; i < localStorage.length; ++i) {
-            var key = localStorage.key(i)
+            var key = localStorage.key(i);
             var key_list = key.split(":");
             if (key_list[0] !== prefix) continue;
             if (key_list[1] !== "" + floppy_id) continue;
@@ -161,25 +171,16 @@ function buildList(parent, drives)
             play.href = "run("+key_list[2]+")";
             play.innerHTML = '<span class="hidden">&#9656;</span> '+key_list[2];
             play.dataset.key = key;
-            play.onclick = function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                code = localStorage.getItem(e.currentTarget.dataset.key);
-                app.load(code);
-            };
+            play.onclick = playOnClick;
 
             var x = document.createElement("a");
-            x.innerHTML = "&#10060;"
+            x.innerHTML = "&#10060;";
             x.className = "hidden delete";
             x.href = "delete("+key_list[2]+")";
             x.dataset.delete_target = key_list[2];
             x.dataset.drive = floppy_id;
-            x.onclick = function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                app.delete(e.target.dataset.drive, e.target.dataset.delete_target);
-            };
-            var li = list.appendChild(document.createElement("li"))
+            x.onclick = deleteOnClick;
+            var li = list.appendChild(document.createElement("li"));
             li.appendChild(x);
             li.appendChild(a);
             li.appendChild(play);
@@ -201,30 +202,30 @@ function onFileStore()
 
 function loadFile(element) {
     var app = apps[app_id];
-    url = element.href;
+    var url = element.href;
     if (url !== undefined && url !== null && url) {
         var request = new XMLHttpRequest();
         request.open("GET", url, true);
         request.onreadystatechange = function() {
             if (request.readyState === 4 && request.status === 200) {
-                code = request.responseText;
-                app.stop()
+                var code = request.responseText;
+                app.stop();
                 app.load(code);
             }
-        }
-        request.send()
+        };
+        request.send();
     }
     return false;
 }
 
 function onProgramRun() {
-    var button = document.getElementById("button0")
+    var button = document.getElementById("button0");
     button.onclick = stop;
     button.innerHTML = "&#9209;";
 }
 
 function onProgramEnd() {
-    var button = document.getElementById("button0")
+    var button = document.getElementById("button0");
     button.onclick = run;
     button.innerHTML = "&#9654;";
 }
@@ -294,7 +295,7 @@ function setup() {
     onProgramLoad(app.program);
     // load demo program only if nothing stored
     if (!app.program) {
-        loadFile({"href": "demo.bc3"})
+        loadFile({"href": "demo.bc3"});
     }
     setupPrograms();
     run();
@@ -312,10 +313,15 @@ function stop() {
 
 function buildCollection(parent, collection)
 {
-    drives = Object.keys(collection).sort();
+    var drives = Object.keys(collection).sort();
+    function playOnClick(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        return loadFile(this);
+    }
     for (var flop=0; flop < drives.length; ++flop) {
         var floppy_id = drives[flop];
-        files = Object.keys(collection[floppy_id]).sort();
+        var files = Object.keys(collection[floppy_id]).sort();
         if (!files.length) continue;
 
         var topli = document.createElement("li");
@@ -339,12 +345,8 @@ function buildCollection(parent, collection)
             play.className = "run";
             play.href = files[i];
             play.innerHTML = '<span class="hidden">&#9656;</span> ' + name + ' <span class="title">' + title+ "</span> ";
-            play.onclick = function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                return loadFile(this);
-            };
-            var li = list.appendChild(document.createElement("li"))
+            play.onclick = playOnClick;
+            var li = list.appendChild(document.createElement("li"));
             li.appendChild(a);
             li.appendChild(play);
         }
@@ -359,12 +361,11 @@ function setupPrograms()
     request.open("GET", url, true);
     request.onreadystatechange = function() {
         if (request.readyState === 4 && request.status === 200) {
-            collection = JSON.parse(request.responseText);
+            var collection = JSON.parse(request.responseText);
             buildCollection(parent, collection);
         }
-    }
-    request.send()
-
+    };
+    request.send();
 }
 
 // kludge to use he #targets while keeping a top margin
