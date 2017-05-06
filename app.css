@@ -221,8 +221,7 @@ div.tabs > div:target > a {
     background: #222;
     color: #aaa;
     border-top: 0.15em solid lightblue;
-    border-bottom: 1px solid #222;
-    /*border-bottom: 0.3em solid #222;*/
+    border-bottom: 0.15em solid #222;
 }
 div.tabs > div > div {
     background: #222;
@@ -292,4 +291,12 @@ form fieldset {
 }
 form legend {
     color: #555;
+}
+
+#font {
+    width: 50%;
+}
+#showfont {
+    width: 30%;
+    margin: 0 2% 0 1%;
 }
