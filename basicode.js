@@ -1148,31 +1148,31 @@ function NameToken(value)
 
 function newFunctionToken(keyword, operation) {
     return (function() {
-        return (new function FunctionToken() {
-            this.token_type = "function";
-            this.payload = keyword;
-            this.operation = operation;
-        }() );
+        return {
+            "token_type": "function",
+            "payload": keyword,
+            "operation": operation,
+        };
     } );
 }
 function newStatementToken(keyword, operation) {
     return (function() {
-        return (new function StatementToken() {
-            this.token_type = "statement";
-            this.payload = keyword;
-            this.operation = operation;
-        }() );
+        return {
+            "token_type": "statement",
+            "payload": keyword,
+            "operation": operation,
+        };
     } );
 }
 function newOperatorToken(keyword, narity, precedence, operation) {
     return (function() {
-        return (new function OperatorToken() {
-            this.token_type = "operator";
-            this.payload = keyword;
-            this.narity = narity;
-            this.precedence = precedence;
-            this.operation = operation;
-        }() );
+        return {
+            "token_type": "operator",
+            "payload": keyword,
+            "narity": narity,
+            "precedence": precedence,
+            "operation": operation,
+        };
     } );
 }
 
