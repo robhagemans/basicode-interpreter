@@ -3569,7 +3569,6 @@ function Keyboard(input_element)
         output.cursor();
         var loc = this.buffer.indexOf(13);
         if (comma) {
-            //console.log(comma);
             var comma_loc = this.buffer.indexOf(44);
             if (loc === -1) loc = comma_loc;
             if (comma_loc !== -1) loc = Math.min(loc, comma_loc);
@@ -4014,6 +4013,8 @@ function BasicodeApp(id, element, settings)
     this.run = function()
     // execute the program
     {
+        if (this.running) this.end();
+
         // exit if nothing loaded
         if (!this.program || this.program.tree === null) return;
         // handle parse rrors

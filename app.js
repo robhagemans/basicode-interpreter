@@ -37,13 +37,13 @@ function updateSettings() {
     localStorage.setItem(settings_prefix, JSON.stringify(settings))
     document.getElementById("showspeed").value = document.getElementById("speed").value;
     app.reset();
+    app.run();
     var display = new Display(
         document.getElementById("showfont"), 16, 6,
         document.getElementById("font").value, app.display.colours);
     for (var i=32; i < 128; ++i) {
         display.write(String.fromCharCode(i));
     }
-    display.write(".");
 }
 
 var presets = {
