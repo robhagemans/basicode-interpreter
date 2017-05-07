@@ -294,9 +294,11 @@ form legend {
 }
 
 #font {
-    width: 50%;
+    width: 100%;
 }
-#showfont {
-    width: 30%;
-    margin: 0 2% 0 1%;
+
+#font > option {
+    background-repeat: no-repeat;
+    background-size: 10em 100%;
+    padding-left: 10em;
 }

@@ -38,11 +38,24 @@ function updateSettings() {
     document.getElementById("showspeed").value = document.getElementById("speed").value;
     app.reset();
     app.run();
-    var display = new Display(
-        document.getElementById("showfont"), 16, 6,
-        document.getElementById("font").value, app.display.colours);
-    for (i=32; i < 128; ++i) {
-        display.write(String.fromCharCode(i));
+}
+
+function drawSettings() {
+    var selector = document.getElementById("font");
+    var options = Array.prototype.slice.call(selector.children);
+    var colours = { 0 : "black", 7: "white" };
+    for (var option in options) {
+        console.log(options[option].value);
+        var fontcanvas = document.createElement("canvas");
+        var display = new Display(
+            fontcanvas, 11, 1,
+            options[option].value, colours);
+        display.write(options[option].value);
+        // creating an image seems necessary to make the background data URL work
+        var img = document.createElement("img");
+        img.src = fontcanvas.toDataURL();
+        // set image as background
+        options[option].style.backgroundImage = "url(" + img.src + ")";
     }
 }
 
@@ -288,6 +301,7 @@ function setupHandlers()
 
 function setup() {
     var app = apps[app_id];
+    drawSettings();
     retrieveSettings();
     setupListing();
     setupHandlers();
