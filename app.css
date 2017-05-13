@@ -98,7 +98,7 @@ h1 {
     margin-bottom: 0;
 }
 
-.buttons button:hover, .keyboard button:hover {
+.buttons button:hover, .keyboard button:hover, .keyboard .pressed {
     background-color: #111;
     color: #999;
 }

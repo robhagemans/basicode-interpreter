@@ -250,6 +250,13 @@ function onPrint(text) {
 
 var shift = false;
 function setShift(on) {
+    if (shift !== on) {
+        // toggle shift highlights
+        var shiftkeys = document.getElementsByClassName("shiftkey");
+        for (i=0; i < shiftkeys.length; ++i) {
+            shiftkeys[i].classList.toggle("pressed");
+        }
+    }
     shift = on;
     if (shift) {
         var visible = document.getElementsByClassName("shift");
@@ -259,14 +266,40 @@ function setShift(on) {
         var visible = document.getElementsByClassName("unshift");
         var invisible = document.getElementsByClassName("shift");
     }
-    for (var i=0; i < visible.length; ++i) {
+    var i;
+    for (i=0; i < visible.length; ++i) {
         visible[i].style["display"] = "inline";
     }
-    for (var i=0; i < invisible.length; ++i) {
+    for (i=0; i < invisible.length; ++i) {
         invisible[i].style["display"] = "none";
     }
 }
 
+var caps = false;
+function setCaps(on) {
+    var i;
+    if (caps !== on) {
+        // toggle caps highlight
+        var capskeys = document.getElementsByClassName("capskey");
+        for (i=0; i < capskeys.length; ++i) {
+            capskeys[i].classList.toggle("pressed");
+        }
+        // swap shift and unshift labels on letter keys
+        var letters = document.getElementsByClassName("letter");
+        for (i=0; i < letters.length; ++i) {
+            if (letters[i].classList.contains("shift")) {
+                letters[i].classList.remove("shift")
+                letters[i].classList.add("unshift")
+            }
+            else if (letters[i].classList.contains("unshift")) {
+                letters[i].classList.remove("unshift")
+                letters[i].classList.add("shift")
+            }
+        }
+        setShift(shift);
+    }
+    caps = on;
+}
 
 function pressKey(element) {
     var keys = {
@@ -298,7 +331,7 @@ function pressKey(element) {
         setShift(!shift);
     }
     else if (key === "Caps"){
-        // TODO
+        setCaps(!caps);
     }
     else if (key in keys) {
         app.pressKey(keys[key]);
