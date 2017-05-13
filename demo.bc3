@@ -3,7 +3,8 @@
 1015 REM ----- Draw top and bottom row -----
 1020 FOR I=0 TO 1
 1120   READ SR$
-1130   HO=(HT-LEN(SR$))/2:VE=I*VT:GOSUB 110:PRINT SR$;
+1130   HO=(HT-LEN(SR$))/2:VE=I*VT:GOSUB 110
+1135   PRINT SR$;
 1140 NEXT I
 1990 REM ----- Clear screen with highlights -----
 2000 SR$=""
@@ -17,7 +18,8 @@
 2040 READ N
 2050 VE=(VT-N)/2
 2060 FOR I=1 TO N
-2070   READ SR$:IF LEN(SR$)/2<>INT(LEN(SR$)/2) THEN SR$="."+SR$
+2070   READ SR$
+2072   IF LEN(SR$)/2<>INT(LEN(SR$)/2) THEN SR$="."+SR$
 2075   FOR X=1 TO (HT-LEN(SR$)-5)/2
 2077     SR$="."+SR$+"."
 2079   NEXT X
@@ -29,7 +31,7 @@
 2890 REM ----- Wait 5 seconds -----
 2900 SD=50:GOSUB 450:IN=0
 2980 REM ----- Colour change effect -----
-2990 GOSUB 260:HO=RV*(HT+1):GOSUB 260:VE=RV*(VT+1):
+2990 GOSUB 260:HO=RV*(HT+1):GOSUB 260:VE=RV*(VT+1)
 3000 SD=1:GOSUB 450:IF IN<>0 THEN 20
 3001 IF (HO>HT) THEN HO=HT: GOTO 3020
 3002 IF (VE>=VT) THEN VE=VT-1: GOTO 3020
@@ -64,14 +66,14 @@
 25160 DATA
 30000 REM Supports BASICODE-2, -3 and -3C.
 30010 REM
-30020 REM Load programs from the BASICODE-collection
-30030 REM by clicking on their titles in the "Programs" tab.
+30020 REM Load programs from the BASICODE-collection by
+30030 REM clicking on their titles in the "Programs" tab
 30040 REM
-30050 REM Alternatively, drag and drop a local file onto the screen.
-30060 REM
+30050 REM Alternatively, drag and drop a local file
+30060 REM onto the screen.
 30065 REM
 30067 REM
 30070 REM Copyright 2016, 2017 Rob Hagemans
 30080 REM Released under the Expat MIT licence
 30090 REM
-30100 REM https://github.com/robhagemans/basicode-interpreter
+30100 REM github.com/robhagemans/basicode-interpreter
