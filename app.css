@@ -98,11 +98,51 @@ h1 {
     margin-bottom: 0;
 }
 
-.buttons button:hover {
+.buttons button:hover, .keyboard button:hover {
     background-color: #111;
     color: #999;
 }
 
+/* soft keybaord */
+
+.keyboard {
+    background-color: #111;
+    float: right;
+    width: 100%;
+    margin-top: 1%;
+}
+.keyboard button {
+   background-color: black;
+   color: #555;
+   outline: none;
+   border: none;
+   padding: 0.5em 0.5em 0.5em 0.5em;
+   float: left;
+   margin: 0;
+   width: 7%;
+   height: 2.2em;
+   overflow: hidden;
+   border: 1px solid #222;
+   font-size: 0.8em;
+}
+.keyboard button.fill {
+    width: 8%;
+}
+.keyboard button.wide {
+    width: 9%;
+}
+.keyboard button.double {
+    width: 14%;
+}
+.keyboard button.widedouble {
+    width: 15%;
+}
+.keyboard button.bar {
+    width: 72%;
+}
+.keyboard .shift {
+    display: none;
+}
 /* storage visualisation */
 
 .floppy {

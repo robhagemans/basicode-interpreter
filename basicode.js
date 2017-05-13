@@ -3518,6 +3518,7 @@ function Keyboard(input_element)
         122: -11, // F11
         123: -12, // F12
     };
+    // we'll use -255 as Break - not used in BASICODE
 
     var self = this;
 
@@ -3561,6 +3562,16 @@ function Keyboard(input_element)
         if (!this.buffer.length) return 0;
         return this.buffer.shift();
     };
+
+    this.insertKey = function(keycode) {
+        // we'll use -255 as Break - not used in BASICODE
+        if (keycode === -255) {
+            if (!this.suppress_break) this.break_flag = true;
+        }
+        else {
+            this.buffer.push(keycode);
+        }
+    }
 
     // INPUT support
 
@@ -4099,6 +4110,12 @@ function BasicodeApp(id, element, settings)
         var floppy = this.storage[drive];
         floppy.delete(name);
     };
+
+    this.pressKey = function(keycode)
+    // inserts a keycode
+    {
+        this.keyboard.insertKey(keycode);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // first initialisation
