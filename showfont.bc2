@@ -1,0 +1,11 @@
+1000 A=10: GOTO 20: REM Font sample
+1010 FOR R=2 TO 7
+1020  FOR C=0 TO 15
+1030    PRINT CHR$(R*16+C);
+1040  NEXT C
+1050  PRINT
+1060 NEXT R
+30000 REM A sample of the display font in a 16x6 grid.
+30010 REM
+30030 REM Copyright 2017 Rob Hagemans
+30040 REM Released under the Expat MIT licence
