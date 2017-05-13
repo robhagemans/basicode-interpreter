@@ -345,3 +345,19 @@ form legend {
     background-size: 10em 100%;
     padding-left: 10em;
 }
+
+@media (orientation: portrait) {
+    body {
+        overflow: scroll;
+    }
+
+    #screen {
+        width: 98%;
+    }
+
+    div.tabs {
+         margin-left: 0;
+         width: 100%;
+         clear: left;
+    }
+}
