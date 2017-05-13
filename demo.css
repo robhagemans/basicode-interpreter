@@ -1,3 +1,8 @@
+
+body {
+    background-color: darkslategrey;
+}
+
 small {
     display: block;
     margin: 2em;
@@ -33,86 +38,6 @@ small a, small a:visited {
     border: 0.4em solid black;
 }
 
-.buttons {
-    /* this centers the screen horizontally, for some reason */
-    margin: auto;
-    display: table;
-}
-
-/* storage visualisation */
-
-.floppy {
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 2em 1em 2em 1em;
-    word-wrap: break-word;
-    overflow: scroll;
-}
-.floppy a {
-    font-family: sans;
-    padding: 0 0.2em 0 0.2em;
-    margin: 0.1em 0 0.1em 0;
-    color: black;
-    text-decoration: none;
-}
-.floppy .hidden {
-    color: #aaa;
-    padding: 0 0.2em 0 0.2em;
-    margin: 0.1em 0 0.1em 0;
-}
-.floppy .title {
-    color: lightblue;
-    padding: 0 0.2em 0 0.2em;
-    margin: 0.1em 0 0.1em 0;
-    font-style: italic;
-}
-.floppy a:hover, .floppy a:hover .hidden {
-    background-color: steelblue;
-    color: white;
-}
-.floppy .delete:hover {
-    background-color:red;
-}
-.floppy .delete:hover ~ a {
-    background-color:red;
-    color: white;
-}
-.floppy .delete:hover ~ a .hidden,  .floppy .delete:hover ~ .hidden{
-    color:red;
-}
-.floppy .download:hover {
-    background-color:green;
-}
-.floppy .download:hover ~ a {
-    background-color:green;
-    color: white;
-}
-.floppy .download:hover ~ a .hidden,  .floppy .download:hover ~ .hidden{
-    color: green;
-}
-
-
-.floppy ul, .floppy ol {
-    font-family: sans;
-    list-style-type: none;
-    padding: 0.5em 0 0 0;
-    margin-top:0;
-    margin-bottom: 1.5em;
-}
-.floppy ul > li {
-    padding: 0.5em 0 0 0;
-    background-color: steelblue;
-    color: white;
-    font-weight: bold;
-}
-
-.floppy ol > li {
-    background-color: white;
-    color: red;
-    font-weight: normal;
-}
 
 /* Tabbed example */
 /* https://www.w3.org/Style/Examples/007/target.en.html#tab3 */
@@ -165,23 +90,4 @@ div.tabs > div > div {
 }
 div.tabs > div:target > div {
     z-index: -1
-}
-
-#printer0, #listing0, #info0 {
-    border: none;
-    margin: 0;
-    padding: 0;
-    background-color: white;
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-}
-
-#info0 {
-    font-size: 1.5em;
-    background-color: lightgrey;
-}
-
-body {
-    background-color: darkslategrey;
 }
