@@ -238,10 +238,11 @@ div.tabs {
     border-top: 0.4em solid black;
 }
 div.tabs > div {
-    display: inline;
+    float: left;
     padding: 0;
     margin: 0;
     background: black;
+    max-width: 14.25%;
 }
 div.tabs > div > a {
     font-family: sans-serif;
@@ -263,6 +264,7 @@ div.tabs > div:target > a {
     border-top: 0.15em solid lightblue;
     border-bottom: 0.15em solid #222;
 }
+/* tab content */
 div.tabs > div > div {
     background: #222;
     border: none;
@@ -275,6 +277,7 @@ div.tabs > div > div {
     position: absolute;
     border-top: 0.15em solid black;
 }
+/* visible tab content */
 div.tabs > div:target > div {
     z-index: -1;
 }
