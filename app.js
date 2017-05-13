@@ -324,6 +324,7 @@ function pressKey(element) {
         "\u2191": 31,
         "\u2192": 29,
         "\u2193": 30,
+        "": 32,
     }
     var key = element.innerText;
     var app = apps[app_id];
