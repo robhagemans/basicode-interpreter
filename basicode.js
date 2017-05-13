@@ -3649,15 +3649,20 @@ function Printer(parent) {
         parent.on_print(print_element.textContent);
     };
 
-    this.flush = function()
+    this.print = function()
     // send the document (if any) to the printer
     {
         if (print_element.textContent) {
             print_iframe.contentWindow.print();
-            print_element.textContent = "";
-            parent.on_print(print_element.textContent);
         }
-    };
+    }
+
+    this.clear = function()
+    // clear the print buffer
+    {
+        print_element.textContent = "";
+        parent.on_print(print_element.textContent);
+    }
 }
 
 
@@ -4086,7 +4091,6 @@ function BasicodeApp(id, element, settings)
         this.running = null;
         if (this.program) {
             this.display.release();
-            this.printer.flush();
         }
         this.on_program_end();
     };
@@ -4103,7 +4107,7 @@ function BasicodeApp(id, element, settings)
     };
 
     this.delete = function(drive, name)
-    // deletes a file
+    // delete a file
     {
         if (drive === "tape") drive = 0;
         if (drive === "floppy") drive = 1;
@@ -4112,9 +4116,21 @@ function BasicodeApp(id, element, settings)
     };
 
     this.pressKey = function(keycode)
-    // inserts a keycode
+    // insert a keycode into keyboard buffer
     {
         this.keyboard.insertKey(keycode);
+    }
+
+    this.printOutput = function()
+    // send print output to printer
+    {
+        this.printer.print();
+    }
+
+    this.clearOutput = function()
+    // clear print output
+    {
+        this.printer.clear();
     }
 
     ///////////////////////////////////////////////////////////////////////////

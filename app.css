@@ -87,7 +87,7 @@ h1 {
     background-color: #111;
 }
 
-.buttons button {
+.buttons button, #printer button {
     background-color: black;
     color: #555;
     outline: none;
@@ -292,6 +292,10 @@ div.tabs > div:target > div {
     width: 100%;
     overflow: auto;
     outline: none;
+}
+
+#printer0 {
+    border: 1px solid #111;
 }
 
 #listing0:focus {

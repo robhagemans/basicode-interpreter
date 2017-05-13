@@ -121,6 +121,20 @@ function onProgramLoad(program) {
     }
 }
 
+// printer
+
+function printOutput()
+{
+    var app = apps[app_id];
+    app.printOutput();
+}
+
+function clearOutput()
+{
+    var app = apps[app_id];
+    app.clearOutput();
+}
+
 // storage
 
 // this is where we keep our blobs
