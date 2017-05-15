@@ -322,7 +322,7 @@ function pressKey(element) {
         "Enter": 13,
         "Esc": 27,
         "Brk": -255,
-        "F2": -1,
+        "F1": -1,
         "F2": -2,
         "F3": -3,
         "F4": -4,
