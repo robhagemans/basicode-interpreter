@@ -272,13 +272,15 @@ function setShift(on) {
         }
     }
     shift = on;
+    var visible;
+    var invisible;
     if (shift) {
-        var visible = document.getElementsByClassName("shift");
-        var invisible = document.getElementsByClassName("unshift");
+        visible = document.getElementsByClassName("shift");
+        invisible = document.getElementsByClassName("unshift");
     }
     else {
-        var visible = document.getElementsByClassName("unshift");
-        var invisible = document.getElementsByClassName("shift");
+        visible = document.getElementsByClassName("unshift");
+        invisible = document.getElementsByClassName("shift");
     }
     var i;
     for (i=0; i < visible.length; ++i) {
@@ -302,12 +304,12 @@ function setCaps(on) {
         var letters = document.getElementsByClassName("letter");
         for (i=0; i < letters.length; ++i) {
             if (letters[i].classList.contains("shift")) {
-                letters[i].classList.remove("shift")
-                letters[i].classList.add("unshift")
+                letters[i].classList.remove("shift");
+                letters[i].classList.add("unshift");
             }
             else if (letters[i].classList.contains("unshift")) {
-                letters[i].classList.remove("unshift")
-                letters[i].classList.add("shift")
+                letters[i].classList.remove("unshift");
+                letters[i].classList.add("shift");
             }
         }
         setShift(shift);
@@ -339,7 +341,7 @@ function pressKey(element) {
         "\u2192": 29,
         "\u2193": 30,
         "": 32,
-    }
+    };
     var key = element.innerText;
     var app = apps[app_id];
     if (key === "Shift"){
