@@ -2990,9 +2990,10 @@ function subFree()
 
 function subToggleBreak()
 // GOSUB 280
-// 280 Disable the stop/break key (FR=1) or enable or (FR=0).
+// 280 Disable (FR=1) or enable (FR=0) the stop/break key.
 {
-    this.machine.keyboard.suppress_break = true;
+    var disable = this.variables.retrieve("FR", []);
+    this.machine.keyboard.suppress_break = (disable !== 0);
 }
 
 function subNumberToString()
