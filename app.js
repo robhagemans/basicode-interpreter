@@ -247,7 +247,7 @@ function loadFile(element) {
 function onProgramRun() {
     var button = document.getElementById("button0");
     button.onclick = stop;
-    button.innerHTML = "&#9209;";
+    button.innerHTML = "&#9632;";
 }
 
 function onProgramEnd() {
