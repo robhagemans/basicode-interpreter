@@ -4,6 +4,10 @@ BASICODE interpreter
 This is a `BASICODE <https://github.com/robhagemans/basicode>`_  interpreter in Javascript, compatible with BASICODE versions 2, 3 and 3C. It's free & open source, released under the Expat MIT licence.
 There is `a live demo <http://robhagemans.github.io/basicode/>`_.
 
+.. image:: https://robhagemans.github.io/basicode/basicode-arabesque.png
+
+*Screenshot taken from* `Arabesque <https://github.com/robhagemans/basicode/blob/master/Verzamelcassette_2/B01_Arabesque.bc3>`_, 
+*a 1987 BASICODE program by Ch. W. Brederode.*
 
 Quick start
 -----------
