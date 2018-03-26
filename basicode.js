@@ -1299,9 +1299,21 @@ function Lexer(expr_string)
                 break;
             }
             if (expr_string.slice(start_pos, pos+1).toUpperCase() in KEYWORDS) {
-                // names can not start with a keyword
+                // names can not start with a keyword; so if we match a keyword it is the name
                 break;
             }
+            // names cannot contain a keyword; keywords at least length 2
+            // look back from end and return everything *up to* the keyword
+            // at least length 1, we've just checked for the length-0 case
+            var found = false;
+            for (var length=2; length < pos - start_pos; ++length) {
+                if (expr_string.slice(pos-length, pos+1).toUpperCase() in KEYWORDS) {
+                    pos -= length+1;
+                    found = true;
+                    break;
+                }
+            }
+            if (found) break;
             if (!isAlphaChar(expr_string[pos+1]) && !isNumberChar(expr_string[pos+1])) break;
         }
         return expr_string.slice(start_pos, pos+1).toUpperCase();
