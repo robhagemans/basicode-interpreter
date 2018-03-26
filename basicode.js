@@ -2922,6 +2922,7 @@ function subReadKey()
     // GOSUB 200 should hold only capitals in IN$ and IN
     var keyval = this.machine.keyboard.readKey();
     var key = "";
+    // set IN$ for printables, DEL and arrow keys
     if ((keyval >= 28 && keyval <= 127) || keyval === 13) {
         key = String.fromCharCode(keyval);
         keyval = key.toUpperCase().charCodeAt(0);
@@ -3402,12 +3403,33 @@ function Display(output_element, columns, rows, font_name, colours)
         if ((this.row >= this.height) || (this.row<0)) return;
 
         for (var i=0; i < output.length; ++i) {
+            // DEL
             if (output.charCodeAt(i) === 127) {
                 // put a space to clear the cursor
                 this.putChar(" ");
                 --this.col;
                 this.checkPos();
                 this.putChar(" ");
+            }
+            // LEFT
+            else if (output.charCodeAt(i) === 28) {
+                --this.col;
+                this.checkPos();
+            }
+            // RIGHT
+            else if (output.charCodeAt(i) === 29) {
+                ++this.col;
+                this.checkPos();
+            }
+            // DOWN
+            else if (output.charCodeAt(i) === 30) {
+                ++this.row;
+                this.checkPos();
+            }
+            // UP
+            else if (output.charCodeAt(i) === 31) {
+                --this.row;
+                this.checkPos();
             }
             else if (output.charCodeAt(i) >= 32 && output.charCodeAt(i) < 127) {
                 this.putChar(output[i]);
