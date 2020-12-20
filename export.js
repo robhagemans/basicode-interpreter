@@ -61,7 +61,7 @@ class WavBuilder {
 class PulseWavBuilder {
     constructor(sampleRate, totalDuration) {
         // Add a few samples at the end to account for imprecision.
-        this.wavBuilder = new WavBuilder(sampleRate, Math.floor(totalDuration * sampleRate) + 5);
+        this.wavBuilder = new WavBuilder(sampleRate, (totalDuration * sampleRate) + 5);
         this.samplePeriod = 1.0 / sampleRate;
         this.excessTime = 0.0;
     }
