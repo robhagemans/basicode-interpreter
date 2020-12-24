@@ -11,7 +11,7 @@ class WavBuilder {
         // Create the Header.
 
         this.addString("RIFF"); // Chunk ID
-        this.addNumber(this.numSamples + 28, 4); // Chunk size
+        this.addNumber(this.numSamples + 36, 4); // Chunk size
         this.addString("WAVE"); // Chunk format
         this.addString("fmt "); // Subchunk1 ID
         this.addNumber(16, 4); // Subchunk1 size
@@ -72,8 +72,8 @@ class PulseWavBuilder {
         while (d < waveDuration)
         {
             //This commented code will write sin wave instead.
-            //const angle = 2.0 * Math.PI * (d / duration);
-            //this.addSample(Math.floor((1.0 + Math.sin(angle)) * 0.5 * 255.99));
+            //const angle = 2.0 * Math.PI * (d / waveDuration);
+            //this.wavBuilder.addSample(Math.floor((1.0 + Math.sin(angle)) * 0.5 * 255.99));
             this.wavBuilder.addSample(((d / waveDuration) < 0.5) ? 255 : 0);
             d += this.samplePeriod;
         }
