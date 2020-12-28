@@ -1389,7 +1389,7 @@ function Lexer(expr_string)
             if (isAtLineStart && isNumberChar(char))
             {
                 var lineNumber = readInteger();
-                expr_list.push(new LiteralToken(parseFloat(lineNumber + ".0")));
+                expr_list.push(new LiteralToken(parseInt(lineNumber)));
             }
             else if (char in SYMBOLS) {
                 var operator = char;
