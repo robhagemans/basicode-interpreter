@@ -137,6 +137,7 @@ A few authors have published their own source code for conversion programs. I'm 
 - `BASICODE-3 v2 for Sinclair QL, by Jan Bredenbeek <https://github.com/janbredenbeek/QL-Basicode>`_
 - `BASICODE-2 for C64 and Commander x16, by Iljitsch van Beijnum <https://www.iljitsch.com/2020/beeldkrant250/basicode2.c64.txt>`_
 - `BASICODE-3 for MS-DOS, by Jac Goudsmit <https://github.com/jacgoudsmit/Basicode>`_
+- `BASICODE-3 for KC85/3-5, by M. Leubner <https://github.com/maleuma/BASICODE>`_
 
 
 Other BASICODE interpreters for modern platforms
