@@ -116,6 +116,7 @@ Acknowledgements
 
 There's a similar, earlier implementation of `BASICODE in JavaScript by Steven Goodwin <https://github.com/MarquisdeGeek/basicode>`_.
 His implementation and mine are completely independent; however, he got there first.
+
 The bitmap fonts were drawn based on various sources:
 
 - Damien Guard's `overview of system fonts in 8- and 16-bit systems <https://damieng.com/blog/2011/02/20/typography-in-8-bits-system-fonts>`_
@@ -123,3 +124,22 @@ The bitmap fonts were drawn based on various sources:
 - Exidy Sorcerer page on `The Trailing Edge <http://www.trailingedge.com/exidy/>`_
 - Z9001 page on `Homecomputer DDR <http://hc-ddr.hucki.net/wiki/doku.php/z9001:versionen>`_
 - Ulrich Zander's `character sets for the KC85 <http://www.sax.de/~zander/z9001/ex/zsatz.html>`_
+
+
+BASICODE support for original and retro platforms
+-------------------------------------------------
+
+Originally, BASICODE tape reader and conversion programs were sold by broadcasters and publishers. Many of these are still available on retrogaming archives. A few can also be found on `BASICODE-Software für alle <https://www.joyce.de/basicode/>`_.
+
+A few authors have published their own source code for conversion programs. The ones I'm aware of:
+- `BASICODE-3 for ZX Spectrum, by Jan Bredenbeek <https://github.com/janbredenbeek/ZXSpectrum-Basicode>`_
+- `BASICODE-3 v2 for Sinclair QL, by Jan Bredenbeek <https://github.com/janbredenbeek/QL-Basicode>`_
+- `BASICODE-2 for C64 and Commander x16, by Iljitsch van Beijnum <https://www.iljitsch.com/2020/beeldkrant250/basicode2.c64.txt>`_
+- `BASICODE-3 for MS-DOS, by Jac Goudsmit <https://github.com/jacgoudsmit/Basicode>`_
+
+
+Other BASICODE interpreters for modern platforms
+------------------------------------------------
+
+- `BASICODE in JavaScript, by Steven Goodwin <https://github.com/MarquisdeGeek/basicode>`_
+- `BASICODE in Java, by Michael Haupt <https://github.com/mhaupt/basicode>`_
