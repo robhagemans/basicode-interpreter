@@ -131,7 +131,8 @@ BASICODE support for original and retro platforms
 
 Originally, BASICODE tape reader and conversion programs were sold by broadcasters and publishers. Many of these are still available on retrogaming archives. A few can also be found on `BASICODE-Software für alle <https://www.joyce.de/basicode/>`_.
 
-A few authors have published their own source code for conversion programs. The ones I'm aware of:
+A few authors have published their own source code for conversion programs. I'm aware of:
+
 - `BASICODE-3 for ZX Spectrum, by Jan Bredenbeek <https://github.com/janbredenbeek/ZXSpectrum-Basicode>`_
 - `BASICODE-3 v2 for Sinclair QL, by Jan Bredenbeek <https://github.com/janbredenbeek/QL-Basicode>`_
 - `BASICODE-2 for C64 and Commander x16, by Iljitsch van Beijnum <https://www.iljitsch.com/2020/beeldkrant250/basicode2.c64.txt>`_
