@@ -1376,6 +1376,7 @@ function Lexer(expr_string)
     {
         // start with a line break to get the parser to expect a line number
         var expr_list = [new SeparatorToken("\n")];
+        var isAtLineStart = true
         for (pos=0; pos < expr_string.length; ++pos) {
             var char = expr_string[pos];
             // deal with line breaks, CR, LF and CR LF all work
@@ -1385,7 +1386,12 @@ function Lexer(expr_string)
                 }
                 char = "\n";
             }
-            if (char in SYMBOLS) {
+            if (isAtLineStart && isNumberChar(char))
+            {
+                var lineNumber = readInteger();
+                expr_list.push(new LiteralToken(parseInt(lineNumber)));
+            }
+            else if (char in SYMBOLS) {
                 var operator = char;
                 // two-symbol operators all start with lt or gt
                 if (char == "<" || char == ">") {
@@ -1430,6 +1436,7 @@ function Lexer(expr_string)
                 expr_list.push(new SeparatorToken(char));
                 console.log("Unexpected symbol `"+ char + "` during lexing");
             }
+            isAtLineStart = (char === "\n") || (isAtLineStart && (char === " "));
         }
         expr_list.push(new SeparatorToken("\n"));
         return expr_list;
@@ -1818,6 +1825,7 @@ function Parser(expr_list, program)
             if (token.token_type != "literal") {
                 throw new BasicError("Syntax error", "expected line number, got `"+token.payload+"`", current_line);
             }
+            //####
             line_number = token.payload;
             // ignore lines < 1000
             if (line_number >= 1000) break;
